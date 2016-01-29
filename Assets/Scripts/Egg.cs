@@ -7,10 +7,17 @@ public class Egg : MonoBehaviour
 	{
 	
 	}
-	
-	void Update ()
+
+	void Update()
 	{
-		transform.eulerAngles = new Vector3(0, 0, Vector2.Angle(transform.right, GetComponent<Rigidbody2D>().velocity));
+		UpdateRotation();
+	}
+
+	void UpdateRotation()
+	{
+		Vector2 dir = GetComponent<Rigidbody2D>().velocity;
+		float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+		transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 	}
 
 	void OnCollisionEnter2D(Collision2D coll)

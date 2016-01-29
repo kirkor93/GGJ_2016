@@ -6,6 +6,8 @@ using System;
 public class Chicken : Player
 {
 	public GameObject egg;
+	public Sprite cannon;
+	public Sprite chickenSprite;
 	public float power;
 	Vector2 dir;
 
@@ -27,6 +29,7 @@ public class Chicken : Player
 	{
 		if (!shot)
 		{
+			GetComponent<SpriteRenderer>().sprite = cannon;
 			GameObject tempEgg = Instantiate(egg, transform.position, Quaternion.identity) as GameObject;
 			tempEgg.GetComponent<Rigidbody2D>().AddForce(dir * power, ForceMode2D.Impulse);
 			shot = true;
@@ -35,6 +38,7 @@ public class Chicken : Player
 
 	public override void OnActionRelease()
 	{
+		GetComponent<SpriteRenderer>().sprite = chickenSprite;
 		throw new NotImplementedException();
 	}
 

@@ -1,9 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Assets.Scripts;
+using System;
 
-public class Chicken : MonoBehaviour
+public class Chicken : Player
 {
 	public GameObject egg;
+	public float power;
+	Vector2 dir;
+
+	float cooldown = 0.5f;
+	bool shot = false;
 
 	void Start ()
 	{
@@ -12,15 +19,52 @@ public class Chicken : MonoBehaviour
 	
 	void Update ()
 	{
-		if(Input.GetKeyDown(KeyCode.Space))
+		FixRotation();
+		ShotCooldown();
+	}
+
+	public override void OnActionStart()
+	{
+		if (!shot)
 		{
-			Shoot(new Vector2(1, 0.5f));
+			GameObject tempEgg = Instantiate(egg, transform.position, Quaternion.identity) as GameObject;
+			tempEgg.GetComponent<Rigidbody2D>().AddForce(dir * power, ForceMode2D.Impulse);
+			shot = true;
 		}
 	}
 
-	void Shoot(Vector2 dir)
+	public override void OnActionRelease()
 	{
-		GameObject tempEgg = Instantiate(egg, transform.position, Quaternion.identity) as GameObject;
-		tempEgg.GetComponent<Rigidbody2D>().AddForce(dir * 500, ForceMode2D.Impulse);
+		throw new NotImplementedException();
+	}
+
+	public override void OnMove(Vector2 direction)
+	{
+		base.OnMove(direction);
+		dir = direction;
+	}
+
+	void FixRotation()
+	{
+		if (dir.x > 0)
+			GetComponent<SpriteRenderer>().flipX = false;
+		else
+			GetComponent<SpriteRenderer>().flipX = true;
+	}
+
+	void ShotCooldown()
+	{
+		if(shot)
+		{
+			if(cooldown > 0)
+			{
+				cooldown -= Time.deltaTime;
+			}
+			else
+			{
+				cooldown = 0.5f;
+				shot = false;
+			}
+		}
 	}
 }

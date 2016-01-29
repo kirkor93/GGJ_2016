@@ -31,12 +31,17 @@ namespace Assets.Scripts
         {
             _flying = !GroundTestCollider.IsTouchingLayers(LayerMask.NameToLayer("Level"));
         }
-
         public virtual void OnMove(Vector2 direction)
         {
-            float targetMovementSpeed = _currentMovementSpeed + Acceleration * direction.x;
-            _currentMovementSpeed = Mathf.Lerp(_currentMovementSpeed, targetMovementSpeed, 0.5f);
-
+            if (direction.magnitude > 0.0f)
+            {
+                float targetMovementSpeed = _currentMovementSpeed + Acceleration * direction.x;
+                _currentMovementSpeed = Mathf.Lerp(_currentMovementSpeed, targetMovementSpeed, 0.5f);
+            }
+            else
+            {
+                _currentMovementSpeed = (1.0f - Friction) * _currentMovementSpeed;
+            }
             _rigidbody.velocity = Vector2.right * _currentMovementSpeed * Time.deltaTime;
         }
 

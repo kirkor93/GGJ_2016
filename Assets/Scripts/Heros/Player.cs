@@ -5,18 +5,19 @@ namespace Assets.Scripts
 {
     public abstract class Player : MonoBehaviour
     {
-        [Range(0.0f, 100.0f)]
+        [Range(0.0f, 10000.0f)]
         public float Acceleration;
-        [Range(0.0f, 1000.0f)]
+        [Range(0.0f, 10000.0f)]
         public float MaxMovementSpeed;
         [Range(0.0f, 1.0f)]
         public float Friction;
-        [Range(0.0f, 1000.0f)]
+        [Range(0.0f, 10000.0f)]
         public float JumpSpeed;
 
         public Collider2D GroundTestCollider;
 
-        private Rigidbody2D _rigidbody;
+        protected Rigidbody2D Rigidbody;
+
         private float _currentMovementSpeed;
         private bool _flying;
 
@@ -24,16 +25,17 @@ namespace Assets.Scripts
 
         protected virtual void Awake()
         {
-            _rigidbody = GetComponent<Rigidbody2D>();
+            Rigidbody = GetComponent<Rigidbody2D>();
         }
 
         protected virtual void FixedUpdate()
         {
             _flying = !GroundTestCollider.IsTouchingLayers(LayerMask.NameToLayer("Level"));
+            Debug.Log(gameObject.name + _flying);
         }
         public virtual void OnMove(Vector2 direction)
         {
-            if (direction.magnitude > 0.0f)
+            if (Mathf.Abs(direction.x) > 0.0f)
             {
                 float targetMovementSpeed = _currentMovementSpeed + Acceleration * direction.x;
                 _currentMovementSpeed = Mathf.Lerp(_currentMovementSpeed, targetMovementSpeed, 0.5f);
@@ -42,7 +44,7 @@ namespace Assets.Scripts
             {
                 _currentMovementSpeed = (1.0f - Friction) * _currentMovementSpeed;
             }
-            _rigidbody.velocity = Vector2.right * _currentMovementSpeed * Time.deltaTime;
+            Rigidbody.velocity = Vector2.right * _currentMovementSpeed * Time.deltaTime;
         }
 
         public virtual void OnJumpStart()
@@ -57,9 +59,9 @@ namespace Assets.Scripts
 
         private IEnumerator Jump()
         {
-            while (_rigidbody.velocity.y < JumpSpeed)
+            while (Rigidbody.velocity.y < JumpSpeed)
             {
-                _rigidbody.velocity += Vector2.up*JumpSpeed;
+                Rigidbody.velocity += Vector2.up*JumpSpeed;
 
                 yield return null;
             }

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 namespace Assets.Scripts
 {
@@ -8,6 +9,10 @@ namespace Assets.Scripts
         public float Acceleration;
         [Range(0.0f, 1000.0f)]
         public float MaxMovementSpeed;
+        [Range(0.0f, 1.0f)]
+        public float Friction;
+        [Range(0.0f, 1000.0f)]
+        public float JumpSpeed;
 
         public Collider2D GroundTestCollider;
 
@@ -15,9 +20,16 @@ namespace Assets.Scripts
         private float _currentMovementSpeed;
         private bool _flying;
 
+        private Coroutine _jumpCoroutine;
+
         protected virtual void Awake()
         {
             _rigidbody = GetComponent<Rigidbody2D>();
+        }
+
+        protected virtual void FixedUpdate()
+        {
+            _flying = !GroundTestCollider.IsTouchingLayers(LayerMask.NameToLayer("Level"));
         }
 
         public virtual void OnMove(Vector2 direction)
@@ -34,11 +46,26 @@ namespace Assets.Scripts
             {
                 return;
             }
+
+            _jumpCoroutine = StartCoroutine(Jump());
+        }
+
+        private IEnumerator Jump()
+        {
+            while (_rigidbody.velocity.y < JumpSpeed)
+            {
+                _rigidbody.velocity += Vector2.up*JumpSpeed;
+
+                yield return null;
+            }
         }
 
         public virtual void OnJumpRelease()
         {
-            
+            if (_jumpCoroutine != null)
+            {
+                StopCoroutine(_jumpCoroutine);
+            }
         }
         public abstract void OnActionStart();
         public abstract void OnActionRelease();

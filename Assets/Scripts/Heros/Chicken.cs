@@ -29,6 +29,7 @@ public class Chicken : Player
 	{
 		if (!shot)
 		{
+			transform.localScale = new Vector3(-1, 1, 1);
 			GetComponent<SpriteRenderer>().sprite = cannon;
 			GameObject tempEgg = Instantiate(egg, transform.position, Quaternion.identity) as GameObject;
 			tempEgg.GetComponent<Rigidbody2D>().AddForce(dir * power, ForceMode2D.Impulse);
@@ -38,8 +39,8 @@ public class Chicken : Player
 
 	public override void OnActionRelease()
 	{
+		transform.localScale = new Vector3(1, 1, 1);
 		GetComponent<SpriteRenderer>().sprite = chickenSprite;
-		throw new NotImplementedException();
 	}
 
 	public override void OnMove(Vector2 direction)

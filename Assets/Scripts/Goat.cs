@@ -59,12 +59,15 @@ namespace Assets.Scripts
 
         protected void OnTriggerEnter2D(Collider2D other)
         {
-            Chicken c = other.GetComponent<Chicken>();
-            if (c != null)
+            if (other.gameObject.layer != LayerMask.NameToLayer("hero"))
             {
-                c.transform.parent = transform;
-                c.transform.position = ChickenPosition.position;
-                _caughtChicken = c;
+                Chicken c = other.GetComponent<Chicken>();
+                if (c != null)
+                {
+                    c.transform.parent = transform;
+                    c.transform.position = ChickenPosition.position;
+                    _caughtChicken = c;
+                }
             }
         }
     }

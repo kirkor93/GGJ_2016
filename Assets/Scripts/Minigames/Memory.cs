@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Memory : MonoBehaviour
 {
@@ -8,6 +9,8 @@ public class Memory : MonoBehaviour
 	public GameObject player1Pointer;
 	public GameObject player2Pointer;
 	public int offset = 300;
+
+	List<int> availableCards = new List<int>();
 
 	int player1x = 0;
 	int player1y = 0;
@@ -195,4 +198,20 @@ public class Memory : MonoBehaviour
 			}
 		}
 	}
+
+	void GenerateAvailableCards()
+	{
+		for (int i=0; i<12; i++)
+		{
+			if (i % 2 == 0)
+			{
+				availableCards.Add(i/2);
+			}
+			else
+			{
+				availableCards.Add((i - 1) / 2);
+			}
+		}
+	}
+
 }

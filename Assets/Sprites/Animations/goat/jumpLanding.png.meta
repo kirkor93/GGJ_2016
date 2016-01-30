@@ -1,0 +1,221 @@
+fileFormatVersion: 2
+guid: 238a26c29b836d04eae73955ac51e339
+timeCreated: 1454149202
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: jumpLanding_0
+    21300002: jumpLanding_1
+    21300004: jumpLanding_2
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: -1
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 5
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: jumpLanding_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 2323
+        height: 1600
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -88.5, y: -235}
+        - {x: -48.5, y: -234}
+        - {x: -64.5, y: -125}
+        - {x: -34.5, y: -129}
+        - {x: 59.5, y: -115}
+        - {x: 46.5, y: -175}
+        - {x: 75.5, y: -235}
+        - {x: 115.5, y: -235}
+        - {x: 92.5, y: -163}
+        - {x: 126.5, y: -234}
+        - {x: 129.5, y: -235}
+        - {x: 169.5, y: -235}
+        - {x: 156.5, y: -139}
+        - {x: 196.5, y: -88}
+        - {x: 183.5, y: 7}
+        - {x: 206.5, y: 51}
+        - {x: 273.5, y: -14}
+        - {x: 309.5, y: 32}
+        - {x: 309.5, y: 112}
+        - {x: 306.5, y: 121}
+        - {x: 200.5, y: 169}
+        - {x: 130.5, y: 169}
+        - {x: 118.5, y: 167}
+        - {x: 106.5, y: 133}
+        - {x: 113.5, y: 104}
+        - {x: 115.5, y: 65}
+        - {x: -115.5, y: 78}
+        - {x: -145.5, y: 144}
+        - {x: -178.5, y: 90}
+        - {x: -162.5, y: -47}
+        - {x: -186.5, y: -76}
+        - {x: -186.5, y: -127}
+        - {x: -163.5, y: -186}
+        - {x: -181.5, y: -216}
+        - {x: -165.5, y: -235}
+        - {x: -125.5, y: -235}
+        - {x: -122.5, y: -232}
+        - {x: -121.5, y: -209}
+        - {x: -105.5, y: -228}
+    - name: jumpLanding_1
+      rect:
+        serializedVersion: 2
+        x: 2323
+        y: 0
+        width: 2323
+        height: 1600
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 319.88123, y: -38}
+        - {x: 332.88123, y: -12}
+        - {x: 332.88123, y: -3}
+        - {x: 310.88123, y: 5}
+        - {x: 264.88123, y: 7}
+        - {x: 180.88123, y: 96}
+        - {x: 246.88123, y: 106}
+        - {x: 235.88123, y: 69}
+        - {x: 243.88123, y: 51}
+        - {x: 264.88123, y: 39}
+        - {x: 286.88123, y: 50}
+        - {x: 332.88123, y: 109}
+        - {x: 332.88123, y: 140}
+        - {x: 303.88123, y: 182}
+        - {x: 245.88123, y: 205}
+        - {x: 192.88123, y: 210}
+        - {x: 165.88123, y: 210}
+        - {x: 125.881226, y: 202}
+        - {x: 94.881226, y: 144}
+        - {x: -137.11877, y: 111}
+        - {x: -147.11877, y: 168}
+        - {x: -151.11877, y: 166}
+        - {x: -154.11877, y: 162}
+        - {x: -170.11877, y: 137}
+        - {x: -173.11877, y: 132}
+        - {x: -299.11877, y: 23}
+        - {x: -334.11877, y: 21}
+        - {x: -334.11877, y: -26}
+        - {x: -330.11877, y: -44}
+        - {x: -265.11877, y: -24}
+        - {x: -253.11877, y: -53}
+        - {x: -244.11877, y: -53}
+        - {x: -136.11877, y: -25}
+        - {x: -86.118774, y: -53}
+        - {x: -10.118774, y: -53}
+        - {x: 108.881226, y: -38}
+        - {x: 177.88123, y: -19}
+        - {x: 199.88123, y: -42}
+        - {x: 269.88123, y: -49}
+      - - {x: 300.88123, y: 75}
+        - {x: 301.88123, y: 72}
+        - {x: 304.88123, y: 72}
+        - {x: 306.88123, y: 74}
+        - {x: 305.88123, y: 77}
+        - {x: 302.88123, y: 77}
+    - name: jumpLanding_2
+      rect:
+        serializedVersion: 2
+        x: 4646
+        y: 0
+        width: 2323
+        height: 1600
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 270.76245, y: -52}
+        - {x: 278.76245, y: -64}
+        - {x: 303.76245, y: -67}
+        - {x: 305.76245, y: -65}
+        - {x: 305.76245, y: -50}
+        - {x: 304.76245, y: -47}
+        - {x: 305.76245, y: -51}
+        - {x: 305.76245, y: -78}
+        - {x: 342.76245, y: -27}
+        - {x: 342.76245, y: 36}
+        - {x: 277.76245, y: 77}
+        - {x: 244.76245, y: 91}
+        - {x: 212.76245, y: 121}
+        - {x: 45.76245, y: 84}
+        - {x: -97.23755, y: 121}
+        - {x: -89.23755, y: 175}
+        - {x: -110.23755, y: 175}
+        - {x: -138.23755, y: 161}
+        - {x: -163.23755, y: 66}
+        - {x: -163.23755, y: 25}
+        - {x: -152.23755, y: -37}
+        - {x: -163.23755, y: -58}
+        - {x: -163.23755, y: -121}
+        - {x: -139.23755, y: -211}
+        - {x: -122.23755, y: -217}
+        - {x: -85.23755, y: -213}
+        - {x: -88.23755, y: -185}
+        - {x: -69.23755, y: -221}
+        - {x: -41.23755, y: -228}
+        - {x: -16.237549, y: -221}
+        - {x: -18.237549, y: -199}
+        - {x: -9.237549, y: -116}
+        - {x: 33.76245, y: -158}
+        - {x: 74.76245, y: -235}
+        - {x: 151.76245, y: -235}
+        - {x: 155.76245, y: -231}
+        - {x: 159.76245, y: -91}
+        - {x: 275.76245, y: -17}
+      - - {x: 305.76245, y: -65}
+        - {x: 311.76245, y: -65}
+        - {x: 311.76245, y: -62}
+        - {x: 309.76245, y: -59}
+        - {x: 307.76245, y: -59}
+        - {x: 305.76245, y: -60}
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

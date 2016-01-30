@@ -18,7 +18,7 @@ public class Button : MonoBehaviour {
     public Sprite iconChicken;
     public Sprite iconGoat;
 
-    internal bool heroIn1, heroIn2;
+    internal bool heroIn1, heroIn2, done;
     GameObject icon, platform;
     GameObject player1, player2;
     SpriteRenderer iconSprite;
@@ -182,6 +182,7 @@ public class Button : MonoBehaviour {
                                 player1.transform.FindChild("tick").DOScale(Vector3.one, 0.6f).SetEase(Ease.OutExpo);
 
                                 ShowIcons(false);
+                                done = true;
 
                                 StartCoroutine("DeactivateAll");
                             }
@@ -343,7 +344,7 @@ public class Button : MonoBehaviour {
                 {
                     ShowIcons(false);
                     StartCoroutine("DeactivateAll");
-                    Platform();
+                    done = true;
                 }
 
                  
@@ -549,10 +550,12 @@ public class Button : MonoBehaviour {
        }
     }
 
+    /*
     void Platform()
     {
         platform.transform.DORotate(new Vector3(0,0,angleToRotate), timeToRotate);
     }
+     * */
  
     void ResetPlayer1()
     {

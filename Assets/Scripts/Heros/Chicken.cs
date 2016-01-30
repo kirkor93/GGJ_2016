@@ -13,6 +13,7 @@ public class Chicken : Player
 
 	float cooldown = 0.5f;
 	bool shot = false;
+	bool canMove = true;
 
 	void Start ()
 	{
@@ -45,7 +46,8 @@ public class Chicken : Player
 
 	public override void OnMove(Vector2 direction)
 	{
-		base.OnMove(direction);
+		if(canMove)
+			base.OnMove(direction);
 		dir = direction;
 	}
 
@@ -71,5 +73,15 @@ public class Chicken : Player
 				shot = false;
 			}
 		}
+	}
+
+	public void BlockMovement()
+	{
+		canMove = false;
+	}
+
+	public void UnblockMovement()
+	{
+		canMove = true;
 	}
 }

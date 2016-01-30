@@ -5,6 +5,8 @@ using System.Collections.Generic;
 public class CameraFollow : MonoBehaviour
 {
 	public List<GameObject> heroes;
+	public float maxX;
+	public float maxY;
 
 	void Start ()
 	{
@@ -52,5 +54,14 @@ public class CameraFollow : MonoBehaviour
 			transform.position = new Vector3(transform.position.x, 0, -10);
 		}
 
+		if(transform.position.x >= maxX)
+		{
+			transform.position = new Vector3(maxX, transform.position.y, -10);
+		}
+
+		if(transform.position.y >= maxY)
+		{
+			transform.position = new Vector3(transform.position.x, maxY, -10);
+		}
 	}
 }

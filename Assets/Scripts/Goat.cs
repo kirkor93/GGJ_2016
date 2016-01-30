@@ -44,14 +44,15 @@ namespace Assets.Scripts
 //                    _caughtChicken.Invoke("UnblockMovement", 1.3f);
                     _caughtChicken = null;
                     _caughtChickenRigidbody = null;
-//                    Debug.Break();
-                }
-                else if (_actionCoroutine == null)
+					_animator.SetBool("kick", true);
+					//                    Debug.Break();
+				}
+				else if (_actionCoroutine == null)
                 {
                     _actionCoroutine = StartCoroutine(HitCoroutine());
-                }
-            }
-            _animator.SetBool("attack", true);
+					_animator.SetBool("attack", true);
+				}
+			}
         }
 
         private IEnumerator Throw()
@@ -86,6 +87,7 @@ namespace Assets.Scripts
 
             }
             _animator.SetBool("attack", false);
+			_animator.SetBool("kick", false);
 		}
 
 		public override void OnMove(Vector2 direction)

@@ -11,7 +11,7 @@ public class Chicken : Player
 	public float power;
 	Vector2 dir;
 
-	float cooldown = 0.5f;
+	float cooldown = 0.3f;
 	bool shot = false;
 	bool canMove = true;
 
@@ -31,8 +31,8 @@ public class Chicken : Player
 	public override void OnActionStart()
 	{
 		if (!shot && (dir.x != 0 && dir.y != 0) && !SequenceMode)
-		{
-			transform.localScale = new Vector3(-1, 1, 1);
+		{			
+			transform.localScale = new Vector3(-transform.localScale.x, 1, 1);
 			GetComponent<SpriteRenderer>().sprite = cannon;
 			GameObject tempEgg = Instantiate(egg, transform.position, Quaternion.identity) as GameObject;
 			tempEgg.GetComponent<Rigidbody2D>().AddForce(dir * power, ForceMode2D.Impulse);
@@ -45,7 +45,7 @@ public class Chicken : Player
 	{
         if (!SequenceMode)
         {
-            transform.localScale = new Vector3(1, 1, 1);
+            transform.localScale = new Vector3(-transform.localScale.x, 1, 1);
             GetComponent<SpriteRenderer>().sprite = chickenSprite;
         }
 	}
@@ -78,10 +78,10 @@ public class Chicken : Player
 
 	void FixRotation()
 	{
-		if (dir.x > 0)
-			GetComponent<SpriteRenderer>().flipX = false;
-		else if (dir.x < 0)
-			GetComponent<SpriteRenderer>().flipX = true;
+		if (dir.x > 0 && !shot)
+			transform.localScale = new Vector3(1, 1, 1);
+		else if (dir.x < 0 && !shot)
+			transform.localScale = new Vector3(-1, 1, 1);
 	}
 
 	void ShotCooldown()
@@ -94,7 +94,7 @@ public class Chicken : Player
 			}
 			else
 			{
-				cooldown = 0.5f;
+				cooldown = 0.3f;
 				shot = false;
 				GetComponent<Animator>().SetBool("shooting", shot);
 			}

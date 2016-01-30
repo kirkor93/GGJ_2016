@@ -31,7 +31,6 @@ public class Barrier : MonoBehaviour {
         switch (idType)
         {
             case 0:
-                Debug.Log("SSSS");
                 float angleToRotate;
                 if (transform.eulerAngles.z >= 90)
                     angleToRotate = transform.eulerAngles.z + (360 - transform.eulerAngles.z);
@@ -41,6 +40,7 @@ public class Barrier : MonoBehaviour {
                 transform.DORotate(new Vector3(0, 0, angleToRotate), timeToAnim);
                 break;
             case 1:
+
                 break;
             case 2:
                 break;

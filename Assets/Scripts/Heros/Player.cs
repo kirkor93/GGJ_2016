@@ -82,7 +82,6 @@ namespace Assets.Scripts
             { 
                 return;
             }
-
             Rigidbody.velocity = Rigidbody.velocity + Vector2.up*JumpSpeed;
         }
 

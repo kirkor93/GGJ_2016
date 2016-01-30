@@ -21,10 +21,10 @@ public class Water : MonoBehaviour {
         {
             col.gameObject.GetComponent<Player>().Water = true;
 
-            if (col.transform.position.x <= transform.position.x)
-                col.transform.DOMoveX(transform.position.x + GetComponent<SpriteRenderer>().bounds.size.x/2 , 1f).SetEase(Ease.OutQuad);
-            else
-                col.transform.DOMoveX(transform.position.x - GetComponent<SpriteRenderer>().bounds.size.x / 2, 1f).SetEase(Ease.OutQuad);
+            if (col.transform.localScale.x >= 0)
+                col.transform.DOMoveX(col.transform.position.x + GetComponent<SpriteRenderer>().bounds.size.x ,  1f).SetEase(Ease.OutQuad);
+            else if (col.transform.localScale.x < 0 )
+                col.transform.DOMoveX(col.transform.position.x - GetComponent<SpriteRenderer>().bounds.size.x, 1f).SetEase(Ease.OutQuad);
         }
     }
 

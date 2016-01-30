@@ -19,6 +19,9 @@ namespace Assets.Scripts
         [Range(0.0f, 10000.0f)]
         public float GravityForce;
 
+        [Range(0.0f, 20.0f)]
+        public int MaxHitPoints;
+
         public bool SequenceMode;
 
         protected Rigidbody2D Rigidbody;
@@ -27,8 +30,9 @@ namespace Assets.Scripts
         private bool _flying;
 
         private int _currentScore;
+        private int _hitPoints;
 
-		public bool Flying
+        public bool Flying
 		{
 			get { return _flying; }
 		}
@@ -38,8 +42,27 @@ namespace Assets.Scripts
             get { return _currentScore; }
         }
 
+        public int HitPoints
+        {
+            get { return _hitPoints; }
+            set
+            {
+                _hitPoints = value;
+                if (_hitPoints <= 0)
+                {
+                    EndGame();
+                }
+            }
+        }
+
+        private void EndGame()
+        {
+            Debug.Log("GAME OVER!!!");
+        }
+
         protected virtual void Awake()
         {
+            HitPoints = MaxHitPoints;
             Rigidbody = GetComponent<Rigidbody2D>();
         }
 

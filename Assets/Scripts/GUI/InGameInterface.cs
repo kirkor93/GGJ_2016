@@ -18,7 +18,8 @@ namespace Assets.Scripts.GUI
             GoatScore.text = string.Format("Score: {0}", Goat.CurrentScore);
             ChickenScore.text = string.Format("Score: {0}", Chicken.CurrentScore);
 
-            //todo: bar fill
+            GoatHealthBar.fillAmount = (float) Goat.HitPoints/Goat.MaxHitPoints;
+            ChickenHealthBar.fillAmount = (float) Chicken.HitPoints/Chicken.MaxHitPoints;
         }
     }
 }

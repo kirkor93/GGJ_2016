@@ -3,14 +3,18 @@ using System.Collections;
 
 public class Egg : MonoBehaviour
 {
+	float destroyTimer = 0.25f;
+	bool destroyed = false;
+
 	void Start ()
 	{
-	
+		GetComponent<Animator>().enabled = false;
 	}
 
 	void Update()
 	{
 		UpdateRotation();
+		DestroyEgg();
 	}
 
 	void UpdateRotation()
@@ -22,6 +26,29 @@ public class Egg : MonoBehaviour
 
 	void OnCollisionEnter2D(Collision2D coll)
 	{
-		Destroy(gameObject);
+		if (!destroyed)
+		{
+			GetComponent<Animator>().enabled = true;
+			GetComponent<Animator>().Play("egg_destroy", 0, 0);
+			destroyed = true;
+			GetComponent<Rigidbody2D>().isKinematic = true;
+		}
+	}
+
+	void DestroyEgg()
+	{
+		if(destroyed)
+		{
+			if(destroyTimer > 0)
+			{
+				destroyTimer -= Time.deltaTime;
+			}
+			else
+			{
+				destroyTimer = 0.25f;
+				destroyed = false;
+				Destroy(gameObject);				
+			}
+		}
 	}
 }

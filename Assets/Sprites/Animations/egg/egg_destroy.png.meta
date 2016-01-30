@@ -1,0 +1,427 @@
+fileFormatVersion: 2
+guid: 6a774cd6dbf7ec54c8d04ad56c2606a9
+timeCreated: 1454185085
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: egg_destroy_0
+    21300002: egg_destroy_1
+    21300004: egg_destroy_2
+    21300006: egg_destroy_3
+    21300008: egg_destroy_4
+    21300010: egg_destroy_5
+    21300012: egg_destroy_6
+    21300014: egg_destroy_7
+    21300016: egg_destroy_8
+    21300018: egg_destroy_9
+    21300020: egg_destroy_10
+    21300022: egg_destroy_11
+    21300024: egg_destroy_12
+    21300026: egg_destroy_13
+    21300028: egg_destroy_14
+    21300030: egg_destroy_15
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: -1
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 6
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: egg_destroy_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 889
+        height: 435
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -9, y: 20.5}
+        - {x: -31, y: 14.5}
+        - {x: -31, y: -18.5}
+        - {x: -29, y: -25.5}
+        - {x: 21, y: -25.5}
+        - {x: 29, y: -20.5}
+        - {x: 29, y: 8.5}
+        - {x: 23, y: 20.5}
+    - name: egg_destroy_1
+      rect:
+        serializedVersion: 2
+        x: 889
+        y: 0
+        width: 889
+        height: 435
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -9, y: 20.5}
+        - {x: -31, y: 14.5}
+        - {x: -31, y: -18.5}
+        - {x: -29, y: -25.5}
+        - {x: 21, y: -25.5}
+        - {x: 29, y: -20.5}
+        - {x: 29, y: 8.5}
+        - {x: 23, y: 20.5}
+    - name: egg_destroy_2
+      rect:
+        serializedVersion: 2
+        x: 1778
+        y: 0
+        width: 889
+        height: 435
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -9, y: 20.5}
+        - {x: -31, y: 14.5}
+        - {x: -31, y: -18.5}
+        - {x: -29, y: -25.5}
+        - {x: 21, y: -25.5}
+        - {x: 29, y: -20.5}
+        - {x: 29, y: 8.5}
+        - {x: 23, y: 20.5}
+    - name: egg_destroy_3
+      rect:
+        serializedVersion: 2
+        x: 2667
+        y: 0
+        width: 889
+        height: 435
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -8.9999695, y: 20.5}
+        - {x: -30.99997, y: 14.5}
+        - {x: -30.99997, y: -18.5}
+        - {x: -28.99997, y: -25.5}
+        - {x: 21.00003, y: -25.5}
+        - {x: 29.00003, y: -20.5}
+        - {x: 29.00003, y: 8.5}
+        - {x: 23.00003, y: 20.5}
+    - name: egg_destroy_4
+      rect:
+        serializedVersion: 2
+        x: 3556
+        y: 0
+        width: 889
+        height: 435
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -25, y: -26.5}
+        - {x: 22, y: -26.5}
+        - {x: 29, y: -22.5}
+        - {x: 29, y: 20.5}
+        - {x: -26, y: 20.5}
+        - {x: -33, y: 17.5}
+        - {x: -33, y: -17.5}
+    - name: egg_destroy_5
+      rect:
+        serializedVersion: 2
+        x: 4445
+        y: 0
+        width: 889
+        height: 435
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -22, y: 20.5}
+        - {x: -35, y: 5.5}
+        - {x: -35, y: -20.5}
+        - {x: -15, y: -26.5}
+        - {x: 30, y: -26.5}
+        - {x: 32, y: -25.5}
+        - {x: 32, y: 13.5}
+        - {x: 30, y: 20.5}
+    - name: egg_destroy_6
+      rect:
+        serializedVersion: 2
+        x: 5334
+        y: 0
+        width: 889
+        height: 435
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -22.499939, y: 20.5}
+        - {x: -37.49994, y: 13.5}
+        - {x: -37.49994, y: -26.5}
+        - {x: 34.50006, y: -26.5}
+        - {x: 34.50006, y: 13.5}
+        - {x: 29.500061, y: 20.5}
+    - name: egg_destroy_7
+      rect:
+        serializedVersion: 2
+        x: 6223
+        y: 0
+        width: 889
+        height: 435
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 3.000061, y: -8.5}
+        - {x: -0.99993896, y: -12.5}
+        - {x: -0.99993896, y: -14.5}
+        - {x: 3.000061, y: -19.5}
+        - {x: -0.99993896, y: -22.5}
+        - {x: 0.000061035156, y: -26.5}
+        - {x: 32.00006, y: -26.5}
+        - {x: 38.00006, y: -14.5}
+        - {x: 38.00006, y: 13.5}
+        - {x: 30.000061, y: 18.5}
+        - {x: 21.000061, y: 20.5}
+        - {x: 5.000061, y: 20.5}
+        - {x: -1.999939, y: 13.5}
+        - {x: -1.999939, y: 11.5}
+        - {x: 4.000061, y: 7.5}
+        - {x: 7.000061, y: 7.5}
+        - {x: 2.000061, y: 7.5}
+        - {x: -5.999939, y: 12.5}
+        - {x: -1.999939, y: 19.5}
+        - {x: -7.999939, y: 20.5}
+        - {x: -22.999939, y: 20.5}
+        - {x: -38.99994, y: 4.5}
+        - {x: -38.99994, y: -21.5}
+        - {x: -25.999939, y: -26.5}
+        - {x: -1.999939, y: -26.5}
+        - {x: -0.99993896, y: -21.5}
+        - {x: -2.999939, y: -15.5}
+        - {x: -7.999939, y: -14.5}
+    - name: egg_destroy_8
+      rect:
+        serializedVersion: 2
+        x: 7112
+        y: 0
+        width: 889
+        height: 435
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 8, y: -5.5}
+        - {x: 3, y: -8.5}
+        - {x: 0, y: -14.5}
+        - {x: -3, y: -27.5}
+        - {x: 27, y: -27.5}
+        - {x: 41, y: -25.5}
+        - {x: 41, y: 8.5}
+        - {x: 36, y: 21.5}
+        - {x: 8, y: 21.5}
+        - {x: 1, y: 13.5}
+        - {x: 3, y: 10.5}
+        - {x: 8, y: 7.5}
+        - {x: 9, y: 7.5}
+        - {x: 4, y: 7.5}
+        - {x: -7, y: 19.5}
+        - {x: -17, y: 20.5}
+        - {x: -32, y: 14.5}
+        - {x: -41, y: 5.5}
+        - {x: -41, y: -14.5}
+        - {x: -37, y: -25.5}
+        - {x: -25, y: -27.5}
+        - {x: -8, y: -27.5}
+        - {x: -2, y: -18.5}
+        - {x: 0, y: -8.5}
+        - {x: 0, y: -4.5}
+    - name: egg_destroy_9
+      rect:
+        serializedVersion: 2
+        x: 8001
+        y: 0
+        width: 889
+        height: 435
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 3, y: 21.5}
+        - {x: 7, y: 12.5}
+        - {x: 10, y: 9.5}
+        - {x: 9, y: 10.5}
+        - {x: 2, y: 14.5}
+        - {x: -7, y: 21.5}
+        - {x: -26, y: 21.5}
+        - {x: -34, y: 19.5}
+        - {x: -44, y: 10.5}
+        - {x: -44, y: -12.5}
+        - {x: -38, y: -25.5}
+        - {x: 46, y: -25.5}
+        - {x: 47, y: -17.5}
+        - {x: 47, y: 14.5}
+        - {x: 44, y: 21.5}
+    - name: egg_destroy_10
+      rect:
+        serializedVersion: 2
+        x: 8890
+        y: 0
+        width: 889
+        height: 435
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 33, y: 24.5}
+        - {x: -44, y: 24.5}
+        - {x: -48, y: 17.5}
+        - {x: -48, y: -15.5}
+        - {x: -44, y: -23.5}
+        - {x: 37, y: -23.5}
+        - {x: 47, y: -15.5}
+        - {x: 48, y: -13.5}
+        - {x: 48, y: 11.5}
+    - name: egg_destroy_11
+      rect:
+        serializedVersion: 2
+        x: 9779
+        y: 0
+        width: 889
+        height: 435
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 31, y: 26.5}
+        - {x: 26, y: 22.5}
+        - {x: 25, y: 18.5}
+        - {x: 29, y: 12.5}
+        - {x: 24, y: 14.5}
+        - {x: 7, y: 26.5}
+        - {x: -30, y: 26.5}
+        - {x: -51, y: 22.5}
+        - {x: -59, y: 10.5}
+        - {x: -59, y: -22.5}
+        - {x: -52, y: -27.5}
+        - {x: 39, y: -27.5}
+        - {x: 58, y: -20.5}
+        - {x: 58, y: 10.5}
+        - {x: 40, y: 26.5}
+    - name: egg_destroy_12
+      rect:
+        serializedVersion: 2
+        x: 10668
+        y: 0
+        width: 889
+        height: 435
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -35.499878, y: 31.5}
+        - {x: -35.499878, y: -31.5}
+        - {x: 30.500122, y: -31.5}
+        - {x: 40.500122, y: -27.5}
+        - {x: 40.500122, y: 12.5}
+        - {x: 31.500122, y: 31.5}
+    - name: egg_destroy_13
+      rect:
+        serializedVersion: 2
+        x: 11557
+        y: 0
+        width: 889
+        height: 435
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 16.500122, y: 31.5}
+        - {x: -21.499878, y: 31.5}
+        - {x: -35.499878, y: 18.5}
+        - {x: -35.499878, y: -30.5}
+        - {x: -33.499878, y: -31.5}
+        - {x: 34.500122, y: -31.5}
+        - {x: 40.500122, y: -17.5}
+        - {x: 40.500122, y: 1.5}
+    - name: egg_destroy_14
+      rect:
+        serializedVersion: 2
+        x: 12446
+        y: 0
+        width: 889
+        height: 435
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 40.500122, y: -1.5}
+        - {x: 36.500122, y: 9.5}
+        - {x: 18.500122, y: 25.5}
+        - {x: 10.500122, y: 31.5}
+        - {x: -13.499878, y: 31.5}
+        - {x: -35.499878, y: 14.5}
+        - {x: -35.499878, y: -30.5}
+        - {x: -32.499878, y: -31.5}
+        - {x: 24.500122, y: -31.5}
+        - {x: 32.500122, y: -29.5}
+        - {x: 40.500122, y: -23.5}
+    - name: egg_destroy_15
+      rect:
+        serializedVersion: 2
+        x: 13335
+        y: 0
+        width: 889
+        height: 435
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 19.000122, y: 31.5}
+        - {x: -19.999878, y: 31.5}
+        - {x: -34.999878, y: 26.5}
+        - {x: -34.999878, y: -31.5}
+        - {x: 32.000122, y: -31.5}
+        - {x: 41.000122, y: -27.5}
+        - {x: 41.000122, y: 3.5}
+        - {x: 37.000122, y: 9.5}
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

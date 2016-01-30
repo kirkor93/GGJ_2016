@@ -5,6 +5,6 @@ public class MainMenu : MonoBehaviour
 {
     public void StartGameButton()
     {
-        SceneLoader.Instance.LoadLevel("chickenScene");
+        SceneLoader.Instance.LoadLevel("level01");
     }
 }

@@ -1,0 +1,243 @@
+fileFormatVersion: 2
+guid: 3afb99ef4fdda4340b73bc9a942d72b3
+timeCreated: 1454180285
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: JUMP_0
+    21300002: JUMP_1
+    21300004: JUMP_2
+    21300006: JUMP_3
+    21300008: JUMP_4
+    21300010: JUMP_5
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: -1
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 5
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: JUMP_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 775
+        height: 757
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 19.5, y: -164.5}
+        - {x: 15.5, y: -154.5}
+        - {x: 6.5, y: -141.5}
+        - {x: 53.5, y: -76.5}
+        - {x: 120.5, y: 65.5}
+        - {x: 147.5, y: 84.5}
+        - {x: 147.5, y: 116.5}
+        - {x: 113.5, y: 166.5}
+        - {x: 0.5, y: 166.5}
+        - {x: -24.5, y: 107.5}
+        - {x: -80.5, y: 97.5}
+        - {x: -159.5, y: 54.5}
+        - {x: -159.5, y: -12.5}
+        - {x: -127.5, y: -72.5}
+        - {x: -97.5, y: -156.5}
+        - {x: -81.5, y: -166.5}
+        - {x: -56.5, y: -166.5}
+        - {x: -50.5, y: -162.5}
+        - {x: -36.5, y: -166.5}
+        - {x: 14.5, y: -166.5}
+    - name: JUMP_1
+      rect:
+        serializedVersion: 2
+        x: 775
+        y: 0
+        width: 775
+        height: 757
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 118.91809, y: 145.5}
+        - {x: 71.91809, y: 163.5}
+        - {x: 39.91809, y: 163.5}
+        - {x: 37.91809, y: 162.5}
+        - {x: 25.91809, y: 135.5}
+        - {x: -52.08191, y: 95.5}
+        - {x: -157.08191, y: 39.5}
+        - {x: -157.08191, y: -18.5}
+        - {x: -89.08191, y: -93.5}
+        - {x: -113.08191, y: -137.5}
+        - {x: -99.08191, y: -163.5}
+        - {x: -66.08191, y: -163.5}
+        - {x: -33.08191, y: -130.5}
+        - {x: -8.081909, y: -163.5}
+        - {x: 38.91809, y: -163.5}
+        - {x: 72.91809, y: -29.5}
+        - {x: 115.91809, y: 76.5}
+        - {x: 153.91809, y: 75.5}
+        - {x: 153.91809, y: 88.5}
+    - name: JUMP_2
+      rect:
+        serializedVersion: 2
+        x: 1550
+        y: 0
+        width: 775
+        height: 757
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 39.83618, y: -100.5}
+        - {x: 122.83618, y: 68.5}
+        - {x: 157.83618, y: 62.5}
+        - {x: 157.83618, y: 84.5}
+        - {x: 137.83618, y: 131.5}
+        - {x: 76.83618, y: 157.5}
+        - {x: 42.83618, y: 157.5}
+        - {x: 35.83618, y: 145.5}
+        - {x: 36.83618, y: 134.5}
+        - {x: 42.83618, y: 127.5}
+        - {x: -61.16382, y: 114.5}
+        - {x: -155.16382, y: 53.5}
+        - {x: -155.16382, y: -27.5}
+        - {x: -136.16382, y: -139.5}
+        - {x: -123.16382, y: -156.5}
+        - {x: -82.16382, y: -156.5}
+        - {x: -45.16382, y: -120.5}
+        - {x: -1.1638184, y: -156.5}
+        - {x: 59.83618, y: -156.5}
+    - name: JUMP_3
+      rect:
+        serializedVersion: 2
+        x: 2325
+        y: 0
+        width: 775
+        height: 757
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 52.754272, y: -117.5}
+        - {x: 56.754272, y: -44.5}
+        - {x: 162.75427, y: 50.5}
+        - {x: 162.75427, y: 71.5}
+        - {x: 127.75427, y: 134.5}
+        - {x: 92.75427, y: 152.5}
+        - {x: 48.754272, y: 152.5}
+        - {x: 38.754272, y: 149.5}
+        - {x: -153.24573, y: 52.5}
+        - {x: -153.24573, y: -19.5}
+        - {x: -141.24573, y: -144.5}
+        - {x: -120.24573, y: -142.5}
+        - {x: -114.24573, y: -141.5}
+        - {x: -108.24573, y: -146.5}
+        - {x: -105.24573, y: -148.5}
+        - {x: 45.754272, y: -148.5}
+        - {x: 61.754272, y: -145.5}
+        - {x: 57.754272, y: -120.5}
+    - name: JUMP_4
+      rect:
+        serializedVersion: 2
+        x: 3100
+        y: 0
+        width: 775
+        height: 757
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 54.672363, y: -102.5}
+        - {x: 73.67236, y: 8.5}
+        - {x: 166.67236, y: 39.5}
+        - {x: 166.67236, y: 48.5}
+        - {x: 152.67236, y: 89.5}
+        - {x: 143.67236, y: 111.5}
+        - {x: 133.67236, y: 119.5}
+        - {x: 89.67236, y: 145.5}
+        - {x: 52.672363, y: 145.5}
+        - {x: -46.327637, y: 92.5}
+        - {x: -151.32764, y: 57.5}
+        - {x: -151.32764, y: 3.5}
+        - {x: -137.32764, y: -50.5}
+        - {x: -145.32764, y: -137.5}
+        - {x: 48.672363, y: -137.5}
+        - {x: 64.67236, y: -123.5}
+        - {x: 63.672363, y: -104.5}
+        - {x: 59.672363, y: -102.5}
+    - name: JUMP_5
+      rect:
+        serializedVersion: 2
+        x: 3875
+        y: 0
+        width: 775
+        height: 757
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 40.590454, y: -100.5}
+        - {x: 123.590454, y: 68.5}
+        - {x: 158.59045, y: 62.5}
+        - {x: 158.59045, y: 84.5}
+        - {x: 138.59045, y: 131.5}
+        - {x: 77.590454, y: 157.5}
+        - {x: 43.590454, y: 157.5}
+        - {x: 36.590454, y: 145.5}
+        - {x: 37.590454, y: 134.5}
+        - {x: 43.590454, y: 127.5}
+        - {x: -55.409546, y: 102.5}
+        - {x: -154.40955, y: 63.5}
+        - {x: -154.40955, y: -11.5}
+        - {x: -123.409546, y: -86.5}
+        - {x: -127.409546, y: -139.5}
+        - {x: -109.409546, y: -156.5}
+        - {x: -75.409546, y: -156.5}
+        - {x: -45.409546, y: -110.5}
+        - {x: 0.5904541, y: -156.5}
+        - {x: 60.590454, y: -156.5}
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

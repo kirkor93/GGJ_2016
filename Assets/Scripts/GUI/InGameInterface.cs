@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace Assets.Scripts.GUI
@@ -12,6 +13,17 @@ namespace Assets.Scripts.GUI
         public Image ChickenHealthBar;
         public Text GoatScore;
         public Text ChickenScore;
+        public RectTransform GameOverScreen;
+
+        protected void Start()
+        {
+            Goat.OnGameOver += HandleOnGameOver;
+        }
+
+        private void HandleOnGameOver(object sender, GameOverEventArgs gameOverEventArgs)
+        {
+            
+        }
 
         protected void Update()
         {

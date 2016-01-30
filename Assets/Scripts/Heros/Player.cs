@@ -26,6 +26,12 @@ namespace Assets.Scripts
         private bool _flying;
 
         private Coroutine _jumpCoroutine;
+        private int _currentScore;
+
+        public int CurrentScore
+        {
+            get { return _currentScore; }
+        }
 
         protected virtual void Awake()
         {
@@ -90,6 +96,13 @@ namespace Assets.Scripts
                 StopCoroutine(_jumpCoroutine);
             }
         }
+
+        public void ChangeScore(int value)
+        {
+            _currentScore += value;
+            Debug.Log(_currentScore);
+        }
+
         public abstract void OnActionStart();
         public abstract void OnActionRelease();
     }

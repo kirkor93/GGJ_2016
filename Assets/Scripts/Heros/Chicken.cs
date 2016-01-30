@@ -13,6 +13,7 @@ public class Chicken : Player
 
 	float cooldown = 0.5f;
 	bool shot = false;
+	bool canMove = true;
 
 	void Start ()
 	{
@@ -27,7 +28,7 @@ public class Chicken : Player
 
 	public override void OnActionStart()
 	{
-		if (!shot)
+		if (!shot && (dir.x != 0 && dir.y != 0))
 		{
 			transform.localScale = new Vector3(-1, 1, 1);
 			GetComponent<SpriteRenderer>().sprite = cannon;
@@ -45,7 +46,8 @@ public class Chicken : Player
 
 	public override void OnMove(Vector2 direction)
 	{
-		base.OnMove(direction);
+		if(canMove)
+			base.OnMove(direction);
 		dir = direction;
 	}
 
@@ -71,5 +73,15 @@ public class Chicken : Player
 				shot = false;
 			}
 		}
+	}
+
+	public void BlockMovement()
+	{
+		canMove = false;
+	}
+
+	public void UnblockMovement()
+	{
+		canMove = true;
 	}
 }

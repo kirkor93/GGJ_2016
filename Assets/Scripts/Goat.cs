@@ -17,6 +17,11 @@ namespace Assets.Scripts
         private Vector2 _lastInputDirection;
         private Rigidbody2D _caughtChickenRigidbody;
 
+        void Start()
+        {
+            sequenceMode = false;
+        }
+
         public override void OnActionStart()
         {
             if (_caughtChicken != null)

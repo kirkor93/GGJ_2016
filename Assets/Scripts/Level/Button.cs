@@ -11,6 +11,7 @@ public class Button : MonoBehaviour {
     public int playersCount;
     public List<KeyCode> keyCods1;
     public List<KeyCode> keyCods2;
+    public List<Color> keyColors;
     public Sprite buttonSprite;
     public float timeToPress;
     public Sprite iconChicken;
@@ -28,8 +29,8 @@ public class Button : MonoBehaviour {
     List<GameObject> icons1;
     List<GameObject> icons2;
 
-    bool sequencePlayer1;
-    bool sequencePlayer2;
+    bool done1;
+    bool done2;
 
 
 
@@ -37,6 +38,9 @@ public class Button : MonoBehaviour {
 	void Start () {
         heroIn1 = false;
         heroIn2 = false;
+
+        done1 = false;
+        done2 = false;
 
         player1 = transform.FindChild("player1").gameObject;
         player2 = transform.FindChild("player2").gameObject;
@@ -63,7 +67,7 @@ public class Button : MonoBehaviour {
                 obj.GetChild(0).GetComponent<MeshRenderer>().sortingOrder = 1;
 
                 if (id != 0)
-                    obj.transform.position = new Vector2(player1.transform.GetChild(id - 1).position.x + obj.GetComponent<SpriteRenderer>().sprite.bounds.size.x + 10, player1.transform.GetChild(id - 1).position.y);
+                    obj.transform.position = new Vector2(player1.transform.GetChild(id - 1).position.x + obj.GetComponent<SpriteRenderer>().sprite.bounds.size.x/0.8f, player1.transform.GetChild(id - 1).position.y);
             }
 
             ++id;
@@ -84,7 +88,7 @@ public class Button : MonoBehaviour {
                 obj.GetChild(0).GetComponent<MeshRenderer>().sortingOrder = 1;
 
                 if (id != 0)
-                    obj.transform.position = new Vector2(player2.transform.GetChild(id - 1).position.x + obj.GetComponent<SpriteRenderer>().sprite.bounds.size.x / 6f, player2.transform.GetChild(id - 1).position.y);
+                    obj.transform.position = new Vector2(player1.transform.GetChild(id - 1).position.x + obj.GetComponent<SpriteRenderer>().sprite.bounds.size.x / 0.8f, player1.transform.GetChild(id - 1).position.y);
             }
 
             ++id;
@@ -106,9 +110,6 @@ public class Button : MonoBehaviour {
 
         timePlayer1 = -10;
         timePlayer2 = -10;
-
-        sequencePlayer1 = false;
-        sequencePlayer2 = false;
 	}
 	
 	// Update is called once per frame
@@ -124,7 +125,7 @@ public class Button : MonoBehaviour {
 
             if (playersCount == 1)
             {
-                if (heroIn1)
+                if (heroIn1 && !done1)
                 {
                     //------------------------------------------- odejmowanie czasu, Resetowanie, jeśli się nie wyrobiliśmy
                     if (timePlayer1 > 0)
@@ -133,7 +134,7 @@ public class Button : MonoBehaviour {
                     }
                     else if ( timePlayer1 > -10 )
                     {
-                         //ResetPlayer1();
+                         ResetPlayer1();
                     }
 
                     //------------------------------------------- Input controller
@@ -172,11 +173,23 @@ public class Button : MonoBehaviour {
                             icons1[keyCodsPlayer1.Count - 1].transform.localScale = Vector3.one;
                             icons1[keyCodsPlayer1.Count - 1].GetComponent<SpriteRenderer>().color = new Vector4(0.5f,0.5f,0.5f,1);
 
+                            if (keyCodsPlayer1.Count == keyCods1.Count)
+                            {
+                                done1 = true;
+                                timePlayer1 = -10;
+                                player1.transform.FindChild("tick").GetComponent<SpriteRenderer>().enabled = true;
+                                player1.transform.FindChild("tick").DOScale(Vector3.one, 0.6f).SetEase(Ease.OutExpo);
+
+                                ShowIcons(false);
+
+                                StartCoroutine("DeactivateAll");
+                            }
+
                             timePlayer1 = timeToPress;
                         }
                         else
                         {
-                            //ResetPlayer1();
+                            ResetPlayer1();
                         }
                      }
                 }
@@ -285,51 +298,107 @@ public class Button : MonoBehaviour {
     {
         if (show)
         {
+            player1_SR.color = new Vector4(1, 1, 1, 0);
+            player1_SR.DOFade(1, 0.5f);
             player1_SR.enabled = true;
+
+            int id = 0;
+            Color color = Color.white;
 
             foreach (Transform obj in player1.transform)
             {
+                if (!obj.name.Contains("tick"))
+                {
+                    if (!done1)
+                    {
+                        obj.transform.DOKill();
+                        obj.localScale = Vector3.one * 0.8f;
+                        obj.DOScale(Vector3.one * 1f, 0.6f).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.OutExpo);
 
-                obj.localScale = Vector3.one * 0.8f;
-                obj.DOScale(Vector3.one * 1f, 0.6f).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.OutExpo);
-                obj.GetComponent<SpriteRenderer>().color = new Vector4(1, 1, 1, 0);
-                obj.GetComponent<SpriteRenderer>().DOFade(1, 1);
-                obj.gameObject.SetActive(true);
+
+                        if (keyIds1[id] == "A")
+                            obj.GetComponent<SpriteRenderer>().color = keyColors[0];
+                        else if (keyIds1[id] == "B")
+                            obj.GetComponent<SpriteRenderer>().color = keyColors[1];
+                        else if (keyIds1[id] == "X")
+                            obj.GetComponent<SpriteRenderer>().color = keyColors[2];
+                        else
+                            obj.GetComponent<SpriteRenderer>().color = keyColors[3];
+
+                        color = obj.GetComponent<SpriteRenderer>().color;
+
+                        obj.GetComponent<SpriteRenderer>().color = new Vector4(color.r, color.g, color.b, 0);
+                    }
+                    else
+                        obj.GetComponent<SpriteRenderer>().color = new Vector4(0.5f, 0.5f, 0.5f, 0);
+
+                    obj.GetComponent<SpriteRenderer>().DOFade(1, 0.5f);
+                    obj.gameObject.SetActive(true);
+                }
+
+                ++id;
             }
 
             if (playersCount == 2)
             {
                 player2_SR.enabled = true;
 
+                id = 0;
+
                 foreach (Transform obj in player2.transform)
                 {
-                    obj.localScale = Vector3.one * 0.8f;
-                    obj.DOScale(Vector3.one * 1f, 1f).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.OutExpo);
-                    obj.GetComponent<SpriteRenderer>().color = new Vector4(1, 1, 1, 0);
+
+                    if (!done2)
+                    {
+                        obj.localScale = Vector3.one * 0.8f;
+                        obj.DOScale(Vector3.one * 1f, 0.6f).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.OutExpo);
+
+                        if (keyIds2[id] == "A")
+                            obj.GetComponent<SpriteRenderer>().color = keyColors[0];
+                        else if (keyIds2[id] == "B")
+                            obj.GetComponent<SpriteRenderer>().color = keyColors[1];
+                        else if (keyIds2[id] == "X")
+                            obj.GetComponent<SpriteRenderer>().color = keyColors[2];
+                        else
+                            obj.GetComponent<SpriteRenderer>().color = keyColors[3];
+
+                        color = obj.GetComponent<SpriteRenderer>().color;
+
+                        obj.GetComponent<SpriteRenderer>().color = new Vector4(color.r, color.g, color.b, 0);
+
+                    }
+                    else
+                        obj.GetComponent<SpriteRenderer>().color = new Vector4(0.5f, 0.5f, 0.5f, 0);
+
+
                     obj.GetComponent<SpriteRenderer>().DOFade(1, 1);
                     obj.gameObject.SetActive(true);
+
+                    ++id;
                 }
             }
 
         }
         else
         {
-            player1_SR.enabled = false;
+            player1_SR.DOFade(0, 0.5f);
 
             foreach (Transform obj in player1.transform)
             {
-                obj.gameObject.SetActive(false);
+                obj.GetComponent<SpriteRenderer>().DOFade(0, 0.5f);
             }
 
             if (playersCount == 2)
             {
-                player1_SR.enabled = false;
+                player2_SR.DOFade(0, 0.5f);
 
                 foreach (Transform obj in player2.transform)
                 {
-                    obj.gameObject.SetActive(false);
+                    obj.GetComponent<SpriteRenderer>().DOFade(0, 0.5f);
                 }
             }
+
+            StartCoroutine("DeactivateAll");
         }
     }
 
@@ -343,7 +412,6 @@ public class Button : MonoBehaviour {
         timePlayer1 = -10;
         keyCodsPlayer1.Clear();
 
-        Debug.Log("RESET");
         if (playersCount == 1)
         {
             if (heroIn1)
@@ -364,5 +432,45 @@ public class Button : MonoBehaviour {
     void ResetPlayer2()
     {
         timePlayer2 = -10;
+    }
+
+    IEnumerator DeactivateAll()
+    {
+        yield return new WaitForSeconds(0.35f);
+
+        player1_SR.enabled = false;
+        player1_SR.color = new Color(1, 1, 1, 1);
+
+        foreach (Transform obj in player1.transform)
+        {
+            obj.gameObject.SetActive(false);
+            obj.GetComponent<SpriteRenderer>().color = new Color(1,1,1,1);
+        }
+
+
+        if (playersCount == 2)
+        {
+            player2_SR.enabled = false;
+            player2_SR.color = new Color(1, 1, 1, 1);
+
+            foreach (Transform obj in player2.transform)
+            {
+                obj.gameObject.SetActive(false);
+                obj.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
+            }
+
+            if (heroIn1 && heroIn2)
+            {
+                player1.SetActive(false);
+                player2.SetActive(false);
+            }
+        }
+        else
+        {
+            if (heroIn1)
+                player1.SetActive(false);
+        }
+
+
     }
 }

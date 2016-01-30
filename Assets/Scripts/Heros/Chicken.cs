@@ -17,7 +17,7 @@ public class Chicken : Player
 
 	void Start ()
 	{
-	
+        sequenceMode = false;
 	}
 	
 	void Update ()

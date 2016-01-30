@@ -20,6 +20,8 @@ namespace Assets.Scripts
 
         public Collider2D GroundTestCollider;
 
+        public bool sequenceMode;
+
         protected Rigidbody2D Rigidbody;
 
         private float _currentMovementSpeed;

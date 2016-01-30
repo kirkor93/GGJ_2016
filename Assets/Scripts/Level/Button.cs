@@ -353,8 +353,9 @@ public class Button : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.gameObject.layer == LayerMask.NameToLayer("hero"))
+        if (col.gameObject.layer == LayerMask.NameToLayer("hero") )
         {
+            Debug.Log(col.name);
             col.gameObject.GetComponent<Player>().sequenceMode = true;
 
             if (playersCount == 1)
@@ -371,10 +372,9 @@ public class Button : MonoBehaviour {
             }
             else
             {
-                if (!heroIn1 && !heroIn2)
-                {
-                    ShowIcons(true);
-                }
+
+                player2_SR.sprite = iconGoat;
+                player1_SR.sprite = iconChicken;
 
                 if (col.gameObject.name.Contains("chicken"))
                 {
@@ -386,8 +386,11 @@ public class Button : MonoBehaviour {
                     heroIn2 = true;
                 }
 
-                player2_SR.sprite = iconGoat;
-                player1_SR.sprite = iconChicken;
+
+                if ( (heroIn1 && !heroIn2) || (heroIn2 && !heroIn1) || (heroIn1 && heroIn2 ))
+                {
+                    ShowIcons(true);
+                }
             }
 
 
@@ -396,7 +399,7 @@ public class Button : MonoBehaviour {
 
     void OnTriggerExit2D(Collider2D col)
     {
-        if (col.gameObject.layer == LayerMask.NameToLayer("hero"))
+        if (col.gameObject.layer == LayerMask.NameToLayer("hero") )
         {
             col.gameObject.GetComponent<Player>().sequenceMode = false;
 
@@ -420,6 +423,8 @@ public class Button : MonoBehaviour {
                 {
                     ShowIcons(false);
                 }
+                else
+                    ShowIcons(true);
             }
         }
     }
@@ -429,72 +434,32 @@ public class Button : MonoBehaviour {
     {
         if (show)
         {
-            player1_SR.color = new Vector4(1, 1, 1, 0);
-            player1_SR.DOFade(1, 0.5f);
-            player1_SR.enabled = true;
 
-            int id = 0;
-            Color color = Color.white;
-
-            foreach (Transform obj in player1.transform)
+            if (playersCount == 1)
             {
-                if (!obj.name.Contains("tick"))
-                {
-                    if (!done1)
-                    {
-                        obj.transform.DOKill();
-                        obj.localScale = Vector3.one * 0.8f;
-                        obj.DOScale(Vector3.one * 1f, 0.6f).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.OutExpo);
+                player1_SR.color = new Vector4(1, 1, 1, 0);
+                player1_SR.DOFade(1, 0.5f);
+                player1_SR.enabled = true;
 
+                int id = 0;
+                Color color = Color.white;
 
-                        if (keyIds1[id] == "A")
-                            obj.GetComponent<SpriteRenderer>().color = keyColors[0];
-                        else if (keyIds1[id] == "B")
-                            obj.GetComponent<SpriteRenderer>().color = keyColors[1];
-                        else if (keyIds1[id] == "X")
-                            obj.GetComponent<SpriteRenderer>().color = keyColors[2];
-                        else
-                            obj.GetComponent<SpriteRenderer>().color = keyColors[3];
-
-                        color = obj.GetComponent<SpriteRenderer>().color;
-
-                        obj.GetComponent<SpriteRenderer>().color = new Vector4(color.r, color.g, color.b, 0);
-                    }
-                    else
-                        obj.GetComponent<SpriteRenderer>().color = new Vector4(0.5f, 0.5f, 0.5f, 0);
-
-                    obj.GetComponent<SpriteRenderer>().DOFade(1, 0.5f);
-                    obj.gameObject.SetActive(true);
-                }
-
-                ++id;
-            }
-
-            if (playersCount == 2)
-            {
-                player2_SR.color = new Vector4(1, 1, 1, 0);
-                player2_SR.DOFade(1, 0.5f);
-                player2_SR.enabled = true;
-
-                id = 0;
-                color = Color.white;
-
-                foreach (Transform obj in player2.transform)
+                foreach (Transform obj in player1.transform)
                 {
                     if (!obj.name.Contains("tick"))
                     {
-                        if (!done2)
+                        if (!done1)
                         {
                             obj.transform.DOKill();
                             obj.localScale = Vector3.one * 0.8f;
                             obj.DOScale(Vector3.one * 1f, 0.6f).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.OutExpo);
 
 
-                            if (keyIds2[id] == "A")
+                            if (keyIds1[id] == "A")
                                 obj.GetComponent<SpriteRenderer>().color = keyColors[0];
-                            else if (keyIds2[id] == "B")
+                            else if (keyIds1[id] == "B")
                                 obj.GetComponent<SpriteRenderer>().color = keyColors[1];
-                            else if (keyIds2[id] == "X")
+                            else if (keyIds1[id] == "X")
                                 obj.GetComponent<SpriteRenderer>().color = keyColors[2];
                             else
                                 obj.GetComponent<SpriteRenderer>().color = keyColors[3];
@@ -511,6 +476,130 @@ public class Button : MonoBehaviour {
                     }
 
                     ++id;
+                }
+            }
+
+            else if (playersCount == 2)
+            {
+                if (!heroIn1)
+                {
+                    player1_SR.color = new Vector4(0.5f, 0.5f, 0.5f, 0);
+                    player1_SR.DOFade(1, 0.5f);
+                    player1_SR.enabled = true;
+
+                    foreach (Transform obj in player1.transform)
+                    {
+                        if (!obj.name.Contains("tick"))
+                        {
+                            obj.GetComponent<SpriteRenderer>().color = new Vector4(0.5f, 0.5f, 0.5f, 0);
+                            obj.GetComponent<SpriteRenderer>().DOFade(1, 0.5f);
+                            obj.gameObject.SetActive(true);
+                        }
+                    }
+                }
+                else
+                {
+                    player1_SR.color = new Vector4(1, 1, 1, 0);
+                    player1_SR.DOFade(1, 0.5f);
+                    player1_SR.enabled = true;
+
+                    int id = 0;
+                    Color color = Color.white;
+
+                    foreach (Transform obj in player1.transform)
+                    {
+                        if (!obj.name.Contains("tick"))
+                        {
+                            if (!done1)
+                            {
+                                obj.transform.DOKill();
+                                obj.localScale = Vector3.one * 0.8f;
+                                obj.DOScale(Vector3.one * 1f, 0.6f).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.OutExpo);
+
+
+                                if (keyIds1[id] == "A")
+                                    obj.GetComponent<SpriteRenderer>().color = keyColors[0];
+                                else if (keyIds1[id] == "B")
+                                    obj.GetComponent<SpriteRenderer>().color = keyColors[1];
+                                else if (keyIds1[id] == "X")
+                                    obj.GetComponent<SpriteRenderer>().color = keyColors[2];
+                                else
+                                    obj.GetComponent<SpriteRenderer>().color = keyColors[3];
+
+                                color = obj.GetComponent<SpriteRenderer>().color;
+
+                                obj.GetComponent<SpriteRenderer>().color = new Vector4(color.r, color.g, color.b, 0);
+                            }
+                            else
+                                obj.GetComponent<SpriteRenderer>().color = new Vector4(0.5f, 0.5f, 0.5f, 0);
+
+                            obj.GetComponent<SpriteRenderer>().DOFade(1, 0.5f);
+                            obj.gameObject.SetActive(true);
+                        }
+
+                        ++id;
+                    }
+                }
+
+                if (!heroIn2)
+                {
+                    player2_SR.color = new Vector4(0.5f, 0.5f, 0.5f, 0);
+                    player2_SR.DOFade(1, 0.5f);
+                    player2_SR.enabled = true;
+
+                    foreach (Transform obj in player2.transform)
+                    {
+                        if (!obj.name.Contains("tick"))
+                        {
+                            obj.GetComponent<SpriteRenderer>().color = new Vector4(0.5f, 0.5f, 0.5f, 0);
+
+                            obj.GetComponent<SpriteRenderer>().DOFade(1, 0.5f);
+                            obj.gameObject.SetActive(true);
+                        }
+                    }
+                }
+                else
+                {
+                    player2_SR.color = new Vector4(1, 1, 1, 0);
+                    player2_SR.DOFade(1, 0.5f);
+                    player2_SR.enabled = true;
+
+                    int id = 0;
+                    Color color = Color.white;
+
+                    foreach (Transform obj in player2.transform)
+                    {
+                        if (!obj.name.Contains("tick"))
+                        {
+                            if (!done2)
+                            {
+                                obj.transform.DOKill();
+                                obj.localScale = Vector3.one * 0.8f;
+                                obj.DOScale(Vector3.one * 1f, 0.6f).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.OutExpo);
+
+
+                                if (keyIds2[id] == "A")
+                                    obj.GetComponent<SpriteRenderer>().color = keyColors[0];
+                                else if (keyIds2[id] == "B")
+                                    obj.GetComponent<SpriteRenderer>().color = keyColors[1];
+                                else if (keyIds2[id] == "X")
+                                    obj.GetComponent<SpriteRenderer>().color = keyColors[2];
+                                else
+                                    obj.GetComponent<SpriteRenderer>().color = keyColors[3];
+
+                                color = obj.GetComponent<SpriteRenderer>().color;
+
+                                obj.GetComponent<SpriteRenderer>().color = new Vector4(color.r, color.g, color.b, 0);
+                            }
+                            else
+                                obj.GetComponent<SpriteRenderer>().color = new Vector4(0.5f, 0.5f, 0.5f, 0);
+
+                            obj.GetComponent<SpriteRenderer>().DOFade(1, 0.5f);
+                            obj.gameObject.SetActive(true);
+                        }
+
+                        ++id;
+                    }
                 }
 
                 if (done1)

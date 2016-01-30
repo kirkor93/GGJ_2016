@@ -24,17 +24,20 @@ namespace Assets.Scripts
 
         public override void OnActionStart()
         {
-            if (_caughtChicken != null)
+            if (!sequenceMode)
             {
-                _caughtChickenRigidbody.AddForce(_lastInputDirection*ThrowForce);
-                _caughtChicken.UnblockMovement();
-                _caughtChicken.transform.parent = null;
-                _caughtChicken = null;
-                _caughtChickenRigidbody = null;
-            }
-            else if (_actionCoroutine == null)
-            {
-                _actionCoroutine = StartCoroutine(HitCoroutine());
+                if (_caughtChicken != null)
+                {
+                    _caughtChickenRigidbody.AddForce(_lastInputDirection * ThrowForce);
+                    _caughtChicken.UnblockMovement();
+                    _caughtChicken.transform.parent = null;
+                    _caughtChicken = null;
+                    _caughtChickenRigidbody = null;
+                }
+                else if (_actionCoroutine == null)
+                {
+                    _actionCoroutine = StartCoroutine(HitCoroutine());
+                }
             }
         }
 

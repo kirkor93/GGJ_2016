@@ -45,30 +45,28 @@ namespace Assets.Scripts
 
         public override void OnActionRelease()
         {
-            
+
         }
 
         public override void OnMove(Vector2 direction)
         {
             base.OnMove(direction);
             Vector3 scale = transform.localScale;
-            scale.x = Mathf.Sign(direction.x)*Mathf.Abs(scale.x);
+            scale.x = Mathf.Sign(direction.x) * Mathf.Abs(scale.x);
             transform.localScale = scale;
             _lastInputDirection = direction;
         }
 
         protected void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.gameObject.layer != LayerMask.NameToLayer("hero"))
+            Chicken c = other.GetComponent<Chicken>();
+            if (c != null)
             {
-                Chicken c = other.GetComponent<Chicken>();
-                if (c != null)
-                {
-                    c.transform.parent = transform;
-                    c.transform.position = ChickenPosition.position;
-                    _caughtChicken = c;
-                }
+                c.transform.parent = transform;
+                c.transform.position = ChickenPosition.position;
+                _caughtChicken = c;
             }
+
         }
     }
 }

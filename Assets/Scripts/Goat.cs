@@ -37,8 +37,11 @@ namespace Assets.Scripts
                 if (_caughtChicken != null)
                 {
                     //                    StartCoroutine(Throw());
-                    _caughtChickenRigidbody.velocity = _lastInputDirection * ThrowForce;
-                    _caughtChicken.UnblockMovement();
+//                    InputManager.InputEnabled = false;
+//                    _caughtChickenRigidbody.Velo;
+                    _caughtChickenRigidbody.velocity = _lastInputDirection*ThrowForce;
+
+//                    _caughtChicken.Invoke("UnblockMovement", 1.3f);
                     _caughtChicken = null;
                     _caughtChickenRigidbody = null;
 //                    Debug.Break();

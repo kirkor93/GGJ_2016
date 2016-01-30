@@ -10,18 +10,22 @@ namespace Assets.Scripts
 
         public Collider2D[] HitColliders;
         public Transform ChickenPosition;
+        public float ThrowForce;
 
         private Coroutine _actionCoroutine;
         private Chicken _caughtChicken;
         private Vector2 _lastInputDirection;
+        private Rigidbody2D _caughtChickenRigidbody;
 
         public override void OnActionStart()
         {
             if (_caughtChicken != null)
             {
-                //throw chicken
+                _caughtChickenRigidbody.AddForce(_lastInputDirection*ThrowForce);
+                _caughtChicken.UnblockMovement();
                 _caughtChicken.transform.parent = null;
                 _caughtChicken = null;
+                _caughtChickenRigidbody = null;
             }
             else if (_actionCoroutine == null)
             {
@@ -57,11 +61,22 @@ namespace Assets.Scripts
             _lastInputDirection = direction;
         }
 
+        protected void Update()
+        {
+            if (_caughtChickenRigidbody != null)
+            {
+                _caughtChickenRigidbody.velocity = Vector2.zero;
+                _caughtChickenRigidbody.position = ChickenPosition.position;
+            }
+        }
+
         protected void OnTriggerEnter2D(Collider2D other)
         {
             Chicken c = other.GetComponent<Chicken>();
             if (c != null)
             {
+                c.BlockMovement();
+                _caughtChickenRigidbody = c.GetComponent<Rigidbody2D>();
                 c.transform.parent = transform;
                 c.transform.position = ChickenPosition.position;
                 _caughtChicken = c;

@@ -1,0 +1,211 @@
+fileFormatVersion: 2
+guid: 62f945b025ca21846ad425a71b030553
+timeCreated: 1454155905
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: kick_0
+    21300002: kick_1
+    21300004: kick_2
+    21300006: kick_3
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: -1
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 5
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: kick_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 2139
+        height: 1998
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 232, y: -87}
+        - {x: 232, y: -18}
+        - {x: 210, y: 15}
+        - {x: 180, y: 1}
+        - {x: 177, y: -2}
+        - {x: 178, y: -5}
+        - {x: 187, y: -6}
+        - {x: 195, y: -32}
+        - {x: 62, y: 33}
+        - {x: 9, y: 182}
+        - {x: -123, y: 227}
+        - {x: -176, y: 227}
+        - {x: -187, y: 215}
+        - {x: -187, y: 210}
+        - {x: -177, y: 193}
+        - {x: -139, y: 168}
+        - {x: -129, y: 154}
+        - {x: -150, y: 174}
+        - {x: -168, y: 173}
+        - {x: -187, y: 164}
+        - {x: -187, y: 139}
+        - {x: -103, y: -1}
+        - {x: -3, y: -197}
+        - {x: 38, y: -239}
+        - {x: 101, y: -239}
+        - {x: 104, y: -163}
+        - {x: 209, y: -166}
+    - name: kick_1
+      rect:
+        serializedVersion: 2
+        x: 2139
+        y: 0
+        width: 2139
+        height: 1998
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -48.767242, y: -239}
+        - {x: -43.767242, y: -235}
+        - {x: 14.232758, y: -239}
+        - {x: 88.23276, y: -239}
+        - {x: 84.23276, y: -220}
+        - {x: 96.23276, y: -233}
+        - {x: 101.23276, y: -239}
+        - {x: 129.23276, y: -239}
+        - {x: 151.23276, y: -107}
+        - {x: 137.23276, y: -36}
+        - {x: 227.23276, y: -49}
+        - {x: 248.23276, y: -11}
+        - {x: 248.23276, y: 67}
+        - {x: 170.23276, y: 88}
+        - {x: 72.23276, y: 88}
+        - {x: 48.232758, y: 13}
+        - {x: -122.76724, y: 51}
+        - {x: -156.76724, y: 13}
+        - {x: -156.76724, y: -187}
+        - {x: -143.76724, y: -239}
+        - {x: -103.76724, y: -239}
+        - {x: -102.76724, y: -220}
+        - {x: -89.76724, y: -231}
+        - {x: -80.76724, y: -239}
+    - name: kick_2
+      rect:
+        serializedVersion: 2
+        x: 4278
+        y: 0
+        width: 2139
+        height: 1998
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -32.034485, y: -239}
+        - {x: 1.9655151, y: -148}
+        - {x: 101.965515, y: -234}
+        - {x: 136.96552, y: -202}
+        - {x: 147.96552, y: -133}
+        - {x: 157.96552, y: -49}
+        - {x: 209.96552, y: 39}
+        - {x: 209.96552, y: 107}
+        - {x: 153.96552, y: 150}
+        - {x: 60.965515, y: 150}
+        - {x: 42.965515, y: 115}
+        - {x: 53.965515, y: 94}
+        - {x: 71.965515, y: 49}
+        - {x: -79.034485, y: -2}
+        - {x: -138.03448, y: 34}
+        - {x: -147.03448, y: 33}
+        - {x: -154.03448, y: 21}
+        - {x: -154.03448, y: -90}
+        - {x: -150.03448, y: -104}
+        - {x: -142.03448, y: -233}
+        - {x: -128.03448, y: -239}
+        - {x: -88.034485, y: -239}
+        - {x: -87.034485, y: -220}
+        - {x: -79.034485, y: -231}
+        - {x: -71.034485, y: -239}
+    - name: kick_3
+      rect:
+        serializedVersion: 2
+        x: 6417
+        y: 0
+        width: 2139
+        height: 1998
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 97.19824, y: -221}
+        - {x: 120.19824, y: -218}
+        - {x: 135.19824, y: -80}
+        - {x: 127.19824, y: -72}
+        - {x: 131.19824, y: -64}
+        - {x: 144.19824, y: -90}
+        - {x: 160.19824, y: -87}
+        - {x: 224.19824, y: -48}
+        - {x: 224.19824, y: -9}
+        - {x: 203.19824, y: 54}
+        - {x: 150.19824, y: 97}
+        - {x: 122.19824, y: 84}
+        - {x: 108.19824, y: 67}
+        - {x: 111.19824, y: 60}
+        - {x: -4.801758, y: 119}
+        - {x: -131.80176, y: 119}
+        - {x: -246.80176, y: 28}
+        - {x: -246.80176, y: -90}
+        - {x: -22.801758, y: -163}
+        - {x: 59.198242, y: -224}
+        - {x: 80.19824, y: -224}
+        - {x: 81.19824, y: -223}
+        - {x: 82.19824, y: -206}
+        - {x: 79.19824, y: -194}
+        - {x: 83.19824, y: -203}
+      - - {x: 157.19824, y: -85}
+        - {x: 160.19824, y: -84}
+        - {x: 160.19824, y: -81}
+        - {x: 157.19824, y: -80}
+        - {x: 155.19824, y: -82}
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

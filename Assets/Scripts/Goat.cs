@@ -39,6 +39,7 @@ namespace Assets.Scripts
                     _actionCoroutine = StartCoroutine(HitCoroutine());
                 }
             }
+			GetComponent<Animator>().SetBool("attack", true);
         }
 
         private IEnumerator HitCoroutine()
@@ -61,9 +62,10 @@ namespace Assets.Scripts
             {
 
             }
-        }
+			GetComponent<Animator>().SetBool("attack", false);
+		}
 
-        public override void OnMove(Vector2 direction)
+		public override void OnMove(Vector2 direction)
         {
             base.OnMove(direction);
             Vector3 scale = transform.localScale;

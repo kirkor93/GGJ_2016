@@ -46,7 +46,7 @@ namespace Assets.Scripts
 
         }
 
-        protected virtual void OnCollisionEnter2D(Collision2D other)
+        protected virtual void OnCollisionStay2D(Collision2D other)
         {
             _flying = false;
         }
@@ -58,19 +58,21 @@ namespace Assets.Scripts
 
         public virtual void OnMove(Vector2 direction)
         {
+            float targetMovementSpeed;
             if (Mathf.Abs(direction.x) > 0.0f)
             {
-                float targetMovementSpeed = _currentMovementSpeed + Acceleration * direction.x;
-                if (Math.Abs(Mathf.Sign(targetMovementSpeed) - Mathf.Sign(_currentMovementSpeed)) > 0.1f)
+                targetMovementSpeed = _currentMovementSpeed + Acceleration * direction.x;
+                if (Mathf.Abs(targetMovementSpeed / _currentMovementSpeed) < 1.0f)
                 {
-                    _currentMovementSpeed = (1.0f - Friction) * _currentMovementSpeed;
+                    targetMovementSpeed *= (1.0f - Friction);
                 }
-                _currentMovementSpeed = Mathf.Clamp(Mathf.Lerp(_currentMovementSpeed, targetMovementSpeed, 0.5f), -MaxMovementSpeed, MaxMovementSpeed);
             }
             else
             {
-                _currentMovementSpeed = (1.0f - Friction) * _currentMovementSpeed;
+                targetMovementSpeed = (1.0f - Friction) * _currentMovementSpeed;
             }
+            _currentMovementSpeed = Mathf.Clamp(Mathf.Lerp(_currentMovementSpeed, targetMovementSpeed, 0.5f),
+                -MaxMovementSpeed, MaxMovementSpeed);
             Vector2 vel = Rigidbody.velocity;
             vel.x = _currentMovementSpeed * Time.deltaTime;
             Rigidbody.velocity = vel;
@@ -82,6 +84,7 @@ namespace Assets.Scripts
             { 
                 return;
             }
+
             Rigidbody.velocity = Rigidbody.velocity + Vector2.up*JumpSpeed;
         }
 

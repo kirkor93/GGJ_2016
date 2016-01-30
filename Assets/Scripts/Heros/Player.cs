@@ -28,6 +28,11 @@ namespace Assets.Scripts
 
         private int _currentScore;
 
+		public bool Flying
+		{
+			get { return _flying; }
+		}
+
         public int CurrentScore
         {
             get { return _currentScore; }

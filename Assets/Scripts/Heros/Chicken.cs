@@ -24,6 +24,7 @@ public class Chicken : Player
 	{
 		FixRotation();
 		ShotCooldown();
+		UpdateJumpingAnimation();
 	}
 
 	public override void OnActionStart()
@@ -35,6 +36,7 @@ public class Chicken : Player
 			GameObject tempEgg = Instantiate(egg, transform.position, Quaternion.identity) as GameObject;
 			tempEgg.GetComponent<Rigidbody2D>().AddForce(dir * power, ForceMode2D.Impulse);
 			shot = true;
+			GetComponent<Animator>().SetBool("shooting", shot);
 		}
 	}
 
@@ -49,9 +51,23 @@ public class Chicken : Player
 
 	public override void OnMove(Vector2 direction)
 	{
-		if(canMove)
+		if(canMove && !shot)
 			base.OnMove(direction);
 		dir = direction;
+
+		if(dir.x > -0.1f && dir.x < 0.1f)
+			GetComponent<Animator>().SetBool("moving", false);
+		else
+			GetComponent<Animator>().SetBool("moving", true);
+
+	}
+
+	void UpdateJumpingAnimation()
+	{
+		if(Flying)
+			GetComponent<Animator>().SetBool("jumping", true);
+		else
+			GetComponent<Animator>().SetBool("jumping", false);
 	}
 
 	void FixRotation()
@@ -74,6 +90,7 @@ public class Chicken : Player
 			{
 				cooldown = 0.5f;
 				shot = false;
+				GetComponent<Animator>().SetBool("shooting", shot);
 			}
 		}
 	}

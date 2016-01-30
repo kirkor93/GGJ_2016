@@ -54,7 +54,10 @@ namespace Assets.Scripts
 
         public override void OnActionRelease()
         {
+            if (!sequenceMode)
+            {
 
+            }
         }
 
         public override void OnMove(Vector2 direction)

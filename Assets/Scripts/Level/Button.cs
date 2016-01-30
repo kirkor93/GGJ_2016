@@ -2,6 +2,7 @@
 using System.Collections;
 using DG.Tweening;
 using System.Collections.Generic;
+using Assets.Scripts;
 
 public class Button : MonoBehaviour {
 
@@ -342,6 +343,7 @@ public class Button : MonoBehaviour {
                 {
                     ShowIcons(false);
                     StartCoroutine("DeactivateAll");
+                    Platform();
                 }
 
                  
@@ -352,6 +354,8 @@ public class Button : MonoBehaviour {
     {
         if (col.gameObject.layer == LayerMask.NameToLayer("hero"))
         {
+            col.gameObject.GetComponent<Player>().sequenceMode = true;
+
             if (playersCount == 1)
             {
                 heroIn1 = true;
@@ -362,6 +366,7 @@ public class Button : MonoBehaviour {
                     player1_SR.sprite = iconGoat;
 
                 ShowIcons(true);
+
             }
             else
             {
@@ -392,6 +397,8 @@ public class Button : MonoBehaviour {
     {
         if (col.gameObject.layer == LayerMask.NameToLayer("hero"))
         {
+            col.gameObject.GetComponent<Player>().sequenceMode = false;
+
             if (playersCount == 1)
             {
                 heroIn1 = false;

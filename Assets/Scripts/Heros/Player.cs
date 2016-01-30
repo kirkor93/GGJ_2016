@@ -72,12 +72,15 @@ namespace Assets.Scripts
 
         public virtual void OnJumpStart()
         {
-            if (_flying)
+            if (!sequenceMode)
             {
-                return;
-            }
+                if (_flying)
+                {
+                    return;
+                }
 
-            _jumpCoroutine = StartCoroutine(Jump());
+                _jumpCoroutine = StartCoroutine(Jump());
+            }
         }
 
         private IEnumerator Jump()
@@ -93,7 +96,7 @@ namespace Assets.Scripts
 
         public virtual void OnJumpRelease()
         {
-            if (_jumpCoroutine != null)
+            if (_jumpCoroutine != null && !sequenceMode)
             {
                 StopCoroutine(_jumpCoroutine);
             }

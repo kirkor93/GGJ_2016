@@ -20,7 +20,7 @@ public class Button : MonoBehaviour {
     public GameObject actionObj;
 
     internal bool heroIn1, heroIn2, done;
-    GameObject icon, platform, player1, player2;
+    GameObject icon, platform, player1, player2, chicken, goat;
     Transform dzwignia;
     SpriteRenderer iconSprite;
     SpriteRenderer player1_SR, player2_SR;
@@ -431,8 +431,12 @@ public class Button : MonoBehaviour {
                 if (done1 && done2)
                 {
                     ShowIcons(false);
-                    GameObject.Find("chicken").GetComponent<Player>().SequenceMode = false;
-                    GameObject.Find("Goat").GetComponent<Player>().SequenceMode = false;
+
+                    if (chicken != null)
+                        chicken.GetComponent<Player>().SequenceMode = false;
+
+                    if (goat != null)
+                        goat.GetComponent<Player>().SequenceMode = false;
 
                     StartCoroutine("DeactivateAll");
                     actionObj.GetComponent<Barrier>().startAction = true;
@@ -459,9 +463,15 @@ public class Button : MonoBehaviour {
                 heroIn1 = true;
 
                 if (col.gameObject.name.Contains("chicken"))
+                {
+                    chicken = col.gameObject;
                     player1_SR.sprite = iconChicken;
+                }
                 else
+                {
+                    goat = col.gameObject;
                     player1_SR.sprite = iconGoat;
+                }
 
                 ShowIcons(true);
 
@@ -474,11 +484,13 @@ public class Button : MonoBehaviour {
 
                 if (col.gameObject.name.Contains("chicken"))
                 {
+                    chicken = col.gameObject;
                     heroIn1 = true;
                 }
 
                 if (col.gameObject.name.Contains("Goat"))
                 {
+                    goat = col.gameObject;
                     heroIn2 = true;
                 }
 
@@ -736,8 +748,13 @@ public class Button : MonoBehaviour {
                }
            }
 
-           GameObject.Find("chicken").GetComponent<Player>().SequenceMode = false;
-           GameObject.Find("Goat").GetComponent<Player>().SequenceMode = false;
+           //GameObject.Find("chicken").GetComponent<Player>().SequenceMode = false;
+           //GameObject.Find("Goat").GetComponent<Player>().SequenceMode = false;
+
+           if (chicken != null)
+               chicken.GetComponent<Player>().SequenceMode = false;
+           if (goat != null)
+               goat.GetComponent <Player>().SequenceMode = false;
 
           StartCoroutine("DeactivateAll");
        }

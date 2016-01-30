@@ -6,7 +6,7 @@ public class Coin : MonoBehaviour
 {
     public int ScoreIncrease = 1;
 
-    protected void OnCollisionEnter2D(Collision2D other)
+    protected void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("hero"))
         {

@@ -6,7 +6,6 @@ using Assets.Scripts;
 public class Trampoline : MonoBehaviour {
 
     public float jumpSpeed1, jumpSpeed2;
-    float orgSpeed1, orgSpeed2;
     Player player1, player2;
     bool p1, p2;
     Transform sprezyna, top;
@@ -30,12 +29,10 @@ public class Trampoline : MonoBehaviour {
             {
                 StartCoroutine("ReturnSpeed");
 
-                orgSpeed1 = col.gameObject.GetComponent<Player>().JumpSpeed;
                 player1 = col.gameObject.GetComponent<Player>();
                 p1 = true;
 
-                col.gameObject.GetComponent<Player>().JumpSpeed = jumpSpeed1;
-                col.gameObject.GetComponent<Player>().OnJumpStart();
+                col.gameObject.GetComponent<Rigidbody2D>().velocity = col.gameObject.GetComponent<Rigidbody2D>().velocity + Vector2.up * jumpSpeed1;
 
                 sprezyna.DOScaleY(0.8f, 0.2f).SetLoops(2, LoopType.Yoyo);
                 top.DOMoveY(top.position.y - top.GetComponent<SpriteRenderer>().bounds.size.y/2, 0.2f).SetLoops(2,LoopType.Yoyo);
@@ -45,12 +42,10 @@ public class Trampoline : MonoBehaviour {
             {
                 StartCoroutine("ReturnSpeed");
 
-                orgSpeed2 = col.gameObject.GetComponent<Player>().JumpSpeed;
                 player2 = col.gameObject.GetComponent<Player>();
                 p2 = true;
 
-                col.gameObject.GetComponent<Player>().JumpSpeed = jumpSpeed2;
-                col.gameObject.GetComponent<Player>().OnJumpStart();
+                col.gameObject.GetComponent<Rigidbody2D>().velocity = col.gameObject.GetComponent<Rigidbody2D>().velocity + Vector2.up * jumpSpeed2;
 
                 if (!p1)
                 {
@@ -69,13 +64,11 @@ public class Trampoline : MonoBehaviour {
         if (p1)
         {
             p1 = false;
-            player1.JumpSpeed = orgSpeed1;
         }
 
         if (p2)
         {
             p2 = false;
-            player2.JumpSpeed = orgSpeed2;
         }
 
         sprezyna.DOKill();

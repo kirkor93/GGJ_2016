@@ -101,7 +101,7 @@ namespace Assets.Scripts
         public void ChangeScore(int value)
         {
             _currentScore += value;
-            Debug.Log(_currentScore);
+//            Debug.Log(_currentScore);
         }
 
         public abstract void OnActionStart();

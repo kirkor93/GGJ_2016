@@ -76,7 +76,7 @@ namespace Assets.Scripts
         {
             if (_caughtChickenRigidbody != null)
             {
-                _caughtChickenRigidbody.velocity = Vector2.zero;
+                _caughtChickenRigidbody.velocity = Vector2.up * _caughtChickenRigidbody.velocity.y ;
                 _caughtChickenRigidbody.position = ChickenPosition.position;
             }
         }
@@ -88,7 +88,6 @@ namespace Assets.Scripts
             {
                 c.BlockMovement();
                 _caughtChickenRigidbody = c.GetComponent<Rigidbody2D>();
-                c.transform.parent = transform;
                 c.transform.position = ChickenPosition.position;
                 _caughtChicken = c;
             }

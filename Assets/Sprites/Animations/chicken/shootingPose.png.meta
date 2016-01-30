@@ -1,0 +1,240 @@
+fileFormatVersion: 2
+guid: 949359a3aa1ea5647837bc231c6b1c43
+timeCreated: 1454144726
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: shootingPose_0
+    21300002: shootingPose_1
+    21300004: shootingPose_2
+    21300006: shootingPose_3
+    21300008: shootingPose_4
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: -1
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 5
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: shootingPose_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 809
+        height: 754
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 29, y: -178}
+        - {x: 170, y: -133}
+        - {x: 170, y: -51}
+        - {x: 167, y: -37}
+        - {x: 116, y: 24}
+        - {x: 86, y: 8}
+        - {x: 83, y: 4}
+        - {x: 63, y: 48}
+        - {x: 31, y: 85}
+        - {x: -10, y: 99}
+        - {x: -65, y: 99}
+        - {x: -119, y: 70}
+        - {x: -148, y: 24}
+        - {x: -151, y: 21}
+        - {x: -151, y: -76}
+        - {x: -109, y: -191}
+        - {x: -59, y: -191}
+        - {x: -50, y: -186}
+        - {x: -31, y: -191}
+        - {x: 33, y: -191}
+      - - {x: -162, y: 7}
+        - {x: -160, y: 5}
+        - {x: -157, y: 6}
+        - {x: -157, y: 9}
+        - {x: -159, y: 11}
+        - {x: -162, y: 10}
+    - name: shootingPose_1
+      rect:
+        serializedVersion: 2
+        x: 809
+        y: 0
+        width: 809
+        height: 754
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 32.100006, y: -184}
+        - {x: 78.100006, y: -49}
+        - {x: 81.100006, y: 21}
+        - {x: 181.1, y: 95}
+        - {x: 181.1, y: 138}
+        - {x: 120.100006, y: 188}
+        - {x: 99.100006, y: 191}
+        - {x: 37.100006, y: 191}
+        - {x: 26.100006, y: 171}
+        - {x: 32.100006, y: 162}
+        - {x: 20.100006, y: 119}
+        - {x: -76.899994, y: 102}
+        - {x: -171.9, y: 50}
+        - {x: -171.9, y: 16}
+        - {x: -166.9, y: 2}
+        - {x: -161.9, y: -21}
+        - {x: -115.899994, y: -78}
+        - {x: -95.899994, y: -95}
+        - {x: -87.899994, y: -100}
+        - {x: -98.899994, y: -180}
+        - {x: -77.899994, y: -191}
+        - {x: -55.899994, y: -191}
+        - {x: -47.899994, y: -187}
+        - {x: -25.899994, y: -191}
+        - {x: 18.100006, y: -191}
+    - name: shootingPose_2
+      rect:
+        serializedVersion: 2
+        x: 1618
+        y: 0
+        width: 809
+        height: 754
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -0.7999878, y: -191}
+        - {x: 20.200012, y: -191}
+        - {x: 31.200012, y: -184}
+        - {x: 30.200012, y: -117}
+        - {x: 97.20001, y: -68}
+        - {x: 182.20001, y: -17}
+        - {x: 182.20001, y: 27}
+        - {x: 156.20001, y: 85}
+        - {x: 119.20001, y: 109}
+        - {x: 4.200012, y: 109}
+        - {x: -81.79999, y: 105}
+        - {x: -131.79999, y: 104}
+        - {x: -147.79999, y: 71}
+        - {x: -147.79999, y: -26}
+        - {x: -146.79999, y: -40}
+        - {x: -84.79999, y: -134}
+        - {x: -94.79999, y: -176}
+        - {x: -91.79999, y: -181}
+        - {x: -76.79999, y: -191}
+        - {x: -57.799988, y: -191}
+        - {x: -44.799988, y: -186}
+        - {x: -42.799988, y: -115}
+        - {x: -19.799988, y: -185}
+    - name: shootingPose_3
+      rect:
+        serializedVersion: 2
+        x: 2427
+        y: 0
+        width: 809
+        height: 754
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 32.30005, y: -184}
+        - {x: 16.300049, y: -122}
+        - {x: 55.30005, y: -91}
+        - {x: 184.30005, y: -138}
+        - {x: 184.30005, y: -43}
+        - {x: 179.30005, y: -24}
+        - {x: 127.30005, y: 26}
+        - {x: 67.30005, y: 58}
+        - {x: 13.300049, y: 108}
+        - {x: -20.699951, y: 138}
+        - {x: -77.69995, y: 138}
+        - {x: -115.69995, y: 127}
+        - {x: -138.69995, y: 41}
+        - {x: -138.69995, y: -46}
+        - {x: -114.69995, y: -78}
+        - {x: -77.69995, y: -125}
+        - {x: -97.69995, y: -180}
+        - {x: -76.69995, y: -191}
+        - {x: -57.69995, y: -191}
+        - {x: -48.69995, y: -186}
+        - {x: -32.69995, y: -191}
+        - {x: 15.300049, y: -191}
+    - name: shootingPose_4
+      rect:
+        serializedVersion: 2
+        x: 3236
+        y: 0
+        width: 809
+        height: 754
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -1.5999756, y: -191}
+        - {x: 22.400024, y: -191}
+        - {x: 31.400024, y: -184}
+        - {x: 153.40002, y: -156}
+        - {x: 166.40002, y: -135}
+        - {x: 166.40002, y: -37}
+        - {x: 134.40002, y: 32}
+        - {x: 34.400024, y: 83}
+        - {x: 10.400024, y: 99}
+        - {x: -69.599976, y: 99}
+        - {x: -126.599976, y: 80}
+        - {x: -149.59998, y: 33}
+        - {x: -149.59998, y: -39}
+        - {x: -142.59998, y: -56}
+        - {x: -84.599976, y: -121}
+        - {x: -93.599976, y: -174}
+        - {x: -93.599976, y: -178}
+        - {x: -83.599976, y: -191}
+        - {x: -49.599976, y: -191}
+        - {x: -48.599976, y: -186}
+        - {x: -43.599976, y: -120}
+        - {x: -17.599976, y: -184}
+      - - {x: -161.59998, y: 11}
+        - {x: -161.59998, y: 5}
+        - {x: -157.59998, y: 5}
+        - {x: -155.59998, y: 6}
+        - {x: -155.59998, y: 11}
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

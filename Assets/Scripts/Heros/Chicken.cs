@@ -18,6 +18,7 @@ public class Chicken : Player
 	void Start ()
 	{
         SequenceMode = false;
+        Water = false;
 	}
 	
 	void Update ()
@@ -64,10 +65,15 @@ public class Chicken : Player
 
 	void UpdateJumpingAnimation()
 	{
-		if(Flying)
-			GetComponent<Animator>().SetBool("jumping", true);
-		else
-			GetComponent<Animator>().SetBool("jumping", false);
+        if (!Water)
+        {
+            if (Flying)
+                GetComponent<Animator>().SetBool("jumping", true);
+            else
+                GetComponent<Animator>().SetBool("jumping", false);
+        }
+        else
+            GetComponent<Animator>().SetBool("jumping", true);
 	}
 
 	void FixRotation()

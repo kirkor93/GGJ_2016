@@ -20,6 +20,7 @@ namespace Assets.Scripts
         void Start()
         {
             SequenceMode = false;
+            Water = false;
         }
 
         public override void OnActionStart()
@@ -87,10 +88,16 @@ namespace Assets.Scripts
                 _caughtChickenRigidbody.position = ChickenPosition.position;
             }
 
-			if (Flying)
-				GetComponent<Animator>().SetBool("jumping", true);
-			else
-				GetComponent<Animator>().SetBool("jumping", false);
+            if (!Water)
+            {
+                if (Flying)
+                    GetComponent<Animator>().SetBool("jumping", true);
+                else
+                    GetComponent<Animator>().SetBool("jumping", false);
+            }
+            else
+                GetComponent<Animator>().SetBool("jumping", true);
+
         }
 
         protected void OnTriggerEnter2D(Collider2D other)

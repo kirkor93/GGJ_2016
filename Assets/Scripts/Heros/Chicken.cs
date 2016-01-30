@@ -35,6 +35,7 @@ public class Chicken : Player
 			transform.localScale = new Vector3(-transform.localScale.x, 1, 1);
 			GetComponent<SpriteRenderer>().sprite = cannon;
 			GameObject tempEgg = Instantiate(egg, transform.position, Quaternion.identity) as GameObject;
+			Debug.Log("JAJO!!!");
 			tempEgg.GetComponent<Rigidbody2D>().AddForce(dir * power, ForceMode2D.Impulse);
 			shot = true;
 			GetComponent<Animator>().SetBool("shooting", shot);

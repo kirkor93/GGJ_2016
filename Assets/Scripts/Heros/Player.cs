@@ -31,7 +31,7 @@ namespace Assets.Scripts
         protected virtual void FixedUpdate()
         {
             _flying = !GroundTestCollider.IsTouchingLayers(LayerMask.NameToLayer("Level"));
-            Debug.Log(gameObject.name + _flying);
+            //Debug.Log(gameObject.name + _flying);
         }
         public virtual void OnMove(Vector2 direction)
         {

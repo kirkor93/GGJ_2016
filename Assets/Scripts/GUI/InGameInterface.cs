@@ -1,5 +1,7 @@
 ﻿using System;
+using DG.Tweening;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace Assets.Scripts.GUI
@@ -18,11 +20,26 @@ namespace Assets.Scripts.GUI
         protected void Start()
         {
             Goat.OnGameOver += HandleOnGameOver;
+            Chicken.OnGameOver += HandleOnGameOver;
         }
 
         private void HandleOnGameOver(object sender, GameOverEventArgs gameOverEventArgs)
         {
-            
+            bool onCompleteAdded = false;
+            foreach (Image ren in GameOverScreen.GetComponentsInChildren<Image>(true))
+            {
+                Color c = ren.color;
+                float targetAlpha = c.a;
+                c.a = 0.0f;
+                ren.color = c;
+                Tweener tween = ren.DOFade(targetAlpha, 4.0f);
+                if (!onCompleteAdded)
+                {
+                    onCompleteAdded = true;
+                    tween.OnComplete(() => SceneLoader.Instance.LoadLevel(SceneManager.GetActiveScene().name));
+                }
+            }
+            GameOverScreen.gameObject.SetActive(true);
         }
 
         protected void Update()

@@ -74,7 +74,7 @@ public class Chicken : Player
 	{
 		if (dir.x > 0)
 			GetComponent<SpriteRenderer>().flipX = false;
-		else
+		else if (dir.x < 0)
 			GetComponent<SpriteRenderer>().flipX = true;
 	}
 

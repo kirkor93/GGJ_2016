@@ -93,6 +93,7 @@ namespace Assets.Scripts
 
         public virtual void OnMove(Vector2 direction)
         {
+//            _currentMovementSpeed = Rigidbody.velocity.x;
             float targetMovementSpeed;
             if (Mathf.Abs(direction.x) > 0.0f)
             {

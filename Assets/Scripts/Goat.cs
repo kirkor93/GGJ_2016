@@ -16,8 +16,15 @@ namespace Assets.Scripts
         private Chicken _caughtChicken;
         private Vector2 _lastInputDirection;
         private Rigidbody2D _caughtChickenRigidbody;
+        private Animator _animator;
 
-        void Start()
+        protected override void Awake()
+        {
+            base.Awake();
+            _animator = GetComponent<Animator>();
+        }
+
+        protected void Start()
         {
             SequenceMode = false;
             Water = false;
@@ -29,18 +36,33 @@ namespace Assets.Scripts
             {
                 if (_caughtChicken != null)
                 {
-                    _caughtChickenRigidbody.AddForce(_lastInputDirection * ThrowForce);
-                    _caughtChicken.UnblockMovement();
-                    _caughtChicken.transform.parent = null;
+                    //                    StartCoroutine(Throw());
+//                    InputManager.InputEnabled = false;
+//                    _caughtChickenRigidbody.Velo;
+                    _caughtChickenRigidbody.velocity = _lastInputDirection*ThrowForce;
+
+//                    _caughtChicken.Invoke("UnblockMovement", 1.3f);
                     _caughtChicken = null;
                     _caughtChickenRigidbody = null;
+//                    Debug.Break();
                 }
                 else if (_actionCoroutine == null)
                 {
                     _actionCoroutine = StartCoroutine(HitCoroutine());
                 }
             }
-			GetComponent<Animator>().SetBool("attack", true);
+            _animator.SetBool("attack", true);
+        }
+
+        private IEnumerator Throw()
+        {
+            foreach (Collider2D c in _caughtChicken.GetComponents<Collider2D>())
+            {
+                c.enabled = false;
+            }
+            yield return new WaitForFixedUpdate();
+            yield return new WaitForFixedUpdate();
+            
         }
 
         private IEnumerator HitCoroutine()
@@ -63,7 +85,7 @@ namespace Assets.Scripts
             {
 
             }
-			GetComponent<Animator>().SetBool("attack", false);
+            _animator.SetBool("attack", false);
 		}
 
 		public override void OnMove(Vector2 direction)
@@ -75,28 +97,28 @@ namespace Assets.Scripts
             _lastInputDirection = direction;
 
 			if(direction.x < 0.1f && direction.x > -0.1f)
-				GetComponent<Animator>().SetBool("moving", false);
+                _animator.SetBool("moving", false);
 			else
-				GetComponent<Animator>().SetBool("moving", true);
+                _animator.SetBool("moving", true);
 		}
 
 		protected void Update()
         {
             if (_caughtChickenRigidbody != null)
             {
-                _caughtChickenRigidbody.velocity = Vector2.up * _caughtChickenRigidbody.velocity.y ;
+                _caughtChickenRigidbody.velocity = Vector2.zero ;
                 _caughtChickenRigidbody.position = ChickenPosition.position;
             }
 
             if (!Water)
             {
                 if (Flying)
-                    GetComponent<Animator>().SetBool("jumping", true);
+                    _animator.SetBool("jumping", true);
                 else
-                    GetComponent<Animator>().SetBool("jumping", false);
+                    _animator.SetBool("jumping", false);
             }
             else
-                GetComponent<Animator>().SetBool("jumping", true);
+                _animator.SetBool("jumping", true);
 
         }
 
@@ -110,7 +132,6 @@ namespace Assets.Scripts
                 c.transform.position = ChickenPosition.position;
                 _caughtChicken = c;
             }
-
         }
     }
 }

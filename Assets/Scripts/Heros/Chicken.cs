@@ -63,7 +63,16 @@ public class Chicken : Player
 
 	}
 
-	void UpdateJumpingAnimation()
+    protected override void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.layer == LayerMask.NameToLayer("Level"))
+        {
+            UnblockMovement(); 
+        }
+        base.OnCollisionEnter2D(other);
+    }
+
+    void UpdateJumpingAnimation()
 	{
         if (!Water)
         {

@@ -17,19 +17,27 @@ namespace Assets.Scripts
         private Vector2 _lastInputDirection;
         private Rigidbody2D _caughtChickenRigidbody;
 
+        void Start()
+        {
+            sequenceMode = false;
+        }
+
         public override void OnActionStart()
         {
-            if (_caughtChicken != null)
+            if (!sequenceMode)
             {
-                _caughtChickenRigidbody.AddForce(_lastInputDirection*ThrowForce);
-                _caughtChicken.UnblockMovement();
-                _caughtChicken.transform.parent = null;
-                _caughtChicken = null;
-                _caughtChickenRigidbody = null;
-            }
-            else if (_actionCoroutine == null)
-            {
-                _actionCoroutine = StartCoroutine(HitCoroutine());
+                if (_caughtChicken != null)
+                {
+                    _caughtChickenRigidbody.AddForce(_lastInputDirection * ThrowForce);
+                    _caughtChicken.UnblockMovement();
+                    _caughtChicken.transform.parent = null;
+                    _caughtChicken = null;
+                    _caughtChickenRigidbody = null;
+                }
+                else if (_actionCoroutine == null)
+                {
+                    _actionCoroutine = StartCoroutine(HitCoroutine());
+                }
             }
         }
 
@@ -49,7 +57,10 @@ namespace Assets.Scripts
 
         public override void OnActionRelease()
         {
+            if (!sequenceMode)
+            {
 
+            }
         }
 
         public override void OnMove(Vector2 direction)

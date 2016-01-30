@@ -17,7 +17,7 @@ public class Chicken : Player
 
 	void Start ()
 	{
-	
+        sequenceMode = false;
 	}
 	
 	void Update ()
@@ -28,7 +28,7 @@ public class Chicken : Player
 
 	public override void OnActionStart()
 	{
-		if (!shot && (dir.x != 0 && dir.y != 0))
+		if (!shot && (dir.x != 0 && dir.y != 0) && !sequenceMode)
 		{
 			transform.localScale = new Vector3(-1, 1, 1);
 			GetComponent<SpriteRenderer>().sprite = cannon;
@@ -40,8 +40,11 @@ public class Chicken : Player
 
 	public override void OnActionRelease()
 	{
-		transform.localScale = new Vector3(1, 1, 1);
-		GetComponent<SpriteRenderer>().sprite = chickenSprite;
+        if (!sequenceMode)
+        {
+            transform.localScale = new Vector3(1, 1, 1);
+            GetComponent<SpriteRenderer>().sprite = chickenSprite;
+        }
 	}
 
 	public override void OnMove(Vector2 direction)

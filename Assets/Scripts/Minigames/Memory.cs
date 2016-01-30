@@ -22,9 +22,21 @@ public class Memory : MonoBehaviour
 	private float player1MoveTimer = 0.25f;
 	private float player2MoveTimer = 0.25f;
 	private float uncoveredCardTimer = 0.5f;
+	private float coverCardTimer = 0.5f;
+	private float timeToCover = 0.5f;
+	private float timeToFade = 0.5f;
+	private float fadeCardTimer = 0.5f;
 	private bool player1JustMoved = false;
 	private bool player2JustMoved = false;
 	private bool isTurningCard = false;
+	private bool coveringCards = false;
+	private bool fadingCards = false;
+	private bool endGame = false;
+
+	public bool EndGame
+	{
+		get	{return endGame;}
+	}
 
 	void Start ()
 	{
@@ -34,10 +46,17 @@ public class Memory : MonoBehaviour
 	
 	void Update ()
 	{
-		Player1Input();
-		Player2Input();
-		HandleMovement();
-		UncoverCard();
+		if (!endGame)
+		{
+			Player1Input();
+			Player2Input();
+			HandleMovement();
+			UncoverCard();
+			CheckIfPair();
+			CoverCard();
+			FadeCard();
+			CheckIfEnd();
+		}
 	}
 
 	void Player1Input()
@@ -88,13 +107,16 @@ public class Memory : MonoBehaviour
 		{
 			foreach (GameObject tile in board)
 			{
-				if (Vector2.Distance(tile.transform.position, player1Pointer.transform.position) < 10)
+				if (tile != null)
 				{
-					if (tile.GetComponent<SpriteRenderer>().color == Color.black)
+					if (Vector2.Distance(tile.transform.position, player1Pointer.transform.position) < 10)
 					{
-						tile.transform.DOScaleX(0, 0.2f);
-						uncoveredCards.Add(tile);
-						isTurningCard = true;
+						if (tile.GetComponent<SpriteRenderer>().color == Color.black)
+						{
+							tile.transform.DOScaleX(0, 0.2f);
+							uncoveredCards.Add(tile);
+							isTurningCard = true;
+						}
 					}
 				}
 			}
@@ -149,13 +171,16 @@ public class Memory : MonoBehaviour
 		{
 			foreach (GameObject tile in board)
 			{
-				if (Vector2.Distance(tile.transform.position, player2Pointer.transform.position) < 10)
+				if (tile != null)
 				{
-					if (tile.GetComponent<SpriteRenderer>().color == Color.black)
+					if (Vector2.Distance(tile.transform.position, player2Pointer.transform.position) < 10)
 					{
-						tile.transform.DOScaleX(0, 0.2f);
-						uncoveredCards.Add(tile);
-						isTurningCard = true;
+						if (tile.GetComponent<SpriteRenderer>().color == Color.black)
+						{
+							tile.transform.DOScaleX(0, 0.2f);
+							uncoveredCards.Add(tile);
+							isTurningCard = true;
+						}
 					}
 				}
 			}
@@ -242,6 +267,10 @@ public class Memory : MonoBehaviour
 				uncoveredCards[uncoveredCards.Count - 1].GetComponent<SpriteRenderer>().color = Color.white;
 				uncoveredCardTimer = 0.2f;
 			}
+			else if (uncoveredCardTimer > 0)
+			{
+				uncoveredCardTimer -= Time.deltaTime;
+			}
 			else
 			{
 				uncoveredCardTimer = 0.5f;
@@ -254,7 +283,127 @@ public class Memory : MonoBehaviour
 	{
 		if(uncoveredCards.Count == 2)
 		{
+			if (uncoveredCards[0].GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).normalizedTime == uncoveredCards[1].GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).normalizedTime)
+			{
+				FadeCards();
+			}
+			else
+			{
+				CoverCards();
+			}
+        }
+	}
 
+	void CoverCards()
+	{
+		if (!isTurningCard && !coveringCards)
+		{
+			if (timeToCover > 0)
+			{
+				timeToCover -= Time.deltaTime;
+			}
+			else
+			{
+				foreach (GameObject tile in uncoveredCards)
+				{
+					tile.transform.DOScaleX(0, 0.2f);
+				}
+				coveringCards = true;
+				timeToCover = 0.5f;
+			}
+		}
+	}
+
+	void FadeCards()
+	{
+		if(!fadingCards)
+		{
+			if(timeToFade > 0)
+			{
+				timeToFade -= Time.deltaTime;
+			}
+			else
+			{
+				foreach(GameObject tile in uncoveredCards)
+				{
+					tile.GetComponent<SpriteRenderer>().DOFade(0, 0.5f);
+				}
+				fadingCards = true;
+				timeToFade = 0.5f;
+			}
+		}
+	}
+
+	void CoverCard()
+	{
+		if(coveringCards)
+		{
+			if(coverCardTimer > 0.25f)
+			{
+				coverCardTimer -= Time.deltaTime;
+			}
+			else if(coverCardTimer <= 0.25f && coverCardTimer > 0.2f)
+			{
+				foreach (GameObject tile in uncoveredCards)
+				{
+					tile.transform.DOScaleX(1, 0.2f);
+					tile.GetComponent<SpriteRenderer>().color = Color.black;
+				}
+				coverCardTimer = 0.2f;
+			}
+			else if(coverCardTimer > 0)
+			{
+				coverCardTimer -= Time.deltaTime;
+			}
+			else
+			{
+				coveringCards = false;
+				uncoveredCards.Clear();
+				coverCardTimer = 0.5f;
+			}
+		}
+	}
+
+	void FadeCard()
+	{
+		if(fadingCards)
+		{
+			if(fadeCardTimer > 0)
+			{
+				fadeCardTimer -= Time.deltaTime;
+			}
+			else
+			{
+				fadingCards = false;
+				for(int x = 0; x < 4; x++)
+				{
+					for (int y = 0; y < 3; y++)
+					{
+						if(board[x,y] == uncoveredCards[0] || board[x, y] == uncoveredCards[1])
+						{
+							board[x, y] = null;
+						}
+					}
+				}
+				Destroy(uncoveredCards[0]);
+				Destroy(uncoveredCards[1]);
+				uncoveredCards.Clear();
+			}
+		}
+	}
+
+	void CheckIfEnd()
+	{
+		int counter = 0;
+		foreach(GameObject card in board)
+		{
+			if (card != null)
+				counter++;
+		}
+		if (counter == 0)
+		{
+			endGame = true;
+			Debug.Log("WINNER!!!!!!!!!11111oneoneone");
 		}
 	}
 }

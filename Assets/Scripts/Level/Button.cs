@@ -25,7 +25,7 @@ public class Button : MonoBehaviour {
 
     float angleToRotate, timePlayer1, timePlayer2;
     public List<KeyCode> keyCodsPlayer1;
-    List<KeyCode> keyCodsPlayer2;
+    public List<KeyCode> keyCodsPlayer2;
     List<GameObject> icons1;
     List<GameObject> icons2;
 
@@ -88,7 +88,7 @@ public class Button : MonoBehaviour {
                 obj.GetChild(0).GetComponent<MeshRenderer>().sortingOrder = 1;
 
                 if (id != 0)
-                    obj.transform.position = new Vector2(player1.transform.GetChild(id - 1).position.x + obj.GetComponent<SpriteRenderer>().sprite.bounds.size.x / 0.8f, player1.transform.GetChild(id - 1).position.y);
+                    obj.transform.position = new Vector2(player2.transform.GetChild(id - 1).position.x + obj.GetComponent<SpriteRenderer>().sprite.bounds.size.x / 0.8f, player2.transform.GetChild(id - 1).position.y);
             }
 
             ++id;
@@ -197,39 +197,154 @@ public class Button : MonoBehaviour {
                 //////////////////////////------------------------------ TO DO
             else
             {
-                /*
-                if (heroIn1)
+                
+                //----------------------------------------------------------------  HERO 1
+
+                if (heroIn1 && !done1)
                 {
+                    //------------------------------------------- odejmowanie czasu, Resetowanie, jeśli się nie wyrobiliśmy
+                    if (timePlayer1 > 0)
+                    {
+                        timePlayer1 -= Time.deltaTime;
+                    }
+                    else if (timePlayer1 > -10)
+                    {
+                        ResetPlayer1();
+                    }
+
+                    //------------------------------------------- Input controller
                     if (Input.GetKeyDown(KeyCode.Joystick1Button0) || Input.GetKeyDown(KeyCode.Joystick1Button1) || Input.GetKeyDown(KeyCode.Joystick1Button2) || Input.GetKeyDown(KeyCode.Joystick1Button3))
                     {
-
-                        Event e = Event.current;
-
-                        keyCodsPlayer1.Add(e.keyCode);
-
-                        if (keyCodsPlayer1.Count == 1)
+                        // ------------------------------------ jeśli pierwszy przycisk
+                        if (keyCodsPlayer1.Count == 0)
                         {
+                            foreach (KeyCode vKey in System.Enum.GetValues(typeof(KeyCode)))
+                            {
+                                if (Input.GetKey(vKey) && vKey.ToString().Contains("JoystickB"))
+                                {
+                                    keyCodsPlayer1.Add(vKey);
+                                }
+                            }
+                        }
+                        else
+                        {
+                            // ------------------------------------ nastepne przyciski
+                            if (timePlayer1 > 0)
+                            {
+                                foreach (KeyCode vKey in System.Enum.GetValues(typeof(KeyCode)))
+                                {
+                                    if (Input.GetKey(vKey) && vKey.ToString().Contains("JoystickB"))
+                                    {
+                                        keyCodsPlayer1.Add(vKey);
+                                    }
+                                }
+                            }
+                        }
+
+
+                        if (keyCodsPlayer1[keyCodsPlayer1.Count - 1] == keyCods1[keyCodsPlayer1.Count - 1])
+                        {
+                            icons1[keyCodsPlayer1.Count - 1].transform.DOKill();
+                            icons1[keyCodsPlayer1.Count - 1].transform.localScale = Vector3.one;
+                            icons1[keyCodsPlayer1.Count - 1].GetComponent<SpriteRenderer>().color = new Vector4(0.5f, 0.5f, 0.5f, 1);
+
+                            if (keyCodsPlayer1.Count == keyCods1.Count)
+                            {
+                                done1 = true;
+                                timePlayer1 = -10;
+                                player1.transform.FindChild("tick").gameObject.SetActive(true);
+                                player1.transform.FindChild("tick").GetComponent<SpriteRenderer>().enabled = true;
+                                player1.transform.FindChild("tick").GetComponent<SpriteRenderer>().DOFade(1,0.5f);
+                                player1.transform.FindChild("tick").DOScale(Vector3.one, 0.6f).SetEase(Ease.OutExpo);
+                            }
+
                             timePlayer1 = timeToPress;
                         }
-                    }
-                }
-
-                if (heroIn2)
-                {
-                    if (Input.GetKeyDown(KeyCode.Joystick2Button0) || Input.GetKeyDown(KeyCode.Joystick2Button1) || Input.GetKeyDown(KeyCode.Joystick2Button2) || Input.GetKeyDown(KeyCode.Joystick2Button3))
-                    {
-
-                        Event e = Event.current;
-
-                        keyCodsPlayer2.Add(e.keyCode);
-
-                        if (keyCodsPlayer2.Count == 1)
+                        else
                         {
-                            timePlayer2 = timeToPress;
+                            ResetPlayer1();
                         }
                     }
                 }
-                 * */
+
+
+                //----------------------------------------------------------------  HERO 2
+
+                if (heroIn2 && !done2)
+                {
+                    //------------------------------------------- odejmowanie czasu, Resetowanie, jeśli się nie wyrobiliśmy
+                    if (timePlayer2 > 0)
+                    {
+                        timePlayer2 -= Time.deltaTime;
+                    }
+                    else if (timePlayer2 > -10)
+                    {
+                        ResetPlayer1();
+                    }
+
+                    //------------------------------------------- Input controller
+                    if (Input.GetKeyDown(KeyCode.Joystick2Button0) || Input.GetKeyDown(KeyCode.Joystick2Button1) || Input.GetKeyDown(KeyCode.Joystick2Button2) || Input.GetKeyDown(KeyCode.Joystick2Button3))
+                    {
+                        // ------------------------------------ jeśli pierwszy przycisk
+                        if (keyCodsPlayer2.Count == 0)
+                        {
+                            foreach (KeyCode vKey in System.Enum.GetValues(typeof(KeyCode)))
+                            {
+                                if (Input.GetKey(vKey) && vKey.ToString().Contains("JoystickB"))
+                                {
+                                    keyCodsPlayer2.Add(vKey);
+                                }
+                            }
+                        }
+                        else
+                        {
+                            // ------------------------------------ nastepne przyciski
+                            if (timePlayer2 > 0)
+                            {
+                                foreach (KeyCode vKey in System.Enum.GetValues(typeof(KeyCode)))
+                                {
+                                    if (Input.GetKey(vKey) && vKey.ToString().Contains("JoystickB"))
+                                    {
+                                        keyCodsPlayer2.Add(vKey);
+                                    }
+                                }
+                            }
+                        }
+
+
+                        if (keyCodsPlayer2[keyCodsPlayer2.Count - 1] == keyCods2[keyCodsPlayer2.Count - 1])
+                        {
+                            icons2[keyCodsPlayer2.Count - 1].transform.DOKill();
+                            icons2[keyCodsPlayer2.Count - 1].transform.localScale = Vector3.one;
+                            icons2[keyCodsPlayer2.Count - 1].GetComponent<SpriteRenderer>().color = new Vector4(0.5f, 0.5f, 0.5f, 1);
+
+
+                            if (keyCodsPlayer2.Count == keyCods2.Count)
+                            {
+                                done2 = true;
+                                timePlayer2 = -10;
+                                player2.transform.FindChild("tick").gameObject.SetActive(true);
+                                player2.transform.FindChild("tick").GetComponent<SpriteRenderer>().enabled = true;
+                                player2.transform.FindChild("tick").GetComponent<SpriteRenderer>().DOFade(1, 0.5f);
+                                player2.transform.FindChild("tick").DOScale(Vector3.one, 0.6f).SetEase(Ease.OutExpo);
+                            }
+
+                            timePlayer2 = timeToPress;
+                        }
+                        else
+                        {
+                            ResetPlayer1();
+                        }
+                    }
+                }
+
+                if (done1 && done2)
+                {
+                    ShowIcons(false);
+                    StartCoroutine("DeactivateAll");
+                }
+
+                 
             }
 	}
 
@@ -245,23 +360,31 @@ public class Button : MonoBehaviour {
                     player1_SR.sprite = iconChicken;
                 else
                     player1_SR.sprite = iconGoat;
+
+                ShowIcons(true);
             }
             else
             {
-                if (col.gameObject.name.Contains("goat"))
+                if (!heroIn1 && !heroIn2)
+                {
+                    ShowIcons(true);
+                }
+
+                if (col.gameObject.name.Contains("chicken"))
                 {
                     heroIn1 = true;
                 }
-                else
+
+                if (col.gameObject.name.Contains("Goat"))
                 {
                     heroIn2 = true;
                 }
 
-                player1_SR.sprite = iconGoat;
-                player2_SR.sprite = iconChicken;
+                player2_SR.sprite = iconGoat;
+                player1_SR.sprite = iconChicken;
             }
 
-            ShowIcons(true);
+
         }
     }
 
@@ -276,11 +399,11 @@ public class Button : MonoBehaviour {
             }
             else
             {
-                if (col.gameObject.name.Contains("goat"))
+                if (col.gameObject.name.Contains("chicken"))
                 {
                     heroIn1 = false;
                 }
-                else
+                if (col.gameObject.name.Contains("Goat"))
                 {
                     heroIn2 = false;
                 }
@@ -341,65 +464,82 @@ public class Button : MonoBehaviour {
 
             if (playersCount == 2)
             {
+                player2_SR.color = new Vector4(1, 1, 1, 0);
+                player2_SR.DOFade(1, 0.5f);
                 player2_SR.enabled = true;
 
                 id = 0;
+                color = Color.white;
 
                 foreach (Transform obj in player2.transform)
                 {
-
-                    if (!done2)
+                    if (!obj.name.Contains("tick"))
                     {
-                        obj.localScale = Vector3.one * 0.8f;
-                        obj.DOScale(Vector3.one * 1f, 0.6f).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.OutExpo);
+                        if (!done2)
+                        {
+                            obj.transform.DOKill();
+                            obj.localScale = Vector3.one * 0.8f;
+                            obj.DOScale(Vector3.one * 1f, 0.6f).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.OutExpo);
 
-                        if (keyIds2[id] == "A")
-                            obj.GetComponent<SpriteRenderer>().color = keyColors[0];
-                        else if (keyIds2[id] == "B")
-                            obj.GetComponent<SpriteRenderer>().color = keyColors[1];
-                        else if (keyIds2[id] == "X")
-                            obj.GetComponent<SpriteRenderer>().color = keyColors[2];
+
+                            if (keyIds2[id] == "A")
+                                obj.GetComponent<SpriteRenderer>().color = keyColors[0];
+                            else if (keyIds2[id] == "B")
+                                obj.GetComponent<SpriteRenderer>().color = keyColors[1];
+                            else if (keyIds2[id] == "X")
+                                obj.GetComponent<SpriteRenderer>().color = keyColors[2];
+                            else
+                                obj.GetComponent<SpriteRenderer>().color = keyColors[3];
+
+                            color = obj.GetComponent<SpriteRenderer>().color;
+
+                            obj.GetComponent<SpriteRenderer>().color = new Vector4(color.r, color.g, color.b, 0);
+                        }
                         else
-                            obj.GetComponent<SpriteRenderer>().color = keyColors[3];
+                            obj.GetComponent<SpriteRenderer>().color = new Vector4(0.5f, 0.5f, 0.5f, 0);
 
-                        color = obj.GetComponent<SpriteRenderer>().color;
-
-                        obj.GetComponent<SpriteRenderer>().color = new Vector4(color.r, color.g, color.b, 0);
-
+                        obj.GetComponent<SpriteRenderer>().DOFade(1, 0.5f);
+                        obj.gameObject.SetActive(true);
                     }
-                    else
-                        obj.GetComponent<SpriteRenderer>().color = new Vector4(0.5f, 0.5f, 0.5f, 0);
-
-
-                    obj.GetComponent<SpriteRenderer>().DOFade(1, 1);
-                    obj.gameObject.SetActive(true);
 
                     ++id;
                 }
-            }
 
+                if (done1)
+                {
+                    player1.transform.FindChild("tick").GetComponent<SpriteRenderer>().DOFade(1, 0.5f);
+                    player1.transform.FindChild("tick").gameObject.SetActive(true);
+                }
+                
+                if (done2)
+                {
+                    player2.transform.FindChild("tick").GetComponent<SpriteRenderer>().DOFade(1, 0.5f);
+                    player2.transform.FindChild("tick").gameObject.SetActive(true);
+                }
+
+            }
         }
         else
         {
-            player1_SR.DOFade(0, 0.5f);
+           player1_SR.DOFade(0, 0.5f);
 
-            foreach (Transform obj in player1.transform)
-            {
-                obj.GetComponent<SpriteRenderer>().DOFade(0, 0.5f);
-            }
+           foreach (Transform obj in player1.transform)
+           {
+               obj.GetComponent<SpriteRenderer>().DOFade(0, 0.5f);
+           }
 
-            if (playersCount == 2)
-            {
-                player2_SR.DOFade(0, 0.5f);
+           if (playersCount == 2)
+           {
+               player2_SR.DOFade(0, 0.5f);
 
-                foreach (Transform obj in player2.transform)
-                {
-                    obj.GetComponent<SpriteRenderer>().DOFade(0, 0.5f);
-                }
-            }
+               foreach (Transform obj in player2.transform)
+               {
+                   obj.GetComponent<SpriteRenderer>().DOFade(0, 0.5f);
+               }
+           }
 
-            StartCoroutine("DeactivateAll");
-        }
+          StartCoroutine("DeactivateAll");
+       }
     }
 
     void Platform()
@@ -412,6 +552,10 @@ public class Button : MonoBehaviour {
         timePlayer1 = -10;
         keyCodsPlayer1.Clear();
 
+        timePlayer2 = -10;
+        keyCodsPlayer2.Clear();
+
+
         if (playersCount == 1)
         {
             if (heroIn1)
@@ -421,13 +565,28 @@ public class Button : MonoBehaviour {
         }
         else
         {
-            if (!heroIn1 && !heroIn2)
-                ShowIcons(false);
-            else
+            if (heroIn1)
                 ShowIcons(true);
+            else
+            {
+                if (!heroIn2)
+                    ShowIcons(false);
+            }
+
+            if (heroIn2)
+            {
+                if (!heroIn1)
+                    ShowIcons(true);
+            }
+            else
+            {
+                //if (!heroIn1)
+                    //ShowIcons(false);
+            }
 
         }
     }
+
 
     void ResetPlayer2()
     {

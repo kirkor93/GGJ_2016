@@ -10,6 +10,7 @@ public class Barrier : MonoBehaviour {
     public int idType;
     public bool startAction;
     public float timeToAnim;
+    public float angleToRotate;
 
 	// Use this for initialization
 	void Start () {
@@ -31,11 +32,14 @@ public class Barrier : MonoBehaviour {
         switch (idType)
         {
             case 0:
-                float angleToRotate;
+               // float angleToRotate;
+                
+                /*
                 if (transform.eulerAngles.z >= 90)
                     angleToRotate = transform.eulerAngles.z + (360 - transform.eulerAngles.z);
                 else
                     angleToRotate = 360 - transform.eulerAngles.z;
+                 * */
 
                 transform.DORotate(new Vector3(0, 0, angleToRotate), timeToAnim);
                 break;

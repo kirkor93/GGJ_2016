@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Assets.Scripts;
 
 public class Spikes : MonoBehaviour {
 
@@ -26,10 +27,8 @@ public class Spikes : MonoBehaviour {
              }
              else
              {
-                 // --------------  game over!
+                 col.gameObject.GetComponent<Player>().HitPoints = 0;
              }
          }
     }
-
-
 }

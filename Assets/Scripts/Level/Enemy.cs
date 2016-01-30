@@ -3,7 +3,10 @@ using System.Collections;
 using DG.Tweening;
 using Assets.Scripts;
 
-public class Enemy : MonoBehaviour {
+public class Enemy : MonoBehaviour
+{
+
+    public float MovementTime = 2.0f;
 
     float leftX, rightX, timeHero1, timeHero2;
     SpriteRenderer sprRen;
@@ -30,7 +33,7 @@ public class Enemy : MonoBehaviour {
             new Vector3(rightX, transform.position.y, transform.position.z)
         };
 
-        transform.DOLocalPath(checkPoints, 2, PathType.Linear, PathMode.Ignore).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.Linear);
+        transform.DOLocalPath(checkPoints, MovementTime, PathType.Linear, PathMode.Ignore).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.Linear);
 
 	}
 	

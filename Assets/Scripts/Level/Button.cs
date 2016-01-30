@@ -359,7 +359,7 @@ public class Button : MonoBehaviour {
     {
         if (col.gameObject.layer == LayerMask.NameToLayer("hero") )
         {
-            col.gameObject.GetComponent<Player>().sequenceMode = true;
+            col.gameObject.GetComponent<Player>().SequenceMode = true;
 
             if (playersCount == 1)
             {
@@ -404,7 +404,7 @@ public class Button : MonoBehaviour {
     {
         if (col.gameObject.layer == LayerMask.NameToLayer("hero") )
         {
-            col.gameObject.GetComponent<Player>().sequenceMode = false;
+            col.gameObject.GetComponent<Player>().SequenceMode = false;
 
             if (playersCount == 1)
             {

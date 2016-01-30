@@ -19,12 +19,12 @@ namespace Assets.Scripts
 
         void Start()
         {
-            sequenceMode = false;
+            SequenceMode = false;
         }
 
         public override void OnActionStart()
         {
-            if (!sequenceMode)
+            if (!SequenceMode)
             {
                 if (_caughtChicken != null)
                 {
@@ -57,7 +57,7 @@ namespace Assets.Scripts
 
         public override void OnActionRelease()
         {
-            if (!sequenceMode)
+            if (!SequenceMode)
             {
 
             }

@@ -3,9 +3,9 @@ using System.Collections;
 
 public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 {
-    private T _instance;
+    private static T _instance;
 
-    public T Instance
+    public static T Instance
     {
         get
         {
@@ -22,8 +22,6 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 
             return _instance;
         }
-
-        
     }
 
     protected virtual void Awake()

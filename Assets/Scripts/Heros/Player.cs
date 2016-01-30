@@ -15,19 +15,17 @@ namespace Assets.Scripts
 
         [Range(0.0f, 10000.0f)]
         public float JumpSpeed;
-        [Range(0.0f, 10.0f)]
-        public float JumpTime;
 
-        public Collider2D GroundTestCollider;
+        [Range(0.0f, 10000.0f)]
+        public float GravityForce;
 
-        public bool sequenceMode;
+        public bool SequenceMode;
 
         protected Rigidbody2D Rigidbody;
 
         private float _currentMovementSpeed;
         private bool _flying;
 
-        private Coroutine _jumpCoroutine;
         private int _currentScore;
 
         public int CurrentScore
@@ -38,20 +36,26 @@ namespace Assets.Scripts
         protected virtual void Awake()
         {
             Rigidbody = GetComponent<Rigidbody2D>();
-            Player[] g = FindObjectsOfType<Player>();
-            foreach (Player player in g)
-            {
-                foreach (Collider2D componentsInChild in player.gameObject.GetComponentsInChildren<Collider2D>())
-                {
-                    Physics2D.IgnoreCollision(componentsInChild, GroundTestCollider);
-                }
-            }
         }
 
         protected virtual void FixedUpdate()
         {
-            _flying = !GroundTestCollider.IsTouchingLayers(int.MaxValue);
+            Vector2 vel = Rigidbody.velocity;
+            vel.y -= GravityForce * Time.deltaTime;
+            Rigidbody.velocity = vel;
+
         }
+
+        protected virtual void OnCollisionEnter2D(Collision2D other)
+        {
+            _flying = false;
+        }
+
+        protected virtual void OnCollisionExit2D(Collision2D other)
+        {
+            _flying = true;
+        }
+
         public virtual void OnMove(Vector2 direction)
         {
             if (Mathf.Abs(direction.x) > 0.0f)
@@ -67,38 +71,28 @@ namespace Assets.Scripts
             {
                 _currentMovementSpeed = (1.0f - Friction) * _currentMovementSpeed;
             }
-            Rigidbody.velocity = Vector2.right * _currentMovementSpeed * Time.deltaTime;
+            Vector2 vel = Rigidbody.velocity;
+            vel.x = _currentMovementSpeed * Time.deltaTime;
+            Rigidbody.velocity = vel;
         }
 
         public virtual void OnJumpStart()
         {
-            if (!sequenceMode)
-            {
-                if (_flying)
-                {
-                    return;
-                }
-
-                _jumpCoroutine = StartCoroutine(Jump());
+            if (SequenceMode || _flying)
+            { 
+                return;
             }
-        }
 
-        private IEnumerator Jump()
-        {
-            float time = 0.0f;
-            while (time < JumpTime)
-            {
-                Rigidbody.velocity += Vector2.up*JumpSpeed*(1.0f - time / JumpTime);
-                time += Time.deltaTime;
-                yield return null;
-            }
+            Rigidbody.velocity = Rigidbody.velocity + Vector2.up*JumpSpeed;
         }
 
         public virtual void OnJumpRelease()
         {
-            if (_jumpCoroutine != null && !sequenceMode)
+            if (Rigidbody.velocity.y > 0.0f)
             {
-                StopCoroutine(_jumpCoroutine);
+                Vector2 vel = Rigidbody.velocity;
+                vel.y = 0.0f;
+                Rigidbody.velocity = vel;
             }
         }
 

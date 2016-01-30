@@ -17,6 +17,7 @@ public class Button : MonoBehaviour {
     public float timeToPress;
     public Sprite iconChicken;
     public Sprite iconGoat;
+    public GameObject actionObj;
 
     internal bool heroIn1, heroIn2, done;
     GameObject icon, platform;
@@ -51,6 +52,7 @@ public class Button : MonoBehaviour {
 
         keyCodsPlayer1 = new List<KeyCode>();
         keyCodsPlayer2 = new List<KeyCode>();
+
 
 
         int id = 0;
@@ -95,12 +97,15 @@ public class Button : MonoBehaviour {
             ++id;
         }
 
+        /*
         platform = transform.FindChild("platform").gameObject;
 
         if ( platform.transform.eulerAngles.z >= 0 )
             angleToRotate = 360-platform.transform.eulerAngles.z;
         else
             angleToRotate = platform.transform.eulerAngles.z + (360 - platform.transform.eulerAngles.z);
+        */
+
 
         player1_SR = transform.FindChild("player1").GetComponent<SpriteRenderer>();
         player2_SR = transform.FindChild("player2").GetComponent<SpriteRenderer>();
@@ -115,14 +120,9 @@ public class Button : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	    
-        /*
-        if ( Input.GetMouseButtonDown(0) && heroIn )
+
+        if (!done)
         {
-            heroIn = false;
-            ShowIcons(heroIn);
-            Platform();
-        }*/
 
             if (playersCount == 1)
             {
@@ -131,11 +131,11 @@ public class Button : MonoBehaviour {
                     //------------------------------------------- odejmowanie czasu, Resetowanie, jeśli się nie wyrobiliśmy
                     if (timePlayer1 > 0)
                     {
-                         timePlayer1 -= Time.deltaTime;
+                        timePlayer1 -= Time.deltaTime;
                     }
-                    else if ( timePlayer1 > -10 )
+                    else if (timePlayer1 > -10)
                     {
-                         ResetPlayer1();
+                        ResetPlayer1();
                     }
 
                     //------------------------------------------- Input controller
@@ -148,7 +148,7 @@ public class Button : MonoBehaviour {
                             {
                                 if (Input.GetKey(vKey) && vKey.ToString().Contains("JoystickB"))
                                 {
-                                     keyCodsPlayer1.Add(vKey);
+                                    keyCodsPlayer1.Add(vKey);
                                 }
                             }
                         }
@@ -165,14 +165,14 @@ public class Button : MonoBehaviour {
                                     }
                                 }
                             }
-                         }
+                        }
 
-                        
-                        if ( keyCodsPlayer1[keyCodsPlayer1.Count-1] == keyCods1[keyCodsPlayer1.Count-1] )
+
+                        if (keyCodsPlayer1[keyCodsPlayer1.Count - 1] == keyCods1[keyCodsPlayer1.Count - 1])
                         {
                             icons1[keyCodsPlayer1.Count - 1].transform.DOKill();
                             icons1[keyCodsPlayer1.Count - 1].transform.localScale = Vector3.one;
-                            icons1[keyCodsPlayer1.Count - 1].GetComponent<SpriteRenderer>().color = new Vector4(0.5f,0.5f,0.5f,1);
+                            icons1[keyCodsPlayer1.Count - 1].GetComponent<SpriteRenderer>().color = new Vector4(0.5f, 0.5f, 0.5f, 1);
 
                             if (keyCodsPlayer1.Count == keyCods1.Count)
                             {
@@ -184,6 +184,8 @@ public class Button : MonoBehaviour {
                                 ShowIcons(false);
                                 done = true;
 
+                                actionObj.GetComponent<Barrier>().startAction = true;
+
                                 StartCoroutine("DeactivateAll");
                             }
 
@@ -193,13 +195,13 @@ public class Button : MonoBehaviour {
                         {
                             ResetPlayer1();
                         }
-                     }
+                    }
                 }
             }
-                //////////////////////////------------------------------ TO DO
+            //////////////////////////------------------------------ TO DO
             else
             {
-                
+
                 //----------------------------------------------------------------  HERO 1
 
                 if (heroIn1 && !done1)
@@ -256,7 +258,7 @@ public class Button : MonoBehaviour {
                                 timePlayer1 = -10;
                                 player1.transform.FindChild("tick").gameObject.SetActive(true);
                                 player1.transform.FindChild("tick").GetComponent<SpriteRenderer>().enabled = true;
-                                player1.transform.FindChild("tick").GetComponent<SpriteRenderer>().DOFade(1,0.5f);
+                                player1.transform.FindChild("tick").GetComponent<SpriteRenderer>().DOFade(1, 0.5f);
                                 player1.transform.FindChild("tick").DOScale(Vector3.one, 0.6f).SetEase(Ease.OutExpo);
                             }
 
@@ -344,18 +346,19 @@ public class Button : MonoBehaviour {
                 {
                     ShowIcons(false);
                     StartCoroutine("DeactivateAll");
+                    actionObj.GetComponent<Barrier>().startAction = true;
                     done = true;
                 }
 
-                 
+
             }
+        }
 	}
 
     void OnTriggerEnter2D(Collider2D col)
     {
         if (col.gameObject.layer == LayerMask.NameToLayer("hero") )
         {
-            Debug.Log(col.name);
             col.gameObject.GetComponent<Player>().sequenceMode = true;
 
             if (playersCount == 1)

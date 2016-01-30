@@ -24,6 +24,8 @@ namespace Assets.Scripts
 
         public bool SequenceMode;
 
+        public bool Water;
+
         protected Rigidbody2D Rigidbody;
 
         private float _currentMovementSpeed;

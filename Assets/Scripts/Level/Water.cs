@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using DG.Tweening;
+using Assets.Scripts;
 
 public class Water : MonoBehaviour {
 
@@ -18,13 +19,12 @@ public class Water : MonoBehaviour {
     {
         if (col.gameObject.layer == LayerMask.NameToLayer("hero"))
         {
-           // if ( col.gameObject.name.Contains("Goat") )
-                //col.gameObject.GetComponent<Animation>().cl
+            col.gameObject.GetComponent<Player>().Water = true;
 
-            if (col.transform.localScale.x > 0)
-                col.transform.DOMoveX(col.transform.position.x + col.gameObject.GetComponent<SpriteRenderer>().bounds.size.x * 3, 2);
-            if (col.transform.localScale.x < 0)
-                col.transform.DOMoveX(col.transform.position.x - col.gameObject.GetComponent<SpriteRenderer>().bounds.size.x * 3, 2);
+            if (col.transform.position.x <= transform.position.x)
+                col.transform.DOMoveX(transform.position.x + GetComponent<SpriteRenderer>().bounds.size.x/2 , 1f).SetEase(Ease.OutQuad);
+            else
+                col.transform.DOMoveX(transform.position.x - GetComponent<SpriteRenderer>().bounds.size.x / 2, 1f).SetEase(Ease.OutQuad);
         }
     }
 
@@ -33,6 +33,8 @@ public class Water : MonoBehaviour {
         if (col.gameObject.layer == LayerMask.NameToLayer("hero"))
         {
             col.transform.DOKill();
+
+            col.gameObject.GetComponent<Player>().Water = false;
         }
     }
 }

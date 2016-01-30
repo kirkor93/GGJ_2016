@@ -4,6 +4,16 @@ using UnityEngine;
 
 namespace Assets.Scripts
 {
+    public class GameOverEventArgs : EventArgs
+    {
+        public bool IsWon { get; private set; }
+
+        public GameOverEventArgs(bool isWon)
+        {
+            IsWon = isWon;
+        }
+    }
+
     public abstract class Player : MonoBehaviour
     {
         [Range(0.0f, 10000.0f)]
@@ -34,6 +44,8 @@ namespace Assets.Scripts
         private int _currentScore;
         private int _hitPoints;
 
+        public event EventHandler<GameOverEventArgs> OnGameOver; 
+
         public bool Flying
 		{
 			get { return _flying; }
@@ -52,14 +64,18 @@ namespace Assets.Scripts
                 _hitPoints = value;
                 if (_hitPoints <= 0)
                 {
-                    EndGame();
+                    EndGame(false);
                 }
             }
         }
 
-        private void EndGame()
+        public void EndGame(bool isWon)
         {
-            Debug.Log("GAME OVER!!!");
+//            Debug.Log("GAME OVER!!!");
+            if (OnGameOver != null)
+            {
+                OnGameOver(this, new GameOverEventArgs(isWon));
+            }
         }
 
         protected virtual void Awake()

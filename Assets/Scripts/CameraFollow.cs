@@ -1,67 +1,55 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+
+[Serializable]
+public struct CameraBounds
+{
+    public float XMin;
+    public float XMax;
+    public float YMin;
+    public float YMax;
+}
 
 public class CameraFollow : MonoBehaviour
 {
-	public List<GameObject> heroes;
-	public float maxX;
-	public float maxY;
+    public GameObject Player1;
+    public GameObject Player2;
+    public Transform BottomLeftLevelBound;
+    public Transform UpperRightLevelBound;
+    public float MaxSizeMultiplier = 2.0f;
+    public float MinPlayerDistance;
+    public float MaxPlayerDistance;
 
-	void Start ()
-	{
-	
-	}
-	
-	void Update ()
-	{
-		UpdatePosition();
-	}
+    private Camera _camera;
+    private float _startCameraSize;
 
-	void UpdatePosition()
-	{
-		float distanceX = 0;
-		float distanceY = 0;
-		if (heroes[0].transform.position.x > heroes[1].transform.position.x)
-		{
-			distanceX = heroes[0].transform.position.x - heroes[1].transform.position.x;
-			transform.position = new Vector3(heroes[1].transform.position.x + distanceX / 2, transform.position.y, -10);
-		}
-		else
-		{
-			distanceX = heroes[1].transform.position.x - heroes[0].transform.position.x;
-			transform.position = new Vector3(heroes[0].transform.position.x + distanceX / 2, transform.position.y, -10);
-		}
+    protected void Awake()
+    {
+        _camera = GetComponent<Camera>();
+        _startCameraSize = _camera.orthographicSize;
+    }
 
-		if (heroes[0].transform.position.y > heroes[1].transform.position.y)
-		{
-			distanceY = heroes[0].transform.position.y - heroes[1].transform.position.y;
-			transform.position = new Vector3(transform.position.x, heroes[1].transform.position.y + distanceY / 2, -10);
-		}
-		else
-		{
-			distanceY = heroes[1].transform.position.y - heroes[0].transform.position.y;
-			transform.position = new Vector3(transform.position.x, heroes[0].transform.position.y + distanceY / 2, -10);
-		}
+    protected void LateUpdate()
+    {
+        //scaling camera
+        float lerpFactor = Mathf.InverseLerp(MinPlayerDistance, MaxPlayerDistance,
+            (Player1.transform.position - Player2.transform.position).magnitude);
+        _camera.orthographicSize = Mathf.Lerp(_startCameraSize, _startCameraSize*MaxSizeMultiplier, lerpFactor);
 
-		if (transform.position.x <= 0)
-		{
-			transform.position = new Vector3(0, transform.position.y, -10);
-		}
+        //moving camera
+        Vector3 targetPos = (Player1.transform.position + Player2.transform.position)/2.0f;
+        targetPos.x = Mathf.Clamp(targetPos.x,
+            BottomLeftLevelBound.transform.position.x + _camera.orthographicSize*_camera.aspect,
+            UpperRightLevelBound.transform.position.x - _camera.orthographicSize*_camera.aspect);
+        targetPos.y = Mathf.Clamp(targetPos.y,
+            BottomLeftLevelBound.transform.position.y + _camera.orthographicSize,
+            UpperRightLevelBound.transform.position.y - _camera.orthographicSize);
+        targetPos.z = transform.position.z;
 
-		if (transform.position.y <= 0)
-		{
-			transform.position = new Vector3(transform.position.x, 0, -10);
-		}
+        transform.position = Vector3.Lerp(transform.position, targetPos, 0.1f);
 
-		if(transform.position.x >= maxX)
-		{
-			transform.position = new Vector3(maxX, transform.position.y, -10);
-		}
-
-		if(transform.position.y >= maxY)
-		{
-			transform.position = new Vector3(transform.position.x, maxY, -10);
-		}
-	}
+    }
 }

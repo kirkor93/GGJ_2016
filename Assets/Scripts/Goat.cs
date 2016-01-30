@@ -70,15 +70,25 @@ namespace Assets.Scripts
             scale.x = Mathf.Sign(direction.x) * Mathf.Abs(scale.x);
             transform.localScale = scale;
             _lastInputDirection = direction;
-        }
 
-        protected void Update()
+			if(direction.x < 0.1f && direction.x > -0.1f)
+				GetComponent<Animator>().SetBool("moving", false);
+			else
+				GetComponent<Animator>().SetBool("moving", true);
+		}
+
+		protected void Update()
         {
             if (_caughtChickenRigidbody != null)
             {
                 _caughtChickenRigidbody.velocity = Vector2.up * _caughtChickenRigidbody.velocity.y ;
                 _caughtChickenRigidbody.position = ChickenPosition.position;
             }
+
+			if (Flying)
+				GetComponent<Animator>().SetBool("jumping", true);
+			else
+				GetComponent<Animator>().SetBool("jumping", false);
         }
 
         protected void OnTriggerEnter2D(Collider2D other)

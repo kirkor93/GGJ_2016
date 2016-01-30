@@ -9,11 +9,13 @@ public class Trampoline : MonoBehaviour {
     Player player1, player2;
     bool p1, p2;
     Transform sprezyna, top;
+    Vector3 orgPosTop;
 
 	// Use this for initialization
 	void Start () {
         sprezyna = transform.FindChild("sprezyna").transform;
         top = transform.FindChild("top").transform;
+        orgPosTop = top.position;
 	}
 	
 	// Update is called once per frame
@@ -49,8 +51,8 @@ public class Trampoline : MonoBehaviour {
 
                 if (!p1)
                 {
-                    sprezyna.DOScaleY(0.7f, 0.3f).SetLoops(2, LoopType.Yoyo);
-                    top.DOMoveY(top.position.y - top.GetComponent<SpriteRenderer>().bounds.size.y, 0.3f).SetLoops(2, LoopType.Yoyo);
+                    sprezyna.DOScaleY(0.7f, 0.2f).SetLoops(2, LoopType.Yoyo);
+                    top.DOMoveY(top.position.y - top.GetComponent<SpriteRenderer>().bounds.size.y, 0.2f).SetLoops(2, LoopType.Yoyo);
                 }
             }
 
@@ -73,5 +75,8 @@ public class Trampoline : MonoBehaviour {
 
         sprezyna.DOKill();
         top.DOKill();
+
+        sprezyna.localScale = Vector3.one;
+        top.position = orgPosTop;
     }
 }

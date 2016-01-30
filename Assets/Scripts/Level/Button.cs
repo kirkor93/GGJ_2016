@@ -20,8 +20,8 @@ public class Button : MonoBehaviour {
     public GameObject actionObj;
 
     internal bool heroIn1, heroIn2, done;
-    GameObject icon, platform;
-    GameObject player1, player2;
+    GameObject icon, platform, player1, player2;
+    Transform dzwignia;
     SpriteRenderer iconSprite;
     SpriteRenderer player1_SR, player2_SR;
 
@@ -46,6 +46,8 @@ public class Button : MonoBehaviour {
 
         player1 = transform.FindChild("player1").gameObject;
         player2 = transform.FindChild("player2").gameObject;
+
+        dzwignia = transform.FindChild("dzwignia");
 
         icons1 = new List<GameObject>();
         icons2 = new List<GameObject>();
@@ -184,6 +186,7 @@ public class Button : MonoBehaviour {
                                 ShowIcons(false);
                                 done = true;
 
+                                dzwignia.DORotate(new Vector3(0,0,-80),1);
                                 actionObj.GetComponent<Barrier>().startAction = true;
 
                                 StartCoroutine("DeactivateAll");
@@ -348,6 +351,8 @@ public class Button : MonoBehaviour {
                     StartCoroutine("DeactivateAll");
                     actionObj.GetComponent<Barrier>().startAction = true;
                     done = true;
+
+                    dzwignia.DORotate(new Vector3(0, 0, -80), 1);
                 }
 
 

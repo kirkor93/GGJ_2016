@@ -19,7 +19,7 @@ public class Button : MonoBehaviour {
     public Sprite iconGoat;
     public GameObject actionObj;
 
-    internal bool heroIn1, heroIn2, done;
+    public bool heroIn1, heroIn2, done;
     GameObject icon, platform, player1, player2, chicken, goat;
     Transform dzwignia;
     SpriteRenderer iconSprite;
@@ -205,7 +205,9 @@ public class Button : MonoBehaviour {
                                     player1.transform.FindChild("tick").GetComponent<SpriteRenderer>().enabled = true;
                                     player1.transform.FindChild("tick").DOScale(Vector3.one, 0.6f).SetEase(Ease.OutExpo);
 
-                                    ShowIcons(false);
+                                    //ShowIcons(false);
+                                    HidePlayer1();
+
                                     done = true;
 
                                     dzwignia.DORotate(new Vector3(0, 0, -80), 1);
@@ -317,12 +319,13 @@ public class Button : MonoBehaviour {
                                     timePlayer1 = -10;
                                     player1.transform.FindChild("tick").gameObject.SetActive(true);
                                     player1.transform.FindChild("tick").GetComponent<SpriteRenderer>().enabled = true;
+                                    //player1.transform.FindChild("tick").GetComponent<SpriteRenderer>().DOKill();
                                     player1.transform.FindChild("tick").GetComponent<SpriteRenderer>().DOFade(1, 0.5f);
                                     player1.transform.FindChild("tick").DOScale(Vector3.one, 0.6f).SetEase(Ease.OutExpo);
                                 }
                                 else
                                 {
-                                    keyCodsPlayer1.Clear();
+                                    //keyCodsPlayer1.Clear();
                                     ResetPlayer1();
                                 }
                             }
@@ -348,7 +351,7 @@ public class Button : MonoBehaviour {
                     }
                     else if (timePlayer2 > -10)
                     {
-                        ResetPlayer1();
+                        ResetPlayer2();
                     }
 
                     //------------------------------------------- Input controller
@@ -412,13 +415,14 @@ public class Button : MonoBehaviour {
                                     timePlayer2 = -10;
                                     player2.transform.FindChild("tick").gameObject.SetActive(true);
                                     player2.transform.FindChild("tick").GetComponent<SpriteRenderer>().enabled = true;
+                                    //player2.transform.FindChild("tick").GetComponent<SpriteRenderer>().DOKill();
                                     player2.transform.FindChild("tick").GetComponent<SpriteRenderer>().DOFade(1, 0.5f);
                                     player2.transform.FindChild("tick").DOScale(Vector3.one, 0.6f).SetEase(Ease.OutExpo);
                                 }
                                 else
                                 {
-                                    keyCodsPlayer2.Clear();
-                                    ResetPlayer1();
+                                    //keyCodsPlayer2.Clear();
+                                    ResetPlayer2();
                                 }
                             }
 
@@ -426,7 +430,7 @@ public class Button : MonoBehaviour {
                         }
                         else
                         {
-                            ResetPlayer1();
+                            ResetPlayer2();
                         }
                     }
 
@@ -434,7 +438,9 @@ public class Button : MonoBehaviour {
 
                 if (done1 && done2)
                 {
-                    ShowIcons(false);
+                    //ShowIcons(false);
+                    HidePlayer1();
+                    HidePlayer2();
 
                     if (chicken != null)
                         chicken.GetComponent<Player>().SequenceMode = false;
@@ -459,7 +465,7 @@ public class Button : MonoBehaviour {
     {
         if (col.gameObject.layer == LayerMask.NameToLayer("hero") )
         {
-
+            StopCoroutine("DeactivateAll");
             col.gameObject.GetComponent<Player>().SequenceMode = true;
 
             if (playersCount == 1)
@@ -477,8 +483,9 @@ public class Button : MonoBehaviour {
                     player1_SR.sprite = iconGoat;
                 }
 
-                ShowIcons(true);
+                ShowColorPlayer1();
 
+                //ShowIcons(true);
             }
             else
             {
@@ -490,19 +497,29 @@ public class Button : MonoBehaviour {
                 {
                     chicken = col.gameObject;
                     heroIn1 = true;
+
+                    ShowColorPlayer1();
                 }
 
                 if (col.gameObject.name.Contains("Goat"))
                 {
                     goat = col.gameObject;
                     heroIn2 = true;
+
+                    ShowColorPlayer2();
                 }
+                if (!heroIn1)
+                    ShowGreyPlayer1();
 
+                if (!heroIn2)
+                    ShowGreyPlayer2();
 
+                /*
                 if (  !heroIn1 || !heroIn2 )
                 {
                     ShowIcons(true);
                 }
+                 */
             }
 
 
@@ -518,8 +535,13 @@ public class Button : MonoBehaviour {
             {
                 col.gameObject.GetComponent<Player>().SequenceMode = false;
                 heroIn1 = false;
-                ShowIcons(false);
-                chicken.GetComponent<Player>().SequenceMode = false;
+               // ShowIcons(false);
+                HidePlayer1();
+
+                if (col.gameObject.name.Contains("chicken"))
+                    chicken.GetComponent<Player>().SequenceMode = false;
+                if (col.gameObject.name.Contains("goat"))
+                    goat.GetComponent<Player>().SequenceMode = false;
 
                 keyCodsPlayer1.Clear();
             }
@@ -530,7 +552,6 @@ public class Button : MonoBehaviour {
                     col.gameObject.GetComponent<Player>().SequenceMode = false;
                     heroIn1 = false;
                     keyCodsPlayer1.Clear();
-
                 }
                 if (col.gameObject.name.Contains("Goat"))
                 {
@@ -540,16 +561,42 @@ public class Button : MonoBehaviour {
 
                 }
 
+                if (!heroIn1 && heroIn2)
+                {
+                    ShowGreyPlayer1();
+                }
+                else if (heroIn1 && !heroIn2)
+                {
+                    ShowGreyPlayer2();
+                }
+                else if ( !heroIn1 && !heroIn2 )
+                {
+                    HidePlayer1();
+                    HidePlayer2();
+
+                    StartCoroutine("DeactivateAll");
+                }
+
+                /*
                 if (!heroIn1 && !heroIn2)
                 {
                     ShowIcons(false);
                 }
                 else
                     ShowIcons(true);
+                 * */
             }
         }
-    }
 
+/*
+        if (chicken != null)
+            chicken.GetComponent<Player>().SequenceMode = false;
+        if (goat != null)
+            goat.GetComponent<Player>().SequenceMode = false;
+*/
+        //StartCoroutine("DeactivateAll");
+    }
+    /*
     //-----------------------------------  icon animation to show which button should be pressed
     void ShowIcons(bool show)
     {
@@ -558,169 +605,27 @@ public class Button : MonoBehaviour {
 
             if (playersCount == 1)
             {
-                player1_SR.color = new Vector4(1, 1, 1, 0);
-                player1_SR.DOFade(1, 0.5f);
-                player1_SR.enabled = true;
-
-                int id = 0;
-                Color color = Color.white;
-
-                foreach (Transform obj in player1.transform)
-                {
-                    if (!obj.name.Contains("tick"))
-                    {
-                        if (!done1)
-                        {
-                            obj.transform.DOKill();
-                            obj.localScale = Vector3.one * 0.8f;
-                            obj.DOScale(Vector3.one * 1f, 0.6f).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.OutExpo);
-
-
-                            if (keyIds1[id] == "A")
-                                obj.GetComponent<SpriteRenderer>().color = keyColors[0];
-                            else if (keyIds1[id] == "B")
-                                obj.GetComponent<SpriteRenderer>().color = keyColors[1];
-                            else if (keyIds1[id] == "X")
-                                obj.GetComponent<SpriteRenderer>().color = keyColors[2];
-                            else
-                                obj.GetComponent<SpriteRenderer>().color = keyColors[3];
-
-                            color = obj.GetComponent<SpriteRenderer>().color;
-
-                            obj.GetComponent<SpriteRenderer>().color = new Vector4(color.r, color.g, color.b, 0);
-                        }
-                        else
-                            obj.GetComponent<SpriteRenderer>().color = new Vector4(0.5f, 0.5f, 0.5f, 0);
-
-                        obj.GetComponent<SpriteRenderer>().DOFade(1, 0.5f);
-                        obj.gameObject.SetActive(true);
-                    }
-
-                    ++id;
-                }
+                ShowColorPlayer1();
             }
 
             else if (playersCount == 2)
             {
                 if (!heroIn1)
                 {
-                    player1_SR.color = new Vector4(0.5f, 0.5f, 0.5f, 0);
-                    player1_SR.DOFade(1, 0.5f);
-                    player1_SR.enabled = true;
-
-                    foreach (Transform obj in player1.transform)
-                    {
-                        if (!obj.name.Contains("tick"))
-                        {
-                            obj.GetComponent<SpriteRenderer>().color = new Vector4(0.5f, 0.5f, 0.5f, 0);
-                            obj.GetComponent<SpriteRenderer>().DOFade(1, 0.5f);
-                            obj.gameObject.SetActive(true);
-                        }
-                    }
+                    ShowGreyPlayer1();
                 }
                 else
                 {
-                    player1_SR.color = new Vector4(1, 1, 1, 0);
-                    player1_SR.DOFade(1, 0.5f);
-                    player1_SR.enabled = true;
-
-                    int id = 0;
-                    Color color = Color.white;
-
-                    foreach (Transform obj in player1.transform)
-                    {
-                        if (!obj.name.Contains("tick"))
-                        {
-                            if (!done1)
-                            {
-                                obj.transform.DOKill();
-                                obj.localScale = Vector3.one * 0.8f;
-                                obj.DOScale(Vector3.one * 1f, 0.6f).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.OutExpo);
-
-
-                                if (keyIds1[id] == "A")
-                                    obj.GetComponent<SpriteRenderer>().color = keyColors[0];
-                                else if (keyIds1[id] == "B")
-                                    obj.GetComponent<SpriteRenderer>().color = keyColors[1];
-                                else if (keyIds1[id] == "X")
-                                    obj.GetComponent<SpriteRenderer>().color = keyColors[2];
-                                else
-                                    obj.GetComponent<SpriteRenderer>().color = keyColors[3];
-
-                                color = obj.GetComponent<SpriteRenderer>().color;
-
-                                obj.GetComponent<SpriteRenderer>().color = new Vector4(color.r, color.g, color.b, 0);
-                            }
-                            else
-                                obj.GetComponent<SpriteRenderer>().color = new Vector4(0.5f, 0.5f, 0.5f, 0);
-
-                            obj.GetComponent<SpriteRenderer>().DOFade(1, 0.5f);
-                            obj.gameObject.SetActive(true);
-                        }
-
-                        ++id;
-                    }
+                    ShowColorPlayer1();
                 }
 
                 if (!heroIn2)
                 {
-                    player2_SR.color = new Vector4(0.5f, 0.5f, 0.5f, 0);
-                    player2_SR.DOFade(1, 0.5f);
-                    player2_SR.enabled = true;
-
-                    foreach (Transform obj in player2.transform)
-                    {
-                        if (!obj.name.Contains("tick"))
-                        {
-                            obj.GetComponent<SpriteRenderer>().color = new Vector4(0.5f, 0.5f, 0.5f, 0);
-
-                            obj.GetComponent<SpriteRenderer>().DOFade(1, 0.5f);
-                            obj.gameObject.SetActive(true);
-                        }
-                    }
+                    ShowGreyPlayer1();
                 }
                 else
                 {
-                    player2_SR.color = new Vector4(1, 1, 1, 0);
-                    player2_SR.DOFade(1, 0.5f);
-                    player2_SR.enabled = true;
-
-                    int id = 0;
-                    Color color = Color.white;
-
-                    foreach (Transform obj in player2.transform)
-                    {
-                        if (!obj.name.Contains("tick"))
-                        {
-                            if (!done2)
-                            {
-                                obj.transform.DOKill();
-                                obj.localScale = Vector3.one * 0.8f;
-                                obj.DOScale(Vector3.one * 1f, 0.6f).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.OutExpo);
-
-
-                                if (keyIds2[id] == "A")
-                                    obj.GetComponent<SpriteRenderer>().color = keyColors[0];
-                                else if (keyIds2[id] == "B")
-                                    obj.GetComponent<SpriteRenderer>().color = keyColors[1];
-                                else if (keyIds2[id] == "X")
-                                    obj.GetComponent<SpriteRenderer>().color = keyColors[2];
-                                else
-                                    obj.GetComponent<SpriteRenderer>().color = keyColors[3];
-
-                                color = obj.GetComponent<SpriteRenderer>().color;
-
-                                obj.GetComponent<SpriteRenderer>().color = new Vector4(color.r, color.g, color.b, 0);
-                            }
-                            else
-                                obj.GetComponent<SpriteRenderer>().color = new Vector4(0.5f, 0.5f, 0.5f, 0);
-
-                            obj.GetComponent<SpriteRenderer>().DOFade(1, 0.5f);
-                            obj.gameObject.SetActive(true);
-                        }
-
-                        ++id;
-                    }
+                    ShowColorPlayer2();
                 }
 
                 if (done1)
@@ -767,6 +672,164 @@ public class Button : MonoBehaviour {
           StartCoroutine("DeactivateAll");
        }
     }
+    */
+
+    void ShowColorPlayer1()
+    {
+        player1_SR.color = new Vector4(1, 1, 1, 0);
+        //player1_SR.DOKill();
+        player1_SR.DOFade(1, 0.5f);
+        player1_SR.enabled = true;
+
+        int id = 0;
+        Color color = Color.white;
+
+        foreach (Transform obj in player1.transform)
+        {
+            if (!obj.name.Contains("tick"))
+            {
+                if (!done1)
+                {
+                    obj.transform.DOKill();
+                    obj.localScale = Vector3.one * 0.8f;
+                    obj.DOScale(Vector3.one * 1f, 0.6f).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.OutExpo);
+
+
+                    if (keyIds1[id] == "A")
+                        obj.GetComponent<SpriteRenderer>().color = keyColors[0];
+                    else if (keyIds1[id] == "B")
+                        obj.GetComponent<SpriteRenderer>().color = keyColors[1];
+                    else if (keyIds1[id] == "X")
+                        obj.GetComponent<SpriteRenderer>().color = keyColors[2];
+                    else
+                        obj.GetComponent<SpriteRenderer>().color = keyColors[3];
+
+                    color = obj.GetComponent<SpriteRenderer>().color;
+
+                    obj.GetComponent<SpriteRenderer>().color = new Vector4(color.r, color.g, color.b, 0);
+                }
+                else
+                    obj.GetComponent<SpriteRenderer>().color = new Vector4(0.5f, 0.5f, 0.5f, 0);
+
+                //obj.GetComponent<SpriteRenderer>().DOKill();
+                obj.GetComponent<SpriteRenderer>().DOFade(1, 0.5f);
+                obj.gameObject.SetActive(true);
+            }
+
+            ++id;
+        }
+    }
+
+    void ShowColorPlayer2()
+    {
+        player2_SR.color = new Vector4(1, 1, 1, 0);
+        //player2_SR.DOKill();
+        player2_SR.DOFade(1, 0.5f);
+        player2_SR.enabled = true;
+
+        int id = 0;
+        Color color = Color.white;
+
+        foreach (Transform obj in player2.transform)
+        {
+            if (!obj.name.Contains("tick"))
+            {
+                if (!done2)
+                {
+                    obj.transform.DOKill();
+                    obj.localScale = Vector3.one * 0.8f;
+                    obj.DOScale(Vector3.one * 1f, 0.6f).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.OutExpo);
+
+
+                    if (keyIds2[id] == "A")
+                        obj.GetComponent<SpriteRenderer>().color = keyColors[0];
+                    else if (keyIds2[id] == "B")
+                        obj.GetComponent<SpriteRenderer>().color = keyColors[1];
+                    else if (keyIds2[id] == "X")
+                        obj.GetComponent<SpriteRenderer>().color = keyColors[2];
+                    else
+                        obj.GetComponent<SpriteRenderer>().color = keyColors[3];
+
+                    color = obj.GetComponent<SpriteRenderer>().color;
+
+                    obj.GetComponent<SpriteRenderer>().color = new Vector4(color.r, color.g, color.b, 0);
+                }
+                else
+                    obj.GetComponent<SpriteRenderer>().color = new Vector4(0.5f, 0.5f, 0.5f, 0);
+
+                //obj.GetComponent<SpriteRenderer>().DOKill();
+                obj.GetComponent<SpriteRenderer>().DOFade(1, 0.5f);
+                obj.gameObject.SetActive(true);
+            }
+
+            ++id;
+        }
+    }
+
+    void ShowGreyPlayer1()
+    {
+        player1_SR.color = new Vector4(0.5f, 0.5f, 0.5f, 0);
+        //player1_SR.DOKill();
+        player1_SR.DOFade(1, 0.5f);
+        player1_SR.enabled = true;
+
+        foreach (Transform obj in player1.transform)
+        {
+            if (!obj.name.Contains("tick"))
+            {
+                obj.localScale = Vector3.one;
+                obj.GetComponent<SpriteRenderer>().color = new Vector4(0.5f, 0.5f, 0.5f, 0);
+                //obj.GetComponent<SpriteRenderer>().DOKill();
+                obj.GetComponent<SpriteRenderer>().DOFade(1, 0.5f);
+                obj.gameObject.SetActive(true);
+            }
+        }
+    }
+
+    void ShowGreyPlayer2()
+    {
+        player2_SR.color = new Vector4(0.5f, 0.5f, 0.5f, 0);
+       // player2_SR.DOKill();
+        player2_SR.DOFade(1, 0.5f);
+        player2_SR.enabled = true;
+
+        foreach (Transform obj in player2.transform)
+        {
+            if (!obj.name.Contains("tick"))
+            {
+                obj.localScale = Vector3.one;
+                obj.GetComponent<SpriteRenderer>().color = new Vector4(0.5f, 0.5f, 0.5f, 0);
+
+                //obj.GetComponent<SpriteRenderer>().DOKill();
+                obj.GetComponent<SpriteRenderer>().DOFade(1, 0.5f);
+                obj.gameObject.SetActive(true);
+            }
+        }
+    }
+
+    void HidePlayer1()
+    {
+        //player1_SR.DOKill();
+        player1_SR.DOFade(0, 0.5f);
+
+        foreach (Transform obj in player1.transform)
+        {
+            //obj.GetComponent<SpriteRenderer>().DOKill();
+            obj.GetComponent<SpriteRenderer>().DOFade(0, 0.5f);
+        }
+    }
+
+    void HidePlayer2()
+    {
+        //player2_SR.DOKill();
+        player2_SR.DOFade(0, 0.5f);
+
+        foreach (Transform obj in player2.transform)
+        {
+            //obj.GetComponent<SpriteRenderer>().DOKill();
+            obj.GetComponent<SpriteRenderer>().DOFade(0, 0.5f);
+        }
+    }
 
     /*
     void Platform()
@@ -780,45 +843,21 @@ public class Button : MonoBehaviour {
         timePlayer1 = -10;
         keyCodsPlayer1.Clear();
 
-        timePlayer2 = -10;
-        keyCodsPlayer2.Clear();
+
+        if (heroIn1)
+            ShowColorPlayer1();
 
 
-        if (playersCount == 1)
-        {
-            if (heroIn1)
-                ShowIcons(true);
-            else
-                ShowIcons(false);
-        }
-        else
-        {
-            if (heroIn1)
-                ShowIcons(true);
-            else
-            {
-                if (!heroIn2)
-                    ShowIcons(false);
-            }
-
-            if (heroIn2)
-            {
-                if (!heroIn1)
-                    ShowIcons(true);
-            }
-            else
-            {
-                //if (!heroIn1)
-                    //ShowIcons(false);
-            }
-
-        }
     }
 
 
     void ResetPlayer2()
     {
         timePlayer2 = -10;
+        keyCodsPlayer2.Clear();
+
+        if (heroIn2)
+            ShowColorPlayer1();
     }
 
     IEnumerator DeactivateAll()
@@ -857,6 +896,9 @@ public class Button : MonoBehaviour {
             if (heroIn1)
                 player1.SetActive(false);
         }
+
+        keyCodsPlayer1.Clear();
+        keyCodsPlayer2.Clear();
 
 
     }

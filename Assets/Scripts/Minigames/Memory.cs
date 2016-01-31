@@ -1,7 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 using DG.Tweening;
+using UnityEngine.UI;
 
 public class Memory : MonoBehaviour
 {
@@ -9,6 +11,7 @@ public class Memory : MonoBehaviour
 	public GameObject tile;
 	public GameObject player1Pointer;
 	public GameObject player2Pointer;
+	public TextMesh timerText;
 	public int offsetX = 250;
 	public int offsetY = 600;
 
@@ -50,6 +53,7 @@ public class Memory : MonoBehaviour
 	{
 		GenerateAvailableCards();
 		GenerateBoard();
+		timerText.GetComponent<MeshRenderer>().sortingOrder = 2;
 		timer = 60;
 	}
 	
@@ -89,6 +93,14 @@ public class Memory : MonoBehaviour
 						player1x += 2;
 						player1JustMoved = true;
 					}
+					else if(player1y == 0)
+					{
+						player1y++;
+					}
+					else
+					{
+						player1y--;
+					}
 				}
 			}
 			else if (Input.GetAxis(string.Format("{0}_{1}", "Joy1", "Horizontal")) < -0.5f)
@@ -104,6 +116,14 @@ public class Memory : MonoBehaviour
 					{
 						player1x -= 2;
 						player1JustMoved = true;
+					}
+					else if (player1y == 0)
+					{
+						player1y++;
+					}
+					else
+					{
+						player1y--;
 					}
 				}
 			}
@@ -175,6 +195,14 @@ public class Memory : MonoBehaviour
 						player2x += 2;
 						player2JustMoved = true;
 					}
+					else if (player2y == 0)
+					{
+						player2y++;
+					}
+					else
+					{
+						player2y--;
+					}
 				}
 			}
 			else if (Input.GetAxis(string.Format("{0}_{1}", "Joy2", "Horizontal")) < -0.5f)
@@ -190,6 +218,14 @@ public class Memory : MonoBehaviour
 					{
 						player2x -= 2;
 						player2JustMoved = true;
+					}
+					else if (player2y == 0)
+					{
+						player2y++;
+					}
+					else
+					{
+						player2y--;
 					}
 				}
 			}
@@ -276,7 +312,7 @@ public class Memory : MonoBehaviour
 				{
 					GameObject tempTile = Instantiate(tile, new Vector3(x * offsetX - 700, y * offsetY - 200, 0), Quaternion.identity) as GameObject;
 					tempTile.transform.parent = transform;
-					int rand = Random.Range(0, availableCards.Count);
+					int rand = UnityEngine.Random.Range(0, availableCards.Count);
 					tempTile.GetComponent<Animator>().Play("tile", 0, availableCards[rand] * 0.2f);
 					tempTile.transform.FindChild("back").gameObject.SetActive(true);
 					board[x, y] = tempTile;
@@ -286,7 +322,7 @@ public class Memory : MonoBehaviour
 				{
 					GameObject tempTile = Instantiate(tile, new Vector3(x * offsetX - 500, y * offsetY - 200, 0), Quaternion.identity) as GameObject;
 					tempTile.transform.parent = transform;
-					int rand = Random.Range(0, availableCards.Count);
+					int rand = UnityEngine.Random.Range(0, availableCards.Count);
 					tempTile.GetComponent<Animator>().Play("tile", 0, availableCards[rand] * 0.2f);
 					tempTile.transform.FindChild("back").gameObject.SetActive(true);
 					board[x, y] = tempTile;
@@ -460,6 +496,7 @@ public class Memory : MonoBehaviour
 		if (counter == 0)
 		{
 			endGame = true;
+			SceneLoader.Instance.LoadLevel("MainMenu");
 			Debug.Log("WINNER!!!!!!!!!11111oneoneone");
 		}
 	}
@@ -469,11 +506,14 @@ public class Memory : MonoBehaviour
 		if (timer > 0)
 		{
 			timer -= Time.deltaTime;
+			timerText.text = Math.Round(timer, 2).ToString();
 		}
 		else
 		{
+			timerText.text = "00.00";
 			timer = 60;
 			gameOver = true;
+			SceneLoader.Instance.LoadLevel("memory");
 			Debug.Log("GAME OVER LOSERS!!!");
 		}
 	}

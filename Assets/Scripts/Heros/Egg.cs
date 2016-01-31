@@ -28,6 +28,7 @@ public class Egg : MonoBehaviour
 	{
 		if (!destroyed)
 		{
+			GetComponent<AudioSource>().Play();
 			GetComponent<Animator>().enabled = true;
 			GetComponent<Animator>().Play("egg_destroy", 0, 0);
 			destroyed = true;

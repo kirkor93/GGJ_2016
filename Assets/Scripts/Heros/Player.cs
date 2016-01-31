@@ -106,7 +106,10 @@ namespace Assets.Scripts
 
         protected virtual void OnCollisionExit2D(Collision2D other)
         {
-            _flying = true;
+            if (other.gameObject.layer == LayerMask.NameToLayer("Level"))
+            {
+                _flying = true;
+            }
         }
 
         public virtual void OnMove(Vector2 direction)

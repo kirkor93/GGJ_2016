@@ -5,18 +5,19 @@ using DG.Tweening;
 
 public class Memory : MonoBehaviour
 {
-	public GameObject[,] board = new GameObject[4,3];
+	public GameObject[,] board = new GameObject[6,2];
 	public GameObject tile;
 	public GameObject player1Pointer;
 	public GameObject player2Pointer;
-	public int offset = 300;
+	public int offsetX = 250;
+	public int offsetY = 600;
 
 	private List<GameObject> uncoveredCards = new List<GameObject>();
 	private List<int> availableCards = new List<int>();
 
 	private int player1x = 0;
 	private int player1y = 0;
-	private int player2x = 2;
+	private int player2x = 3;
 	private int player2y = 0;
 
 	private float player1MoveTimer = 0.25f;
@@ -67,7 +68,7 @@ public class Memory : MonoBehaviour
 			float y = 0;
 			if (Input.GetAxis(string.Format("{0}_{1}", "Joy1", "Horizontal")) > 0.5f)
 			{
-				if (player1x < 1)
+				if (player1x < 2)
 				{
 					player1x++;
 					player1JustMoved = true;
@@ -84,7 +85,7 @@ public class Memory : MonoBehaviour
 
 			if (Input.GetAxis(string.Format("{0}_{1}", "Joy1", "Vertical")) > 0.5f)
 			{
-				if (player1y < 2)
+				if (player1y < 1)
 				{
 					player1y++;
 					player1JustMoved = true;
@@ -99,8 +100,8 @@ public class Memory : MonoBehaviour
 				}
 			}
 
-			x = player1x * offset - 600;
-			y = player1y * offset - 300;
+			x = player1x * offsetX - 700;
+			y = player1y * offsetY - 200;
 			player1Pointer.transform.position = new Vector3(x, y, 0);			
 		}
 		if (Input.GetKeyDown(KeyCode.Joystick1Button0) && uncoveredCards.Count < 2 && !isTurningCard)
@@ -111,7 +112,7 @@ public class Memory : MonoBehaviour
 				{
 					if (Vector2.Distance(tile.transform.position, player1Pointer.transform.position) < 10)
 					{
-						if (tile.GetComponent<SpriteRenderer>().color == Color.black)
+						if (tile.transform.FindChild("back").gameObject.activeSelf)
 						{
 							tile.transform.DOScaleX(0, 0.2f);
 							uncoveredCards.Add(tile);
@@ -131,7 +132,7 @@ public class Memory : MonoBehaviour
 			float y = 0;
 			if (Input.GetAxis(string.Format("{0}_{1}", "Joy2", "Horizontal")) > 0.5f)
 			{
-				if (player2x < 3)
+				if (player2x < 6)
 				{
 					player2x++;
 					player2JustMoved = true;
@@ -139,7 +140,7 @@ public class Memory : MonoBehaviour
 			}
 			else if (Input.GetAxis(string.Format("{0}_{1}", "Joy2", "Horizontal")) < -0.5f)
 			{
-				if (player2x > 2)
+				if (player2x > 3)
 				{
 					player2x--;
 					player2JustMoved = true;
@@ -148,7 +149,7 @@ public class Memory : MonoBehaviour
 
 			if (Input.GetAxis(string.Format("{0}_{1}", "Joy2", "Vertical")) > 0.5f)
 			{
-				if (player2y < 2)
+				if (player2y < 1)
 				{
 					player2y++;
 					player2JustMoved = true;
@@ -163,8 +164,8 @@ public class Memory : MonoBehaviour
 				}
 			}
 
-			x = player2x * offset - 300;
-			y = player2y * offset - 300;
+			x = player2x * offsetX - 500;
+			y = player2y * offsetY - 200;
 			player2Pointer.transform.position = new Vector3(x, y, 0);
 		}
 		if (Input.GetKeyDown(KeyCode.Joystick2Button0) && uncoveredCards.Count < 2 && !isTurningCard)
@@ -175,7 +176,7 @@ public class Memory : MonoBehaviour
 				{
 					if (Vector2.Distance(tile.transform.position, player2Pointer.transform.position) < 10)
 					{
-						if (tile.GetComponent<SpriteRenderer>().color == Color.black)
+						if (tile.transform.FindChild("back").gameObject.activeSelf)
 						{
 							tile.transform.DOScaleX(0, 0.2f);
 							uncoveredCards.Add(tile);
@@ -214,27 +215,27 @@ public class Memory : MonoBehaviour
 
 	void GenerateBoard()
 	{
-		for(int x = 0; x < 4; x++)
+		for(int x = 0; x < 6; x++)
 		{
-			for(int y = 0; y < 3; y++)
+			for(int y = 0; y < 2; y++)
 			{
-				if(x < 2)
+				if(x < 3)
 				{
-					GameObject tempTile = Instantiate(tile, new Vector3(x * offset - 600, y * offset - 300, 0), Quaternion.identity) as GameObject;
+					GameObject tempTile = Instantiate(tile, new Vector3(x * offsetX - 700, y * offsetY - 200, 0), Quaternion.identity) as GameObject;
 					tempTile.transform.parent = transform;
 					int rand = Random.Range(0, availableCards.Count);
 					tempTile.GetComponent<Animator>().Play("tile", 0, availableCards[rand] * 0.2f);
-					tempTile.GetComponent<SpriteRenderer>().color = Color.black;
+					tempTile.transform.FindChild("back").gameObject.SetActive(true);
 					board[x, y] = tempTile;
 					availableCards.RemoveAt(rand);
 				}
 				else
 				{
-					GameObject tempTile = Instantiate(tile, new Vector3(x * offset - 300, y * offset - 300, 0), Quaternion.identity) as GameObject;
+					GameObject tempTile = Instantiate(tile, new Vector3(x * offsetX - 500, y * offsetY - 200, 0), Quaternion.identity) as GameObject;
 					tempTile.transform.parent = transform;
 					int rand = Random.Range(0, availableCards.Count);
 					tempTile.GetComponent<Animator>().Play("tile", 0, availableCards[rand] * 0.2f);
-					tempTile.GetComponent<SpriteRenderer>().color = Color.black;
+					tempTile.transform.FindChild("back").gameObject.SetActive(true);
 					board[x, y] = tempTile;
 					availableCards.RemoveAt(rand);
 				}
@@ -264,7 +265,7 @@ public class Memory : MonoBehaviour
 			else if(uncoveredCardTimer <= 0.25f && uncoveredCardTimer > 0.2f)
 			{
 				uncoveredCards[uncoveredCards.Count - 1].transform.DOScaleX(1, 0.2f);
-				uncoveredCards[uncoveredCards.Count - 1].GetComponent<SpriteRenderer>().color = Color.white;
+				uncoveredCards[uncoveredCards.Count - 1].transform.FindChild("back").gameObject.SetActive(false);
 				uncoveredCardTimer = 0.2f;
 			}
 			else if (uncoveredCardTimer > 0)
@@ -347,7 +348,7 @@ public class Memory : MonoBehaviour
 				foreach (GameObject tile in uncoveredCards)
 				{
 					tile.transform.DOScaleX(1, 0.2f);
-					tile.GetComponent<SpriteRenderer>().color = Color.black;
+					tile.transform.FindChild("back").gameObject.SetActive(true);
 				}
 				coverCardTimer = 0.2f;
 			}
@@ -375,13 +376,16 @@ public class Memory : MonoBehaviour
 			else
 			{
 				fadingCards = false;
-				for(int x = 0; x < 4; x++)
+				for(int x = 0; x < board.GetLength(0); x++)
 				{
-					for (int y = 0; y < 3; y++)
+					for (int y = 0; y < board.GetLength(1); y++)
 					{
-						if(board[x,y] == uncoveredCards[0] || board[x, y] == uncoveredCards[1])
+						if (board[x, y] != null)
 						{
-							board[x, y] = null;
+							if (board[x, y] == uncoveredCards[0] || board[x, y] == uncoveredCards[1])
+							{
+								board[x, y] = null;
+							}
 						}
 					}
 				}

@@ -36,6 +36,8 @@ namespace Assets.Scripts
 
         public bool Water;
 
+        public bool Attack;
+
         protected Rigidbody2D Rigidbody;
 
         private float _currentMovementSpeed;

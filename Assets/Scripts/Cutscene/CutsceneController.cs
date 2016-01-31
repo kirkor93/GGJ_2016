@@ -10,6 +10,8 @@ public class CutsceneController : MonoBehaviour
     {
         Camera c = GetComponent<Camera>();
         c.orthographicSize *= ReferenceScreenAspect/c.aspect;
+
+        StartCoroutine(SwapSceneOnFinish());
     }
 
     private IEnumerator SwapSceneOnFinish()
@@ -23,7 +25,9 @@ public class CutsceneController : MonoBehaviour
         }
         else
         {
-            Debug.LogError("Texture assigned to silver screen is not");
+            Debug.LogError("Texture assigned to silver screen is not MovieTexture");
         }
+
+        SceneLoader.Instance.LoadLevel("level01");
     }
 }

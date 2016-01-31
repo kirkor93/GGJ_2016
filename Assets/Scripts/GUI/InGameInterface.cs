@@ -18,10 +18,18 @@ namespace Assets.Scripts.GUI
         public RectTransform GameOverScreen;
         public Image GoatFillBar;
 
+        private RectTransform _barParent;
+        private RectTransform _canvasRect;
+        private Camera _sceneCamera;
+
         protected void Start()
         {
             Goat.OnGameOver += HandleOnGameOver;
             Chicken.OnGameOver += HandleOnGameOver;
+            _barParent = GoatFillBar.transform.parent.GetComponent<RectTransform>();
+            _canvasRect = GetComponent<RectTransform>();
+            _sceneCamera = FindObjectOfType<Camera>();
+            Debug.Log(FindObjectsOfType<Camera>().Length);
         }
 
         private void HandleOnGameOver(object sender, GameOverEventArgs gameOverEventArgs)
@@ -46,13 +54,14 @@ namespace Assets.Scripts.GUI
         protected void Update()
         {
             float goatThrowForce = Goat.CurrentThrowForce/Goat.ThrowForce;
-            GoatFillBar.transform.parent.gameObject.SetActive(Goat.HoldingChicken);
+//            _barParent.gameObject.SetActive(Goat.HoldingChicken);
             if (Goat.HoldingChicken)
             {
-                Vector3 pos = Camera.main.WorldToScreenPoint(Goat.transform.position /*+ Vector3.up*100.0f*/);
-                pos.z = 0.0f;
-                GoatFillBar.transform.parent.localPosition = pos;
                 GoatFillBar.fillAmount = goatThrowForce;
+            }
+            else
+            {
+                GoatFillBar.fillAmount = 0.0f;
             }
 
             GoatScore.text = string.Format("Score: {0}", Goat.CurrentScore);

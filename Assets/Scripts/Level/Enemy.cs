@@ -85,6 +85,7 @@ public class Enemy : MonoBehaviour
         }
         else if (col.gameObject.layer == LayerMask.NameToLayer("hero"))
         {
+			GetComponent<AudioSource>().Play();
             if (col.gameObject.name.Contains("chicken") && !catchHero1)
             {
                 catchHero1 = true;

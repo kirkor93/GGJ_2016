@@ -19,6 +19,7 @@ public class God : MonoBehaviour {
     {
         if (col.gameObject.layer == LayerMask.NameToLayer("hero") && col.gameObject.GetComponent<Player>().Attack)
         {
+			GetComponent<AudioSource>().Play();
             StartCoroutine("FuckIT");
             transform.DOScale(Vector3.zero, 0.25f);
         }

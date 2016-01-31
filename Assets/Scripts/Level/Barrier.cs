@@ -22,6 +22,7 @@ public class Barrier : MonoBehaviour {
 	void Update () {
 	    if (startAction)
         {
+			GetComponent<AudioSource>().Play();
             SetAction();
             startAction = false;
         }

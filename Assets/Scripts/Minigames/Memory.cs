@@ -165,6 +165,7 @@ public class Memory : MonoBehaviour
 					{
 						if (tile.transform.FindChild("back").gameObject.activeSelf)
 						{
+							tile.GetComponent<AudioSource>().Play();
 							tile.transform.DOScaleX(0, 0.2f);
 							uncoveredCards.Add(tile);
 							isTurningCard = true;
@@ -267,6 +268,7 @@ public class Memory : MonoBehaviour
 					{
 						if (tile.transform.FindChild("back").gameObject.activeSelf)
 						{
+							tile.GetComponent<AudioSource>().Play();
 							tile.transform.DOScaleX(0, 0.2f);
 							uncoveredCards.Add(tile);
 							isTurningCard = true;

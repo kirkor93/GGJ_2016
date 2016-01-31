@@ -22,6 +22,8 @@ public class Spikes : MonoBehaviour {
          {
              if (col1)
              {
+				if(!transform.GetChild(0).GetComponent<SpriteRenderer>().enabled)
+					GetComponent<AudioSource>().Play();
                  transform.GetChild(0).GetComponent<SpriteRenderer>().enabled = true;
                  col1.enabled = false;
              }

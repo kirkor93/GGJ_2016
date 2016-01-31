@@ -8,7 +8,7 @@ public class AmbientSound : MonoBehaviour
 	{
 		DontDestroyOnLoad(gameObject);
 		GetComponent<AudioSource>().volume = 0;
-		GetComponent<AudioSource>().DOFade(1, 2);
+		GetComponent<AudioSource>().DOFade(0.5f, 2);
 	}
 
 	void Start ()
@@ -19,11 +19,5 @@ public class AmbientSound : MonoBehaviour
 	void Update ()
 	{
 	
-	}
-
-	void OnLevelWasLoaded(int level)
-	{
-		GetComponent<AudioSource>().volume = 0;
-		GetComponent<AudioSource>().DOFade(1, 2);
 	}
 }

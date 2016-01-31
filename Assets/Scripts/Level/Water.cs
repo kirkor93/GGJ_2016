@@ -20,6 +20,7 @@ public class Water : MonoBehaviour {
         if (col.gameObject.layer == LayerMask.NameToLayer("hero"))
         {
             col.gameObject.GetComponent<Player>().Water = true;
+			GetComponent<AudioSource>().Play();
 
             if (col.transform.localScale.x >= 0)
                 col.transform.DOMoveX(col.transform.position.x + GetComponent<SpriteRenderer>().bounds.size.x ,  1f).SetEase(Ease.OutQuad);

@@ -16,6 +16,7 @@ namespace Assets.Scripts.GUI
         public Text GoatScore;
         public Text ChickenScore;
         public RectTransform GameOverScreen;
+        public Image GoatFillBar;
 
         protected void Start()
         {
@@ -44,6 +45,16 @@ namespace Assets.Scripts.GUI
 
         protected void Update()
         {
+            float goatThrowForce = Goat.CurrentThrowForce/Goat.ThrowForce;
+            GoatFillBar.transform.parent.gameObject.SetActive(Goat.HoldingChicken);
+            if (Goat.HoldingChicken)
+            {
+                Vector3 pos = Camera.main.WorldToScreenPoint(Goat.transform.position /*+ Vector3.up*100.0f*/);
+                pos.z = 0.0f;
+                GoatFillBar.transform.parent.localPosition = pos;
+                GoatFillBar.fillAmount = goatThrowForce;
+            }
+
             GoatScore.text = string.Format("Score: {0}", Goat.CurrentScore);
             ChickenScore.text = string.Format("Score: {0}", Chicken.CurrentScore);
 

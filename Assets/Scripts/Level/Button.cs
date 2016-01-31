@@ -18,6 +18,7 @@ public class Button : MonoBehaviour {
     public Sprite iconChicken;
     public Sprite iconGoat;
     public GameObject actionObj;
+    public AudioClip soundGood, soundBad;
 
     public bool heroIn1, heroIn2, done;
     GameObject icon, platform, player1, player2, chicken, goat, timerP1, timerP2;
@@ -208,6 +209,7 @@ public class Button : MonoBehaviour {
                             icons1[keyCodsPlayer1.Count - 1].transform.localScale = Vector3.one;
                             icons1[keyCodsPlayer1.Count - 1].GetComponent<SpriteRenderer>().color = new Vector4(0.5f, 0.5f, 0.5f, 1);
 
+                            PlayGood();
 
                             if (keyCodsPlayer1.Count == keyCods1.Count)
                             {
@@ -264,6 +266,7 @@ public class Button : MonoBehaviour {
                         }
                         else
                         {
+                            PlayBad();
                             ResetPlayer1();
                         }
                     }
@@ -327,6 +330,8 @@ public class Button : MonoBehaviour {
                             icons1[keyCodsPlayer1.Count - 1].transform.localScale = Vector3.one;
                             icons1[keyCodsPlayer1.Count - 1].GetComponent<SpriteRenderer>().color = new Vector4(0.5f, 0.5f, 0.5f, 1);
 
+                            PlayGood();
+
                             if (keyCodsPlayer1.Count == keyCods1.Count)
                             {
                                 int idKey = 0;
@@ -366,6 +371,7 @@ public class Button : MonoBehaviour {
                         }
                         else
                         {
+                            PlayBad();
                             ResetPlayer1();
                         }
                     }
@@ -425,6 +431,7 @@ public class Button : MonoBehaviour {
                             icons2[keyCodsPlayer2.Count - 1].transform.localScale = Vector3.one;
                             icons2[keyCodsPlayer2.Count - 1].GetComponent<SpriteRenderer>().color = new Vector4(0.5f, 0.5f, 0.5f, 1);
 
+                            PlayGood();
 
                             if (keyCodsPlayer2.Count == keyCods2.Count)
                             {
@@ -465,6 +472,7 @@ public class Button : MonoBehaviour {
                         }
                         else
                         {
+                            PlayBad();
                             ResetPlayer2();
                         }
                     }
@@ -979,6 +987,16 @@ public class Button : MonoBehaviour {
         {
             timerP2.transform.GetChild(i).GetComponent<SpriteRenderer>().DOFade(0, timeToPress / timerP2.transform.childCount).SetDelay((timeToPress / timerP2.transform.childCount) * (i + 1));
         }
+    }
+
+    void PlayGood()
+    {
+        GetComponent<AudioSource>().PlayOneShot(soundGood);
+    }
+
+    void PlayBad()
+    {
+        GetComponent<AudioSource>().PlayOneShot(soundBad);
     }
 
     IEnumerator DeactivateAll()

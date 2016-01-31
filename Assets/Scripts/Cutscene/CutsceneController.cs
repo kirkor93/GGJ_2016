@@ -20,7 +20,6 @@ public class CutsceneController : MonoBehaviour
         if (texture != null)
         {
             texture.Play();
-
             yield return new WaitForSeconds(texture.duration + 0.1f);
         }
         else

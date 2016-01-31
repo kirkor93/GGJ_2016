@@ -20,7 +20,7 @@ public class Button : MonoBehaviour {
     public GameObject actionObj;
 
     public bool heroIn1, heroIn2, done;
-    GameObject icon, platform, player1, player2, chicken, goat;
+    GameObject icon, platform, player1, player2, chicken, goat, timerP1, timerP2;
     Transform dzwignia;
     SpriteRenderer iconSprite;
     SpriteRenderer player1_SR, player2_SR;
@@ -34,7 +34,7 @@ public class Button : MonoBehaviour {
     bool done1;
     bool done2;
 
-
+    Sequence sequenceTimer1, sequenceTimer2;
 
 
 	// Use this for initialization
@@ -47,6 +47,12 @@ public class Button : MonoBehaviour {
 
         player1 = transform.FindChild("player1").gameObject;
         player2 = transform.FindChild("player2").gameObject;
+
+        timerP1 = transform.FindChild("timerP1").gameObject;
+        timerP2 = transform.FindChild("timerP2").gameObject;
+
+        timerP1.SetActive(false);
+        timerP2.SetActive(false);
 
         dzwignia = transform.FindChild("dzwignia");
 
@@ -155,6 +161,19 @@ public class Button : MonoBehaviour {
                                 if (Input.GetKey(vKey) && vKey.ToString().Contains("JoystickB"))
                                 {
                                     keyCodsPlayer1.Add(vKey);
+
+
+                                    if (player1_SR.sprite == iconChicken)
+                                    {
+                                        timerP1.SetActive(true);
+                                        StartSequencePlayer1();
+                                    }
+                                    else
+                                    {
+                                        timerP2.SetActive(true);
+                                        StartSequencePlayer2();
+                                    }
+
                                 }
                             }
                         }
@@ -168,6 +187,15 @@ public class Button : MonoBehaviour {
                                     if (Input.GetKey(vKey) && vKey.ToString().Contains("JoystickB"))
                                     {
                                         keyCodsPlayer1.Add(vKey);
+
+                                        if (player1_SR.sprite == iconChicken)
+                                        {
+                                            StartSequencePlayer1();
+                                        }
+                                        else
+                                        {
+                                            StartSequencePlayer2();
+                                        }
                                     }
                                 }
                             }
@@ -179,6 +207,7 @@ public class Button : MonoBehaviour {
                             icons1[keyCodsPlayer1.Count - 1].transform.DOKill();
                             icons1[keyCodsPlayer1.Count - 1].transform.localScale = Vector3.one;
                             icons1[keyCodsPlayer1.Count - 1].GetComponent<SpriteRenderer>().color = new Vector4(0.5f, 0.5f, 0.5f, 1);
+
 
                             if (keyCodsPlayer1.Count == keyCods1.Count)
                             {
@@ -240,7 +269,7 @@ public class Button : MonoBehaviour {
                     }
                 }
             }
-            //////////////////////////------------------------------ TO DO
+            //////////////////////////------------------------------ 2 Heroes
             else
             {
 
@@ -270,6 +299,8 @@ public class Button : MonoBehaviour {
                                 if (Input.GetKey(vKey) && vKey.ToString().Contains("JoystickB"))
                                 {
                                     keyCodsPlayer1.Add(vKey);
+                                    timerP1.SetActive(true);
+                                    StartSequencePlayer1();
                                 }
                             }
                         }
@@ -283,6 +314,7 @@ public class Button : MonoBehaviour {
                                     if (Input.GetKey(vKey) && vKey.ToString().Contains("JoystickB"))
                                     {
                                         keyCodsPlayer1.Add(vKey);
+                                        StartSequencePlayer1();
                                     }
                                 }
                             }
@@ -365,6 +397,8 @@ public class Button : MonoBehaviour {
                                 if (Input.GetKey(vKey) && vKey.ToString().Contains("JoystickB"))
                                 {
                                     keyCodsPlayer2.Add(vKey);
+                                    timerP2.SetActive(true);
+                                    StartSequencePlayer2();
                                 }
                             }
                         }
@@ -378,6 +412,7 @@ public class Button : MonoBehaviour {
                                     if (Input.GetKey(vKey) && vKey.ToString().Contains("JoystickB"))
                                     {
                                         keyCodsPlayer2.Add(vKey);
+                                        StartSequencePlayer2();
                                     }
                                 }
                             }
@@ -476,11 +511,15 @@ public class Button : MonoBehaviour {
                 {
                     chicken = col.gameObject;
                     player1_SR.sprite = iconChicken;
+                    timerP1.transform.position = player1.transform.position;
+
                 }
                 else
                 {
                     goat = col.gameObject;
                     player1_SR.sprite = iconGoat;
+                    timerP2.transform.position = player1.transform.position;
+
                 }
 
                 ShowColorPlayer1();
@@ -489,14 +528,17 @@ public class Button : MonoBehaviour {
             }
             else
             {
-
-                player2_SR.sprite = iconGoat;
                 player1_SR.sprite = iconChicken;
+                player2_SR.sprite = iconGoat;
+
+                timerP1.transform.position = player1.transform.position;
+                timerP2.transform.position = player2.transform.position;
 
                 if (col.gameObject.name.Contains("chicken"))
                 {
                     chicken = col.gameObject;
                     heroIn1 = true;
+
 
                     ShowColorPlayer1();
                 }
@@ -544,6 +586,8 @@ public class Button : MonoBehaviour {
                     goat.GetComponent<Player>().SequenceMode = false;
 
                 keyCodsPlayer1.Clear();
+
+                StartCoroutine("DeactivateAll");
             }
             else
             {
@@ -847,6 +891,25 @@ public class Button : MonoBehaviour {
         if (heroIn1)
             ShowColorPlayer1();
 
+        if (playersCount == 1)
+        {
+            if (player1_SR.sprite == iconChicken)
+            {
+                timerP1.SetActive(false);
+                ShowDotsTimer(timerP1);
+            }
+            else
+            {
+                timerP2.SetActive(false);
+                ShowDotsTimer(timerP2);
+            }
+        }
+        else
+        {
+            timerP1.SetActive(false);
+            ShowDotsTimer(timerP1);
+        }
+
 
     }
 
@@ -856,8 +919,66 @@ public class Button : MonoBehaviour {
         timePlayer2 = -10;
         keyCodsPlayer2.Clear();
 
+        timerP2.SetActive(false);
+        ShowDotsTimer(timerP2);
+
         if (heroIn2)
             ShowColorPlayer1();
+    }
+
+    void ShowDotsTimer(GameObject timer)
+    {
+        foreach (Transform obj in timer.transform)
+        {
+            obj.GetComponent<SpriteRenderer>().DOKill();
+            obj.GetComponent<SpriteRenderer>().color = Vector4.one;
+        }
+    }
+
+
+    void StartSequencePlayer1()
+    {
+
+        if (playersCount == 1)
+        {
+            if (player1_SR.sprite == iconChicken)
+            {
+                ShowDotsTimer(timerP1);
+
+                for (int i = 0; i < timerP1.transform.childCount; i++ )
+                {
+                    timerP1.transform.GetChild(i).GetComponent<SpriteRenderer>().DOFade(0, timeToPress / timerP1.transform.childCount).SetDelay( (timeToPress / timerP1.transform.childCount ) * (i+1) );
+                }
+            }
+            else if (player1_SR.sprite == iconGoat)
+            {
+                ShowDotsTimer(timerP2);
+
+                for (int i = 0; i < timerP2.transform.childCount; i++)
+                {
+                    timerP2.transform.GetChild(i).GetComponent<SpriteRenderer>().DOFade(0, timeToPress / timerP2.transform.childCount).SetDelay((timeToPress / timerP2.transform.childCount) * (i + 1));
+                }
+            }
+        }
+        else
+        {
+            ShowDotsTimer(timerP1);
+
+            for (int i = 0; i < timerP1.transform.childCount; i++)
+            {
+                timerP1.transform.GetChild(i).GetComponent<SpriteRenderer>().DOFade(0, timeToPress / timerP1.transform.childCount).SetDelay((timeToPress / timerP1.transform.childCount) * (i + 1));
+            }
+        }
+    }
+
+    void StartSequencePlayer2()
+    {
+        ShowDotsTimer(timerP2);
+
+        for (int i = 0; i < timerP2.transform.childCount; i++)
+        {
+            timerP2.transform.GetChild(i).GetComponent<SpriteRenderer>().DOFade(0, timeToPress / timerP2.transform.childCount).SetDelay((timeToPress / timerP2.transform.childCount) * (i + 1));
+        }
     }
 
     IEnumerator DeactivateAll()
@@ -899,6 +1020,11 @@ public class Button : MonoBehaviour {
 
         keyCodsPlayer1.Clear();
         keyCodsPlayer2.Clear();
+
+        timerP1.SetActive(false);
+        timerP2.SetActive(false);
+        ShowDotsTimer(timerP1);
+        ShowDotsTimer(timerP2);
 
 
     }

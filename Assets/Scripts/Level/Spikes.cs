@@ -20,16 +20,24 @@ public class Spikes : MonoBehaviour {
     {
          if (col.gameObject.layer == LayerMask.NameToLayer("hero") )
          {
-             if (col1)
+             if (!transform.GetChild(0).GetComponent<SpriteRenderer>().enabled)
              {
 				if(!transform.GetChild(0).GetComponent<SpriteRenderer>().enabled)
 					GetComponent<AudioSource>().Play();
-                 transform.GetChild(0).GetComponent<SpriteRenderer>().enabled = true;
+
+                foreach (Transform spike in transform)
+                {
+                    spike.GetComponent<SpriteRenderer>().enabled = true;
+                }
+                
                  col1.enabled = false;
              }
              else
              {
-                 col.gameObject.GetComponent<Player>().HitPoints = 0;
+                 if (col.gameObject.name.Contains("Goat"))
+                 {
+                     col.gameObject.GetComponent<Player>().HitPoints = 0;
+                 }
              }
          }
     }

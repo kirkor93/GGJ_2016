@@ -25,7 +25,7 @@ public class Coin : MonoBehaviour
             {
                 player.ChangeScore(ScoreIncrease);
             }
-
+			GetComponent<AudioSource>().Play();
             _renderer.enabled = false;
             _collider.enabled = false;
             _particle.gameObject.SetActive(true);

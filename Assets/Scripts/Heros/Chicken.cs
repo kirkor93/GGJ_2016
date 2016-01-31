@@ -10,8 +10,9 @@ public class Chicken : Player
 	public Sprite chickenSprite;
 	public float power;
 	public AudioClip walkClip;
+	public AudioClip shootClip;
 	Vector2 dir;
-
+	AudioSource _audioSource;
 	float cooldown = 0.3f;
 	bool shot = false;
 	bool canMove = true;
@@ -19,6 +20,7 @@ public class Chicken : Player
 
 	void Start ()
 	{
+		_audioSource = GetComponent<AudioSource>();
         SequenceMode = false;
         Water = false;
 	}
@@ -33,7 +35,10 @@ public class Chicken : Player
 	public override void OnActionStart()
 	{
 		if (!shot && (dir.x != 0 && dir.y != 0) && !SequenceMode)
-		{			
+		{
+			_audioSource.clip = shootClip;
+			_audioSource.loop = false;
+			_audioSource.Play();
 			transform.localScale = new Vector3(-transform.localScale.x, 1, 1);
 			GetComponent<SpriteRenderer>().sprite = cannon;
 			GameObject tempEgg = Instantiate(egg, transform.position, Quaternion.identity) as GameObject;
@@ -62,26 +67,26 @@ public class Chicken : Player
 		if (dir.x > -0.1f && dir.x < 0.1f)
 		{
 			GetComponent<Animator>().SetBool("moving", false);
-			if (GetComponent<AudioSource>().clip == walkClip)
-				GetComponent<AudioSource>().Stop();
+			if (_audioSource.clip == walkClip)
+				_audioSource.Stop();
 		}
 		else if (!jumping)
 		{
 			GetComponent<Animator>().SetBool("moving", true);
-			if (GetComponent<AudioSource>().clip != walkClip)
-				GetComponent<AudioSource>().clip = walkClip;
+			if (_audioSource.clip != walkClip)
+				_audioSource.clip = walkClip;
 
-			if (!GetComponent<AudioSource>().loop)
-				GetComponent<AudioSource>().loop = true;
+			if (!_audioSource.loop)
+				_audioSource.loop = true;
 
-			if(!GetComponent<AudioSource>().isPlaying)
-				GetComponent<AudioSource>().Play();
+			if(!_audioSource.isPlaying)
+				_audioSource.Play();
 		}
 		else if(jumping)
 		{
 			GetComponent<Animator>().SetBool("moving", false);
-			if (GetComponent<AudioSource>().clip == walkClip)
-				GetComponent<AudioSource>().Stop();
+			if (_audioSource.clip == walkClip)
+				_audioSource.Stop();
 		}
 
 	}

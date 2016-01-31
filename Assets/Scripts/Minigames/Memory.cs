@@ -27,27 +27,35 @@ public class Memory : MonoBehaviour
 	private float timeToCover = 0.5f;
 	private float timeToFade = 0.5f;
 	private float fadeCardTimer = 0.5f;
+	private float timer = 60;
 	private bool player1JustMoved = false;
 	private bool player2JustMoved = false;
 	private bool isTurningCard = false;
 	private bool coveringCards = false;
 	private bool fadingCards = false;
 	private bool endGame = false;
+	private bool gameOver = false;
 
 	public bool EndGame
 	{
 		get	{return endGame;}
 	}
 
+	public bool GameOver
+	{
+		get { return gameOver; }
+	}
+
 	void Start ()
 	{
 		GenerateAvailableCards();
 		GenerateBoard();
+		timer = 60;
 	}
 	
 	void Update ()
 	{
-		if (!endGame)
+		if (!endGame && !gameOver)
 		{
 			Player1Input();
 			Player2Input();
@@ -57,6 +65,7 @@ public class Memory : MonoBehaviour
 			CoverCard();
 			FadeCard();
 			CheckIfEnd();
+			HandleTimer();
 		}
 	}
 
@@ -70,16 +79,32 @@ public class Memory : MonoBehaviour
 			{
 				if (player1x < 2)
 				{
-					player1x++;
-					player1JustMoved = true;
+					if (board[player1x + 1, player1y] != null)
+					{
+						player1x++;
+						player1JustMoved = true;
+					}
+					else if(player1x < 1 && board[player1x + 2, player1y] != null)
+					{
+						player1x += 2;
+						player1JustMoved = true;
+					}
 				}
 			}
 			else if (Input.GetAxis(string.Format("{0}_{1}", "Joy1", "Horizontal")) < -0.5f)
 			{
 				if (player1x > 0)
 				{
-					player1x--;
-					player1JustMoved = true;
+					if (board[player1x - 1, player1y] != null)
+					{
+						player1x--;
+						player1JustMoved = true;
+					}
+					else if(player1x > 1 && board[player1x - 2, player1y] != null)
+					{
+						player1x -= 2;
+						player1JustMoved = true;
+					}
 				}
 			}
 
@@ -87,16 +112,22 @@ public class Memory : MonoBehaviour
 			{
 				if (player1y < 1)
 				{
-					player1y++;
-					player1JustMoved = true;
+					if (board[player1x, player1y + 1] != null)
+					{
+						player1y++;
+						player1JustMoved = true;
+					}
 				}
 			}
 			else if (Input.GetAxis(string.Format("{0}_{1}", "Joy1", "Vertical")) < -0.5f)
 			{
 				if (player1y > 0)
 				{
-					player1y--;
-					player1JustMoved = true;
+					if (board[player1x, player1y - 1] != null)
+					{
+						player1y--;
+						player1JustMoved = true;
+					}
 				}
 			}
 
@@ -134,16 +165,32 @@ public class Memory : MonoBehaviour
 			{
 				if (player2x < 6)
 				{
-					player2x++;
-					player2JustMoved = true;
+					if (board[player2x + 1, player2y] != null)
+					{
+						player2x++;
+						player2JustMoved = true;
+					}
+					else if (player2x < 5 && board[player2x + 2, player2y] != null)
+					{
+						player2x += 2;
+						player2JustMoved = true;
+					}
 				}
 			}
 			else if (Input.GetAxis(string.Format("{0}_{1}", "Joy2", "Horizontal")) < -0.5f)
 			{
 				if (player2x > 3)
 				{
-					player2x--;
-					player2JustMoved = true;
+					if (board[player2x - 1, player2y] != null)
+					{
+						player2x--;
+						player2JustMoved = true;
+					}
+					else if (player2x > 4 && board[player2x - 2, player2y] != null)
+					{
+						player2x -= 2;
+						player2JustMoved = true;
+					}
 				}
 			}
 
@@ -151,16 +198,22 @@ public class Memory : MonoBehaviour
 			{
 				if (player2y < 1)
 				{
-					player2y++;
-					player2JustMoved = true;
+					if (board[player2x, player2y + 1] != null)
+					{
+						player2y++;
+						player2JustMoved = true;
+					}
 				}
 			}
 			else if (Input.GetAxis(string.Format("{0}_{1}", "Joy2", "Vertical")) < -0.5f)
 			{
 				if (player2y > 0)
 				{
-					player2y--;
-					player2JustMoved = true;
+					if (board[player2x, player2y - 1] != null)
+					{
+						player2y--;
+						player2JustMoved = true;
+					}
 				}
 			}
 
@@ -408,6 +461,20 @@ public class Memory : MonoBehaviour
 		{
 			endGame = true;
 			Debug.Log("WINNER!!!!!!!!!11111oneoneone");
+		}
+	}
+
+	void HandleTimer()
+	{
+		if (timer > 0)
+		{
+			timer -= Time.deltaTime;
+		}
+		else
+		{
+			timer = 60;
+			gameOver = true;
+			Debug.Log("GAME OVER LOSERS!!!");
 		}
 	}
 }

@@ -213,8 +213,12 @@ public class Button : MonoBehaviour {
 
                                     GetComponent<Collider2D>().enabled = false;
 
-                                    GameObject.Find("chicken").GetComponent<Player>().SequenceMode = false;
-                                    GameObject.Find("Goat").GetComponent<Player>().SequenceMode = false;
+                                    if (chicken != null)
+                                        chicken.GetComponent<Player>().SequenceMode = false;
+
+                                    if (goat != null)
+                                        goat.GetComponent<Player>().SequenceMode = false;
+
 
                                     StartCoroutine("DeactivateAll");
                                 }
@@ -495,10 +499,10 @@ public class Button : MonoBehaviour {
                 }
 
 
-                /*if (  !heroIn1 || !heroIn2 || ())
-                {*/
+                if (  !heroIn1 || !heroIn2 )
+                {
                     ShowIcons(true);
-                //}
+                }
             }
 
 
@@ -515,6 +519,9 @@ public class Button : MonoBehaviour {
                 col.gameObject.GetComponent<Player>().SequenceMode = false;
                 heroIn1 = false;
                 ShowIcons(false);
+                chicken.GetComponent<Player>().SequenceMode = false;
+
+                keyCodsPlayer1.Clear();
             }
             else
             {
@@ -522,11 +529,15 @@ public class Button : MonoBehaviour {
                 {
                     col.gameObject.GetComponent<Player>().SequenceMode = false;
                     heroIn1 = false;
+                    keyCodsPlayer1.Clear();
+
                 }
                 if (col.gameObject.name.Contains("Goat"))
                 {
                     col.gameObject.GetComponent<Player>().SequenceMode = false;
                     heroIn2 = false;
+                    keyCodsPlayer2.Clear();
+
                 }
 
                 if (!heroIn1 && !heroIn2)
@@ -536,9 +547,6 @@ public class Button : MonoBehaviour {
                 else
                     ShowIcons(true);
             }
-
-            keyCodsPlayer1.Clear();
-            keyCodsPlayer2.Clear();
         }
     }
 

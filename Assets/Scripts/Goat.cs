@@ -13,8 +13,12 @@ namespace Assets.Scripts
         public float ThrowForce;
         public float ThrowAdjustmentFrequency = 1.0f;
 		public AudioClip walkClip;
+		public AudioClip jumpClip1;
+		public AudioClip jumpClip2;
+		public AudioClip jumpClip3;
+		public AudioClip jumpClip4;
 
-        private Coroutine _actionCoroutine;
+		private Coroutine _actionCoroutine;
         private Chicken _caughtChicken;
         private Vector2 _lastInputDirection;
         private Rigidbody2D _caughtChickenRigidbody;
@@ -107,6 +111,26 @@ namespace Assets.Scripts
 			_animator.SetBool("kick", false);
 
             Attack = false;
+		}
+
+		public override void OnJumpStart()
+		{
+			base.OnJumpStart();
+			if (_audioSource.clip == walkClip)
+			{
+				_audioSource.loop = false;
+				int rand = Random.Range(0, 4);
+				switch(rand)
+				{
+					case 0: _audioSource.clip = jumpClip1; break;
+					case 1: _audioSource.clip = jumpClip2; break;
+					case 2: _audioSource.clip = jumpClip3; break;
+					case 3: _audioSource.clip = jumpClip4; break;
+				}
+			}
+			if (!_audioSource.isPlaying)
+				_audioSource.Play();
+
 		}
 
 		public override void OnMove(Vector2 direction)

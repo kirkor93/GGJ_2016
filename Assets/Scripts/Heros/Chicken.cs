@@ -9,6 +9,7 @@ public class Chicken : Player
 	public Sprite cannon;
 	public Sprite chickenSprite;
 	public float power;
+	public AudioClip walkClip;
 	Vector2 dir;
 
 	float cooldown = 0.3f;
@@ -57,10 +58,24 @@ public class Chicken : Player
 			base.OnMove(direction);
 		dir = direction;
 
-		if(dir.x > -0.1f && dir.x < 0.1f)
+		if (dir.x > -0.1f && dir.x < 0.1f)
+		{
 			GetComponent<Animator>().SetBool("moving", false);
+			if (GetComponent<AudioSource>().clip == walkClip)
+				GetComponent<AudioSource>().Stop();
+		}
 		else
+		{
 			GetComponent<Animator>().SetBool("moving", true);
+			if (GetComponent<AudioSource>().clip != walkClip)
+				GetComponent<AudioSource>().clip = walkClip;
+
+			if (!GetComponent<AudioSource>().loop)
+				GetComponent<AudioSource>().loop = true;
+
+			if(!GetComponent<AudioSource>().isPlaying)
+				GetComponent<AudioSource>().Play();
+		}
 
 	}
 

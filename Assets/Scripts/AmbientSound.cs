@@ -8,7 +8,7 @@ public class AmbientSound : MonoBehaviour
 	{
 		DontDestroyOnLoad(gameObject);
 		GetComponent<AudioSource>().volume = 0;
-		GetComponent<AudioSource>().DOFade(0.5f, 2);
+		GetComponent<AudioSource>().DOFade(0.3f, 2);
 	}
 
 	void Start ()

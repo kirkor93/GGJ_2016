@@ -11,6 +11,9 @@ public class Chicken : Player
 	public float power;
 	public AudioClip walkClip;
 	public AudioClip shootClip;
+	public AudioClip jumpClip1;
+	public AudioClip jumpClip2;
+	public AudioClip jumpClip3;
 	Vector2 dir;
 	AudioSource _audioSource;
 	float cooldown = 0.3f;
@@ -73,10 +76,10 @@ public class Chicken : Player
 		else if (!jumping)
 		{
 			GetComponent<Animator>().SetBool("moving", true);
-			if (_audioSource.clip != walkClip)
+			if (_audioSource.clip != walkClip && !_audioSource.isPlaying)
 				_audioSource.clip = walkClip;
 
-			if (!_audioSource.loop)
+			if (!_audioSource.loop && !_audioSource.isPlaying)
 				_audioSource.loop = true;
 
 			if(!_audioSource.isPlaying)
@@ -99,6 +102,24 @@ public class Chicken : Player
         }
         base.OnCollisionEnter2D(other);
     }
+
+	public override void OnJumpStart()
+	{
+		if (_audioSource.clip == walkClip)
+		{
+			_audioSource.loop = false;
+			int rand = UnityEngine.Random.Range(0, 3);
+			switch (rand)
+			{
+				case 0: _audioSource.clip = jumpClip1; break;
+				case 1: _audioSource.clip = jumpClip2; break;
+				case 2: _audioSource.clip = jumpClip3; break;
+			}
+		}
+		if (!_audioSource.isPlaying)
+			_audioSource.Play();
+		base.OnJumpStart();
+	}
 
 	void UpdateJumpingAnimation()
 	{

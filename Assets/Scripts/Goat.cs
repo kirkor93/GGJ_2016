@@ -151,10 +151,10 @@ namespace Assets.Scripts
 			{
 				_animator.SetBool("moving", true);
 
-				if (_audioSource.clip != walkClip)
+				if (_audioSource.clip != walkClip && !_audioSource.isPlaying)
 					_audioSource.clip = walkClip;
 
-				if (!_audioSource.loop)
+				if (!_audioSource.loop && !_audioSource.isPlaying)
 					_audioSource.loop = true;
 
 				if (!_audioSource.isPlaying)

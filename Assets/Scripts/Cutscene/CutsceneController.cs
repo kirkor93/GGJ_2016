@@ -9,7 +9,7 @@ public class CutsceneController : MonoBehaviour
     protected void Awake()
     {
         Camera c = GetComponent<Camera>();
-        c.orthographicSize *= ReferenceScreenAspect/c.aspect;
+        SetupCameraForClipping(c);
 
         StartCoroutine(SwapSceneOnFinish());
     }
@@ -28,5 +28,10 @@ public class CutsceneController : MonoBehaviour
         }
 
         SceneLoader.Instance.LoadLevel("level01");
+    }
+
+    public static void SetupCameraForClipping(Camera c)
+    {
+        c.orthographicSize *=  16.0f/9.0f / c.aspect;
     }
 }

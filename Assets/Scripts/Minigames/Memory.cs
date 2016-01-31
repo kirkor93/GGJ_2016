@@ -496,7 +496,7 @@ public class Memory : MonoBehaviour
 		if (counter == 0)
 		{
 			endGame = true;
-			SceneLoader.Instance.LoadLevel("MainMenu");
+			SceneLoader.Instance.LoadLevel("Finish");
 			Debug.Log("WINNER!!!!!!!!!11111oneoneone");
 		}
 	}

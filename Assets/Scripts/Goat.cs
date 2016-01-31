@@ -51,6 +51,8 @@ namespace Assets.Scripts
                 {
                     _actionCoroutine = StartCoroutine(HitCoroutine());
 					_animator.SetBool("attack", true);
+
+                    Attack = true;
 				}
 			}
         }
@@ -88,6 +90,8 @@ namespace Assets.Scripts
             }
             _animator.SetBool("attack", false);
 			_animator.SetBool("kick", false);
+
+            Attack = false;
 		}
 
 		public override void OnMove(Vector2 direction)

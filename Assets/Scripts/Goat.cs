@@ -12,14 +12,17 @@ namespace Assets.Scripts
         public Transform ChickenPosition;
         public float ThrowForce;
         public float ThrowAdjustmentFrequency = 1.0f;
+		public AudioClip walkClip;
 
         private Coroutine _actionCoroutine;
         private Chicken _caughtChicken;
         private Vector2 _lastInputDirection;
         private Rigidbody2D _caughtChickenRigidbody;
         private Animator _animator;
+		private AudioSource _audioSource;
         private float _currentThrowForce;
         private Coroutine _throwAdjustCoroutine;
+		private bool jumping;
 
         public float CurrentThrowForce
         {
@@ -35,6 +38,7 @@ namespace Assets.Scripts
         {
             base.Awake();
             _animator = GetComponent<Animator>();
+			_audioSource = GetComponent<AudioSource>();
         }
 
         protected void Start()
@@ -113,10 +117,31 @@ namespace Assets.Scripts
             transform.localScale = scale;
             _lastInputDirection = direction;
 
-			if(direction.x < 0.1f && direction.x > -0.1f)
-                _animator.SetBool("moving", false);
-			else
-                _animator.SetBool("moving", true);
+			if (direction.x < 0.1f && direction.x > -0.1f)
+			{				
+				_animator.SetBool("moving", false);
+				if (_audioSource.clip == walkClip)
+					_audioSource.Stop();
+			}
+			else if(!jumping)
+			{
+				_animator.SetBool("moving", true);
+
+				if (_audioSource.clip != walkClip)
+					_audioSource.clip = walkClip;
+
+				if (!_audioSource.loop)
+					_audioSource.loop = true;
+
+				if (!_audioSource.isPlaying)
+					_audioSource.Play();
+			}
+			else if (jumping)
+			{
+				_animator.SetBool("moving", false);
+				if (!_audioSource.clip == walkClip)
+					_audioSource.Stop();
+			}
 		}
 
 		protected void Update()
@@ -127,15 +152,24 @@ namespace Assets.Scripts
                 _caughtChickenRigidbody.position = ChickenPosition.position;
             }
 
-            if (!Water)
-            {
-                if (Flying)
-                    _animator.SetBool("jumping", true);
-                else
-                    _animator.SetBool("jumping", false);
-            }
-            else
-                _animator.SetBool("jumping", true);
+			if (!Water)
+			{
+				if (Flying)
+				{
+					jumping = true;
+					_animator.SetBool("jumping", jumping);
+				}
+				else
+				{
+					jumping = false;
+					_animator.SetBool("jumping", jumping);
+				}
+			}
+			else
+			{
+				jumping = true;
+				_animator.SetBool("jumping", jumping);
+			}
 
         }
 

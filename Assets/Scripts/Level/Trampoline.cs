@@ -6,6 +6,9 @@ using Assets.Scripts;
 public class Trampoline : MonoBehaviour {
 
     public float jumpSpeed1, jumpSpeed2;
+	public AudioClip trampolineClip1;
+	public AudioClip trampolineClip2;
+	public AudioClip trampolineClip3;
     Player player1, player2;
     bool p1, p2;
     Transform sprezyna, top;
@@ -27,7 +30,16 @@ public class Trampoline : MonoBehaviour {
     {
         if (col.gameObject.layer == LayerMask.NameToLayer("hero") && top.position.y < col.transform.position.y )
         {
-            if (col.gameObject.name.Contains("chicken") && !p1)
+			int rand = Random.Range(0, 3);
+			switch(rand)
+			{
+				case 0: GetComponent<AudioSource>().clip = trampolineClip1; break;
+				case 1: GetComponent<AudioSource>().clip = trampolineClip2; break;
+				case 2: GetComponent<AudioSource>().clip = trampolineClip3; break;
+			}
+			GetComponent<AudioSource>().Play();
+
+			if (col.gameObject.name.Contains("chicken") && !p1)
             {
                 StartCoroutine("ReturnSpeed");
 

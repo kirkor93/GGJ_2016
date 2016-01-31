@@ -9,11 +9,13 @@ public class Chicken : Player
 	public Sprite cannon;
 	public Sprite chickenSprite;
 	public float power;
+	public AudioClip walkClip;
 	Vector2 dir;
 
 	float cooldown = 0.3f;
 	bool shot = false;
 	bool canMove = true;
+	bool jumping = false;
 
 	void Start ()
 	{
@@ -57,10 +59,30 @@ public class Chicken : Player
 			base.OnMove(direction);
 		dir = direction;
 
-		if(dir.x > -0.1f && dir.x < 0.1f)
+		if (dir.x > -0.1f && dir.x < 0.1f)
+		{
 			GetComponent<Animator>().SetBool("moving", false);
-		else
+			if (GetComponent<AudioSource>().clip == walkClip)
+				GetComponent<AudioSource>().Stop();
+		}
+		else if (!jumping)
+		{
 			GetComponent<Animator>().SetBool("moving", true);
+			if (GetComponent<AudioSource>().clip != walkClip)
+				GetComponent<AudioSource>().clip = walkClip;
+
+			if (!GetComponent<AudioSource>().loop)
+				GetComponent<AudioSource>().loop = true;
+
+			if(!GetComponent<AudioSource>().isPlaying)
+				GetComponent<AudioSource>().Play();
+		}
+		else if(jumping)
+		{
+			GetComponent<Animator>().SetBool("moving", false);
+			if (GetComponent<AudioSource>().clip == walkClip)
+				GetComponent<AudioSource>().Stop();
+		}
 
 	}
 
@@ -73,17 +95,26 @@ public class Chicken : Player
         base.OnCollisionEnter2D(other);
     }
 
-    void UpdateJumpingAnimation()
+	void UpdateJumpingAnimation()
 	{
-        if (!Water)
-        {
-            if (Flying)
-                GetComponent<Animator>().SetBool("jumping", true);
-            else
-                GetComponent<Animator>().SetBool("jumping", false);
-        }
-        else
-            GetComponent<Animator>().SetBool("jumping", true);
+		if (!Water)
+		{
+			if (Flying)
+			{
+				jumping = true;
+				GetComponent<Animator>().SetBool("jumping", jumping);
+			}
+			else
+			{
+				jumping = false;
+				GetComponent<Animator>().SetBool("jumping", jumping);
+			}
+		}
+		else
+		{
+			jumping = true;
+			GetComponent<Animator>().SetBool("jumping", jumping);
+		}
 	}
 
 	void FixRotation()

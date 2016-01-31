@@ -74,7 +74,7 @@ namespace Assets.Scripts
                 float lerpFactor = Mathf.Sin(time*ThrowAdjustmentFrequency*2.0f*Mathf.PI)/2.0f + 0.5f;
                 _currentThrowForce = Mathf.Lerp(0.001f, ThrowForce, lerpFactor);
                 time += Time.deltaTime;
-                Debug.Log(_currentThrowForce);
+//                Debug.Log(_currentThrowForce);
                 yield return null;
             }
         }

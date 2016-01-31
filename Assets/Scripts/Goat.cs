@@ -11,12 +11,25 @@ namespace Assets.Scripts
         public Collider2D[] HitColliders;
         public Transform ChickenPosition;
         public float ThrowForce;
+        public float ThrowAdjustmentFrequency = 1.0f;
 
         private Coroutine _actionCoroutine;
         private Chicken _caughtChicken;
         private Vector2 _lastInputDirection;
         private Rigidbody2D _caughtChickenRigidbody;
         private Animator _animator;
+        private float _currentThrowForce;
+        private Coroutine _throwAdjustCoroutine;
+
+        public float CurrentThrowForce
+        {
+            get { return _currentThrowForce; }
+        }
+
+        public bool HoldingChicken
+        {
+            get { return _caughtChicken != null; }
+        }
 
         protected override void Awake()
         {
@@ -28,6 +41,7 @@ namespace Assets.Scripts
         {
             SequenceMode = false;
             Water = false;
+            StartCoroutine(AdjustThrowSpeed());
         }
 
         public override void OnActionStart()
@@ -36,17 +50,12 @@ namespace Assets.Scripts
             {
                 if (_caughtChicken != null)
                 {
-                    //                    StartCoroutine(Throw());
-//                    InputManager.InputEnabled = false;
-//                    _caughtChickenRigidbody.Velo;
-                    _caughtChickenRigidbody.velocity = _lastInputDirection*ThrowForce;
-
-//                    _caughtChicken.Invoke("UnblockMovement", 1.3f);
+                    _caughtChickenRigidbody.velocity = _lastInputDirection*_currentThrowForce;
+                    _currentThrowForce = 0.0f;
                     _caughtChicken = null;
                     _caughtChickenRigidbody = null;
-					_animator.SetBool("kick", true);
-					//                    Debug.Break();
-				}
+                    _animator.SetBool("kick", true);
+                }
 				else if (_actionCoroutine == null)
                 {
                     _actionCoroutine = StartCoroutine(HitCoroutine());
@@ -57,15 +66,17 @@ namespace Assets.Scripts
 			}
         }
 
-        private IEnumerator Throw()
+        private IEnumerator AdjustThrowSpeed()
         {
-            foreach (Collider2D c in _caughtChicken.GetComponents<Collider2D>())
+            float time = 0.0f;
+            while (true)
             {
-                c.enabled = false;
+                float lerpFactor = Mathf.Sin(time*ThrowAdjustmentFrequency*2.0f*Mathf.PI)/2.0f + 0.5f;
+                _currentThrowForce = Mathf.Lerp(0.001f, ThrowForce, lerpFactor);
+                time += Time.deltaTime;
+                Debug.Log(_currentThrowForce);
+                yield return null;
             }
-            yield return new WaitForFixedUpdate();
-            yield return new WaitForFixedUpdate();
-            
         }
 
         private IEnumerator HitCoroutine()

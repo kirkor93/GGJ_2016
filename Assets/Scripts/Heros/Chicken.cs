@@ -1,7 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
-using Assets.Scripts;
-using System;
 
 public class Chicken : Player
 {

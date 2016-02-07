@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
 using DG.Tweening;
-using Assets.Scripts;
 
 public class Trampoline : MonoBehaviour {
 

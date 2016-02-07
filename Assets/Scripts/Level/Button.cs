@@ -2,7 +2,6 @@
 using System.Collections;
 using DG.Tweening;
 using System.Collections.Generic;
-using Assets.Scripts;
 
 public class Button : MonoBehaviour {
 

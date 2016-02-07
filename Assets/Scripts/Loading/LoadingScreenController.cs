@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections;
-using Assets.Scripts;
 using UnityEngine.UI;
 
 public class LoadingScreenController : MonoBehaviour

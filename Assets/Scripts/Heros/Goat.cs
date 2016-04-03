@@ -52,23 +52,26 @@ public class Goat : Player
 
     public override void OnActionStart()
     {
-        if (!SequenceMode)
+        if (SequenceMode)
         {
-            if (_caughtChicken != null)
-            {
-                _caughtChickenRigidbody.velocity = _lastInputDirection * _currentThrowForce;
-                _currentThrowForce = 0.0f;
-                _caughtChicken = null;
-                _caughtChickenRigidbody = null;
-                _animator.SetBool("kick", true);
-            }
-            else if (_actionCoroutine == null)
-            {
-                _actionCoroutine = StartCoroutine(HitCoroutine());
-                _animator.SetBool("attack", true);
+            return;
+        }
 
-                Attack = true;
-            }
+        if (_caughtChicken != null)
+        {
+            Debug.Log(_lastInputDirection);
+            _caughtChickenRigidbody.velocity = _lastInputDirection * _currentThrowForce;
+            _currentThrowForce = 0.0f;
+            _caughtChicken = null;
+            _caughtChickenRigidbody = null;
+            _animator.SetBool("kick", true);
+        }
+        else if (_actionCoroutine == null)
+        {
+            _actionCoroutine = StartCoroutine(HitCoroutine());
+            _animator.SetBool("attack", true);
+
+            Attack = true;
         }
     }
 

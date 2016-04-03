@@ -161,7 +161,7 @@ public abstract class Player : MonoBehaviour
         //            Debug.Log(_currentScore);
     }
 
-    public abstract void OnActionStart();
-    public abstract void OnActionRelease();
+    public abstract void OnActionStart(Vector2 direction);
+    public abstract void OnActionRelease(Vector2 direction);
 }
 

@@ -50,7 +50,7 @@ public class Goat : Player
         StartCoroutine(AdjustThrowSpeed());
     }
 
-    public override void OnActionStart()
+    public override void OnActionStart(Vector2 direction)
     {
         if (SequenceMode)
         {
@@ -102,7 +102,7 @@ public class Goat : Player
         _actionCoroutine = null;
     }
 
-    public override void OnActionRelease()
+    public override void OnActionRelease(Vector2 direction)
     {
         if (!SequenceMode)
         {

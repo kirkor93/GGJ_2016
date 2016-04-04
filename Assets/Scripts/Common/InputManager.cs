@@ -6,7 +6,7 @@ public class InputManager : MonoBehaviour
     public Player[] Players;
 
     [Range(0.0f, 1.0f)]
-    public float TriggersDeadZone = 0.5f;
+    public float ShootingMagnitude = 0.5f;
 
     private const string LeftStickHorizontalAxis = "Horizontal_L";
     private const string LeftStickVerticalAxis = "Vertical_L";
@@ -15,7 +15,7 @@ public class InputManager : MonoBehaviour
     private const string R2Axis = "R2";
     private const string L2Axis = "L2";
 
-    private readonly float[] _lastR2Positions = {0.0f, 0.0f};
+    private readonly float[] _lastRightSticksMagnitude = {0.0f, 0.0f};
     private readonly string[] _playerNames = { "Joy1", "Joy2" };
 
     protected void Awake()
@@ -39,15 +39,17 @@ public class InputManager : MonoBehaviour
             Vector2 aiming = Vector2.zero;
             aiming.x += Input.GetAxis(string.Format("{0}_{1}", _playerNames[i], RightStickHorizontalAxis));
             aiming.y += Input.GetAxis(string.Format("{0}_{1}", _playerNames[i], RightStickVerticalAxis));
-            float r2 = Input.GetAxis(string.Format("{0}_{1}", _playerNames[i], R2Axis));
-            if (r2 > TriggersDeadZone && _lastR2Positions[i] <= TriggersDeadZone)
+            float magnitude = aiming.magnitude;
+//            float r2 = Input.GetAxis(string.Format("{0}_{1}", _playerNames[i], R2Axis));
+            if (magnitude > ShootingMagnitude && _lastRightSticksMagnitude[i] <= ShootingMagnitude)
             {
                 Players[i].OnActionStart(aiming);
             }
-            else if(r2 <= TriggersDeadZone && _lastR2Positions[i] > TriggersDeadZone)
+            else if(magnitude <= ShootingMagnitude && _lastRightSticksMagnitude[i] > ShootingMagnitude)
             {
                 Players[i].OnActionRelease(aiming);
             }
+            _lastRightSticksMagnitude[i] = magnitude;
         }
 
         //joy 1

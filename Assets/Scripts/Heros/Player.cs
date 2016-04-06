@@ -13,7 +13,7 @@ public class GameOverEventArgs : EventArgs
 
 public abstract class Player : MonoBehaviour
 {
-    [Range(0.0f, 10000.0f)]
+    [Range(0.0f, 10000000.0f)]
     public float Acceleration;
     [Range(0.0f, 100000.0f)]
     public float MaxMovementSpeed;
@@ -37,7 +37,7 @@ public abstract class Player : MonoBehaviour
 
     protected Rigidbody2D Rigidbody;
 
-    private float _currentMovementSpeed;
+//    private float _currentMovementSpeed;
     private bool _flying;
 
     private int _currentScore;
@@ -70,7 +70,6 @@ public abstract class Player : MonoBehaviour
 
     public void EndGame(bool isWon)
     {
-        //            Debug.Log("GAME OVER!!!");
         if (OnGameOver != null)
         {
             OnGameOver(this, new GameOverEventArgs(isWon));
@@ -86,19 +85,24 @@ public abstract class Player : MonoBehaviour
     protected virtual void FixedUpdate()
     {
         Vector2 vel = Rigidbody.velocity;
-        vel.y -= GravityForce * Time.deltaTime;
+        vel.y -= GravityForce * Time.fixedDeltaTime;
         Rigidbody.velocity = vel;
-
     }
 
     protected virtual void OnCollisionEnter2D(Collision2D other)
     {
-        _flying = false;
+        if (other.gameObject.layer == LayerMask.NameToLayer("Level"))
+        {
+            _flying = false;
+        }
     }
 
     protected virtual void OnCollisionStay2D(Collision2D other)
     {
-        _flying = false;
+        if (other.gameObject.layer == LayerMask.NameToLayer("Level"))
+        {
+            _flying = false;
+        }
     }
 
     protected virtual void OnCollisionExit2D(Collision2D other)
@@ -111,24 +115,23 @@ public abstract class Player : MonoBehaviour
 
     public virtual void OnMove(Vector2 direction)
     {
-        //            _currentMovementSpeed = Rigidbody.velocity.x;
         float targetMovementSpeed;
         if (Mathf.Abs(direction.x) > 0.0f)
         {
-            targetMovementSpeed = _currentMovementSpeed + Acceleration * direction.x;
-            if (Mathf.Abs(targetMovementSpeed / _currentMovementSpeed) < 1.0f)
+            targetMovementSpeed = Rigidbody.velocity.x + Acceleration * direction.x * Time.deltaTime;
+            if (Mathf.Abs(targetMovementSpeed / Rigidbody.velocity.x) < 1.0f)
             {
                 targetMovementSpeed *= (1.0f - Friction);
             }
         }
         else
         {
-            targetMovementSpeed = (1.0f - Friction) * _currentMovementSpeed;
+            targetMovementSpeed = (1.0f - Friction) * Rigidbody.velocity.x;
         }
-        _currentMovementSpeed = Mathf.Clamp(Mathf.Lerp(_currentMovementSpeed, targetMovementSpeed, 0.5f),
+        targetMovementSpeed = Mathf.Clamp(Mathf.Lerp(Rigidbody.velocity.x, targetMovementSpeed, 0.5f),
             -MaxMovementSpeed, MaxMovementSpeed);
         Vector2 vel = Rigidbody.velocity;
-        vel.x = _currentMovementSpeed * Time.deltaTime;
+        vel.x = targetMovementSpeed * Time.deltaTime;
         Rigidbody.velocity = vel;
     }
 
@@ -158,7 +161,7 @@ public abstract class Player : MonoBehaviour
         //            Debug.Log(_currentScore);
     }
 
-    public abstract void OnActionStart();
-    public abstract void OnActionRelease();
+    public abstract void OnActionStart(Vector2 direction);
+    public abstract void OnActionRelease(Vector2 direction);
 }
 

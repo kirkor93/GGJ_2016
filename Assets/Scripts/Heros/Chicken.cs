@@ -11,7 +11,7 @@ public class Chicken : Player
 	public AudioClip jumpClip1;
 	public AudioClip jumpClip2;
 	public AudioClip jumpClip3;
-	Vector2 dir;
+//	Vector2 dir;
 	AudioSource _audioSource;
 	float cooldown = 0.3f;
 	bool shot = false;
@@ -27,14 +27,14 @@ public class Chicken : Player
 	
 	void Update ()
 	{
-		FixRotation();
+//		FixRotation();
 		ShotCooldown();
 		UpdateJumpingAnimation();
 	}
 
-	public override void OnActionStart()
+	public override void OnActionStart(Vector2 direction)
 	{
-		if (!shot && (dir.x != 0 && dir.y != 0) && !SequenceMode)
+		if (!shot && (direction.x != 0 && direction.y != 0) && !SequenceMode)
 		{
 			_audioSource.clip = shootClip;
 			_audioSource.loop = false;
@@ -43,13 +43,13 @@ public class Chicken : Player
 			GetComponent<SpriteRenderer>().sprite = cannon;
 			GameObject tempEgg = Instantiate(egg, transform.position, Quaternion.identity) as GameObject;
 			Debug.Log("JAJO!!!");
-			tempEgg.GetComponent<Rigidbody2D>().AddForce(dir * power, ForceMode2D.Impulse);
+			tempEgg.GetComponent<Rigidbody2D>().AddForce(direction * power, ForceMode2D.Impulse);
 			shot = true;
 			GetComponent<Animator>().SetBool("shooting", shot);
 		}
 	}
 
-	public override void OnActionRelease()
+	public override void OnActionRelease(Vector2 direction)
 	{
         if (!SequenceMode)
         {
@@ -62,9 +62,9 @@ public class Chicken : Player
 	{
 		if(canMove && !shot)
 			base.OnMove(direction);
-		dir = direction;
+//		dir = direction;
 
-		if (dir.x > -0.1f && dir.x < 0.1f)
+		if (direction.x > -0.1f && direction.x < 0.1f)
 		{
 			GetComponent<Animator>().SetBool("moving", false);
 			if (_audioSource.clip == walkClip)
@@ -89,7 +89,12 @@ public class Chicken : Player
 				_audioSource.Stop();
 		}
 
-	}
+        //fixing rotations
+        if (direction.x > 0 && !shot)
+            transform.localScale = new Vector3(1, 1, 1);
+        else if (direction.x < 0 && !shot)
+            transform.localScale = new Vector3(-1, 1, 1);
+    }
 
     protected override void OnCollisionEnter2D(Collision2D other)
     {
@@ -140,13 +145,13 @@ public class Chicken : Player
 		}
 	}
 
-	void FixRotation()
-	{
-		if (dir.x > 0 && !shot)
-			transform.localScale = new Vector3(1, 1, 1);
-		else if (dir.x < 0 && !shot)
-			transform.localScale = new Vector3(-1, 1, 1);
-	}
+//	void FixRotation()
+//	{
+//		if (dir.x > 0 && !shot)
+//			transform.localScale = new Vector3(1, 1, 1);
+//		else if (dir.x < 0 && !shot)
+//			transform.localScale = new Vector3(-1, 1, 1);
+//	}
 
 	void ShotCooldown()
 	{

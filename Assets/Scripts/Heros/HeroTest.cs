@@ -24,11 +24,11 @@ public class HeroTest : Player {
     {
 
     }
-    public override void OnActionStart()
+    public override void OnActionStart(Vector2 direction)
     {
 
     }
-    public override void OnActionRelease()
+    public override void OnActionRelease(Vector2 direction)
     {
 
     }

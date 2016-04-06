@@ -50,25 +50,28 @@ public class Goat : Player
         StartCoroutine(AdjustThrowSpeed());
     }
 
-    public override void OnActionStart()
+    public override void OnActionStart(Vector2 direction)
     {
-        if (!SequenceMode)
+        if (SequenceMode)
         {
-            if (_caughtChicken != null)
-            {
-                _caughtChickenRigidbody.velocity = _lastInputDirection * _currentThrowForce;
-                _currentThrowForce = 0.0f;
-                _caughtChicken = null;
-                _caughtChickenRigidbody = null;
-                _animator.SetBool("kick", true);
-            }
-            else if (_actionCoroutine == null)
-            {
-                _actionCoroutine = StartCoroutine(HitCoroutine());
-                _animator.SetBool("attack", true);
+            return;
+        }
 
-                Attack = true;
-            }
+        if (_caughtChicken != null)
+        {
+            Debug.Log(_lastInputDirection);
+            _caughtChickenRigidbody.velocity = _lastInputDirection * _currentThrowForce;
+            _currentThrowForce = 0.0f;
+            _caughtChicken = null;
+            _caughtChickenRigidbody = null;
+            _animator.SetBool("kick", true);
+        }
+        else if (_actionCoroutine == null)
+        {
+            _actionCoroutine = StartCoroutine(HitCoroutine());
+            _animator.SetBool("attack", true);
+
+            Attack = true;
         }
     }
 
@@ -99,7 +102,7 @@ public class Goat : Player
         _actionCoroutine = null;
     }
 
-    public override void OnActionRelease()
+    public override void OnActionRelease(Vector2 direction)
     {
         if (!SequenceMode)
         {

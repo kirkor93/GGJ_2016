@@ -7,8 +7,8 @@ public class Arkanoid_Input : MonoBehaviour
     public GameObject player2Platform;
     public Arkanoid_Ball ball;
 
-    float minY = -280;
-    float maxY = 280;
+    float minY = -320;
+    float maxY = 320;
 
     void Start ()
     {
@@ -23,13 +23,24 @@ public class Arkanoid_Input : MonoBehaviour
 
     void Player1Input()
     {
-        if(!ball.started)
-        {
-			if(Input.GetKeyDown(KeyCode.Joystick1Button0) ||Input.GetKeyDown(KeyCode.Space))
-            {
-                ball.OnStart();
-            }
-        }
+		if(!ball.started)
+		{
+			if (player1Platform.transform.FindChild("ball"))
+			{
+				if (Input.GetKeyDown(KeyCode.Joystick1Button0) || Input.GetKeyDown(KeyCode.Space))
+				{
+					ball.OnStart();
+				}
+			}
+			else if (player2Platform.transform.FindChild("ball"))
+			{
+				if (Input.GetKeyDown(KeyCode.Joystick2Button0) || Input.GetKeyDown(KeyCode.Space))
+				{
+					ball.OnStart();
+				}
+			}
+
+		  }
 
 		if(Input.GetKeyDown(KeyCode.DownArrow))
 		{
